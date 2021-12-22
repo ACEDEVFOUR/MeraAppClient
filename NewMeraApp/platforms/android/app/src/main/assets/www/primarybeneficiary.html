@@ -1,0 +1,562 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Account</title>
+    <meta charset="utf-8">
+     <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap.js"></script>
+     <link rel="stylesheet" href="css/jquery.bxslider.css">
+    <script src="js/jquery.bxslider.min.js"></script>
+     <script>
+         $(document).ready(function () { $('.bxslider').bxSlider(); });
+
+     </script>
+   <script>
+  
+  $(document).ready(function(){
+    $("#delete-fav").click(function(){
+    $("#hide-fav").slideUp();
+    });
+   
+	$("#top-menu-toggle").click(function(){
+    $("#top-menu-hide").slideToggle();
+	});
+	$(".remove-photo-mouse").mouseover(function () {
+	    $(".remove-photo").show();
+	});
+	$(".remove-photo-mouse").mouseout(function () {
+	    $(".remove-photo").hide();
+	});
+	
+	$("#sp-schemes").click(function(){
+    $(".sp-beneficiaries-box").hide();
+	$(".sp-profile-box").hide();
+	$(".sp-scheme-box").show();
+	$(".sp-services-box").hide();
+	$("#sp-services").removeClass("sp-schemes");
+	$("#sp-schemes").addClass("sp-schemes");
+	$("#sp-profile").removeClass("sp-schemes");
+	$("#sp-beneficiaries").removeClass("sp-schemes");
+	
+    });
+	
+	$("#sp-beneficiaries").click(function(){
+    $(".sp-beneficiaries-box").show();
+	$(".sp-profile-box").hide();
+	$(".sp-scheme-box").hide();
+	$(".sp-services-box").hide();
+	$("#sp-services").removeClass("sp-schemes");
+	$("#sp-schemes").removeClass("sp-schemes");
+	$("#sp-profile").removeClass("sp-schemes");
+	$("#sp-beneficiaries").addClass("sp-schemes");
+	
+	});
+
+	$("#sp-services").click(function () {
+	    $(".sp-beneficiaries-box").hide();
+	    $(".sp-profile-box").hide();
+	    $(".sp-scheme-box").hide();
+	    $(".sp-services-box").show();
+	    $("#sp-schemes").removeClass("sp-schemes");
+	    $("#sp-profile").removeClass("sp-schemes");
+	    $("#sp-beneficiaries").removeClass("sp-schemes");
+	    $("#sp-services").addClass("sp-schemes");
+
+	});
+	
+	$("#sp-profile").click(function(){
+    $(".sp-beneficiaries-box").hide();
+	$(".sp-profile-box").show();
+	$(".sp-scheme-box").hide();
+	$(".sp-services-box").hide();
+	$("#sp-services").removeClass("sp-schemes");
+	$("#sp-schemes").removeClass("sp-schemes");
+	$("#sp-profile").addClass("sp-schemes");
+	$("#sp-beneficiaries").removeClass("sp-schemes");
+	
+	});
+	$(".delete-fav-box").click(function () {
+	    $(".position-a-6").toggleClass('position-a-6-display');
+	});
+	$(".canceldelete").click(function () {
+	    $(".position-a-6").toggleClass('position-a-6-display');
+	});
+
+	$("#dComp").click(function () {
+	    $("#dateofcompletion").show();
+	    $("#course-status").html("Completed");
+	});
+
+	$("#droppedOut").click(function () {
+	    $("#dateofcompletion").hide();
+	    $("#course-status").html("Dropped Out");
+	});
+	
+});
+  </script>   
+    <script>
+        function goBack() {
+            //window.history.back();
+            window.location.href = 'myaccount.html';
+        }
+</script>
+
+
+</head>
+<body class="body-scroll">
+	<div class="header-menu">
+		<div class="header-menu1">
+				<div class="floatl header1">
+					
+						<div><img class="max-width50" onclick="goBack()" src="images/leftGArrow-w.png" /></div>
+					
+				</div>
+				<div class="floatl header2">
+					<div class="upper-case" id="DivBeneficiaryProfile">beneficiary profile</div>
+				</div>
+				<div class="floatl header4 text-align-r">
+					<a href="editprimarybeneficiary.html"><div><img class="max-width35" src="images/edit-white.png" /></div></a>
+				</div>
+		</div>
+	</div>
+	<!--div class="clearboth18 body6"></div!-->
+	<div class="width100 padding-box1 text-align-c body6 floatl" id="primaryBeneficiary">
+		<div class="width50 floatl text-align-c padding-box1" title="Edit Display Picture" data-toggle="popover" data-placement="right" 
+             data-content="Click on Edit Profile to change Display Picture.">
+			<img id="img-primaryBeneficiary" class="profile-picture" src="images/account-plain.png" />
+		</div>
+        <div class="width50 floatl text-align-l padding-box1">
+            <div class="upper-case" id="primaryBeneficiary-Id"></div>
+            <div class="upper-case" id="name-primaryBeneficiary"></div>
+            <!--<div id="DivPrimaryProfileText">(Primary profile)</div>-->
+            <div><span id="DivStateText">State: </span><span id="spanBenStateName"></span></div>
+            <div><span id="DivDistrictText">District: </span><span id="spanBenDistrictName"></span></div>
+        </div>
+	</div>
+	<div class="width100 floatl sp-control-box sp-control-box2">
+		<!--div class="width12p5 floatl">&nbsp;</div!-->
+        <div class="width25 floatl sp-schemes" id="sp-schemes">
+			<img class="max-width50" src="images/scheme-file-plain.png" />
+			<div class="font3" id="divSchemes">Schemes</div>
+		</div>
+		<div class="width25 floatl" id="sp-profile">
+			<img class="max-width50" src="images/account-plain.png" />
+			<div class="font3" id="DivProfile">Profile</div>
+		</div>
+		<div class="width25 floatl" id="sp-beneficiaries">
+			<img class="max-width50" src="images/family-black.png" />
+			<div class="font3" id="DivFamily">Family</div>
+		</div>
+        <div class="width25 floatl" id="sp-services">
+			<img class="max-width50" src="images/services-active.png" />
+			<div class="font3" id="DivServices">Digital Literacy</div>
+		</div>
+        <!--div class="width12p5 floatl">&nbsp;</div-->
+	</div>
+	<div class="clearboth"></div>
+	<div class="sp-profile-box">
+	<div>
+		<div class="profile-heading upper-case" id="DivBasicInfo">Basic information</div>
+		<div class="box1">
+			<div class="width100 floatl beneficiary-profile">
+				<div class="floatl width50"  id="DivFirstNameText">First Name </div>
+				<div class="floatl width50 text-align-r anchor3" id="firstName"></div>
+			</div>		
+			<div class="width100 floatl beneficiary-profile">
+				<div class="floatl width50"  id="DivSurNameText">Surname</div>
+				<div class="floatl width50 text-align-r anchor3"id="lastName"></div>
+			</div>
+            <div class="width100 floatl beneficiary-profile">
+                <div class="floatl width50" id="DivPhone">Mobile No.</div>
+                <div class="floatl width50 text-align-r anchor3" id="MobileNumber"></div>
+            </div>
+			
+            <div class="width100 floatl beneficiary-profile">
+                <div class="floatl width50" id="DivAddress">Address</div>
+                <div class="floatl width50 text-align-r anchor3" id="Address"></div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div class="floatl width50" id="DivStateNameText">State</div>
+                <div class="floatl width50 text-align-r anchor3" id="BenStateName"></div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div class="floatl width50" id="DivDistrictNameText">District</div>
+                <div class="floatl width50 text-align-r anchor3" id="BenDistrictName"></div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div class="floatl width50" id="DivEMail">E-Mail ID</div>
+                <div class="floatl width50 text-align-r anchor3" id="EMail"></div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div class="floatl width50" id="DivFatherNameText">Father's Name</div>
+                <div class="floatl width50 text-align-r anchor3" id="fathersName"></div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div class="floatl width50" id="DivSpouseNameText">Spouse's Name</div>
+                <div class="floatl width50 text-align-r anchor3" id="husbandsName"></div>
+            </div>
+			<div class="width100 floatl beneficiary-profile">
+				<div class="floatl width50"  id="DivDOBText">Date of Birth</div>
+				<div class="floatl width50 text-align-r anchor3" id="DOB"></div>
+			</div>
+			
+			<div class="width100 floatl beneficiary-profile" id="divBenIDProof">
+				<div class="floatl width50" id="BenIDProof">Aadhaar Card No.</div>
+				<div class="floatl width50 text-align-r anchor3" id="IDProofDetails"></div>
+			</div>		
+			
+								
+		</div>
+	</div>
+	<div>
+		<div class="profile-heading upper-case" id="DivBackInfo">Background information</div>
+		<div class="box1">
+			<div class="width100 floatl beneficiary-profile">
+				<div class="floatl width50"  id="DivGenderText">Gender</div>
+				<div class="floatl width50 text-align-r anchor3" id="BenGender"></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div class="floatl width50"  id="DivAgeText">Age(between)</div>
+				<div class="floatl width50 text-align-r anchor3" id="BenAge"></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div class="floatl width50"  id="DivReligonText">Religion</div>
+				<div class="floatl width50 text-align-r anchor3" id="BenReligion"></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile" style="display:none">
+				<div class="floatl width50"  id="DivCasteText">Caste</div>
+				<div class="floatl width50 text-align-r anchor3" id="BenCaste"></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div class="floatl width50"  id="DivEconomicStatus">Economic Status</div>
+				<div class="floatl width50 text-align-r anchor3" id="BenEcoStatus"></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div class="floatl width50"  id="DivOccupationText">Occupation</div>
+				<div class="floatl width50 text-align-r anchor3" id="BenOccupation"></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div class="floatl width50"  id="DivQualificationText">Qualification</div>
+				<div class="floatl width50 text-align-r anchor3" id="BenQualification"></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div class="floatl width50"  id="DivMaritalStatusText">Marital Status</div>
+				<div class="floatl width50 text-align-r anchor3" id="BenMaritalStatus"></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div class="floatl width50"  id="DivCategoryText">Category</div>
+				<div class="floatl width50 text-align-r anchor3" id="BenCategory"></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile" style="display:none">
+				<div class="floatl width50"  id="DivDepartmentText">Department</div>
+				<div class="floatl width50 text-align-r anchor3" id="BenDepartment"></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div class="floatl width50"  id="DivEmpStatusText">Employment Status</div>
+				<div class="floatl width50 text-align-r anchor3" id="BenEmpStatus"></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div class="floatl width50"  id="DivSplGroupText">Special Group</div>
+				<div class="floatl width50 text-align-r anchor3" id="BenVulGroup"></div>
+			</div>
+            <div class="width100 floatl beneficiary-profile">
+                <div class="floatl width50" id="DivFamilyIncomeText">Annual Family Income</div>
+                <div class="floatl width50 text-align-r anchor3" id="AnnualIncome"></div>
+            </div>
+			<div class="width100 floatl beneficiary-profile">
+				<div class="floatl width50"  id="DivDisabilityTypeText">Type of Disability</div>
+				<div class="floatl width50 text-align-r anchor3" id="BenDisability"></div>
+			</div>
+			
+			<div class="width100 floatl beneficiary-profile">
+				<div class="floatl width50"  id="DivDisabilityPercentText">Percentage of Disability</div>
+				<div class="floatl width50 text-align-r anchor3" id="PercentageDisability"></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div class="floatl width50"  id="DivSicknessText">Sickness</div>
+				<div class="floatl width50 text-align-r anchor3" id="BenSickness"></div>
+			</div>
+			
+		</div>
+	</div>
+	</div>
+    <div class="sp-services-box">
+        <div id="divWallet"> 
+            
+        </div>
+       
+    </div>
+	<div class="sp-beneficiaries-box">
+	    
+        
+	    <div id="SubBeneficiary" class="floatl width100">
+        <!--<div class="items">
+          <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+        <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+        <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+        <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+            <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+        <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+        <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+        <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+            <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+        </div>
+
+            <div class="items">
+          <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+        <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+        <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+        <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+            <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+        <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+        <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+        <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+            <div class="width31 margin1 floatl font3 padding3-1 body9 text-align-c">
+            <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+            <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+            <div class="color-w font2-8 text-overflow">Brother</div>
+
+	    </div>
+        </div>-->
+	    </div>
+		<!--<a href="addfamilymember.html">
+				<div class="floatl width31 border-recent padding1 margin1 text-align-c">
+					<div class="width100 padding5" align="center">
+						<div class="colorf29c22 add-member">+</div>
+					</div>
+					<div class="colorf29c22 font3p5 padding5">Add Member</div>
+				</div>
+			</a>-->
+		<div class="clearboth"></div>
+	</div>
+	
+	
+<div class="sp-scheme-box">
+	
+	<div id="divBenScheme">
+		
+		<!--<div class="scheme-detail1">
+			<div class="upper-case margin-top3 padding-r-15">Scheme FOR STIPENDS TO PHYSICALLY HANDICAPPED STUDENTS</div>
+            <div class="tags upper-case position-a-4">Pending</div>
+            <div class="delete-fav-box delete-fav-box1">
+                    <img class="max-width10" src="images/delete.png">
+
+                </div>
+               <div class="body2 width90 padding10 position-a-6">
+                   <div class="color-w text-align-c">Are you sure you want to delete this scheme from your beneficiary account?</div>
+                   <div class="clearboth"></div>
+                   <div class="padding2 body5 text-align-c">Yes, please delete</div>
+                   <div class="clearboth2"></div>
+                   <div class="padding2 body5 text-align-c canceldelete">No, cancel request</div>
+                   <div class="arrow-right arrow-right1"></div>
+               </div>
+             
+            <div class="scheme-detail2">
+				<div class="scheme-detail3">
+					<div>#disability</div>
+					<div>#Socialsecurity</div>
+					<div>#blind</div>
+					<div>#impairment</div>
+					<div>#stipends</div>
+				</div>
+				<div class="scheme-detail4">
+					<div>Lorem ipsum dolor sit amet, sed adipiscing dictum. Quis placerat pellentesque ut, consequat ut, ut nisl.</div>
+					<div><a class="anchor3" href="stepsinscheme.html">Read more...</a></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="scheme-detail1">
+			<div class="upper-case margin-top3 padding-r-15">Scheme FOR STIPENDS TO PHYSICALLY HANDICAPPED STUDENTS</div>
+            <div class="tags upper-case position-a-4">Pending</div>
+            <div class="delete-fav-box delete-fav-box1">
+                    <img class="max-width10" src="images/delete.png">
+
+                </div>
+               <div class="body2 width90 padding10 position-a-6">
+                   <div class="color-w text-align-c">Are you sure you want to delete this scheme from your beneficiary account?</div>
+                   <div class="clearboth"></div>
+                   <div class="padding2 body5 text-align-c">Yes, please delete</div>
+                   <div class="clearboth2"></div>
+                   <div class="padding2 body5 text-align-c canceldelete">No, cancel request</div>
+                   <div class="arrow-right arrow-right1"></div>
+               </div>
+             
+            <div class="scheme-detail2">
+				<div class="scheme-detail3">
+					<div>#disability</div>
+					<div>#Socialsecurity</div>
+					<div>#blind</div>
+					<div>#impairment</div>
+					<div>#stipends</div>
+				</div>
+				<div class="scheme-detail4">
+					<div>Lorem ipsum dolor sit amet, sed adipiscing dictum. Quis placerat pellentesque ut, consequat ut, ut nisl.</div>
+					<div><a class="anchor3" href="stepsinscheme.html">Read more...</a></div>
+				</div>
+			</div>
+		</div>-->
+	</div>
+	
+	</div>
+	<div class="clearboth18"></div>
+		
+	<!--div class="bottom-menu">
+		<a href="news-home.html">
+			<div class="bot-menu-item">
+				<div><img class="max-width20" src="images/home-plain.png" /></div>
+				<div class="font3" id="divHome">Home</div>
+			</div>
+		</a>
+		<a href="searchschemes.html">
+			<div class="bot-menu-item">
+				<div><img class="max-width20" src="images/search-plain.png" /></div>
+				<div class="font3" id="divSearch">Search</div>
+			</div>
+		</a>
+		<a href="myaccount.html">
+			<div class="bot-menu-item">
+				<div><img class="max-width20" src="images/account-red.png" /></div>
+				<div class="anchor3 font3" id="divMyAccount">My Account</div>
+			</div>
+		</a>
+	</div-->
+    <div class="bottom-menu">
+        <a href="your-wallet.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/revenue-plain.png" /></div>
+                <div class="font-size2p5" id="divMyWallet">Revenue</div>
+            </div>
+        </a>
+        <a href="add-income.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/add-revenue-plain.png" /></div>
+                <div class="font-size2p5" id="divAddIncome">Add Revenue</div>
+            </div>
+        </a>
+        <a href="track-beneficiary.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/track-plain.png" /></div>
+                <div class="font-size2p5" id="divTrackBeneficiary">Track Beneficiary</div>
+            </div>
+        </a>
+        <a href="news-home.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/home-plain.png" /></div>
+                <div class="font-size2p5" id="divHome">Home</div>
+            </div>
+        </a>
+        <a href="searchschemes.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/search-plain.png" /></div>
+                <div class="font-size2p5" id="divSearch">Search</div>
+            </div>
+        </a>
+        <a href="myaccount.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/account-red.png" /></div>
+                <div class="anchor3 font-size2p5" id="divMyAccount">My Account</div>
+            </div>
+        </a>
+        
+        
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/DB.js"></script>
+    <script src="js/primarybeneficiary.js"></script>
+    <!--<script src="js/cmsKeys.js"></script>-->
+
+</body>
+</html>
+<!--<script src="js/utils.js"></script>-->

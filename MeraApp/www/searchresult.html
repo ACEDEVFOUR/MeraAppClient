@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile</title>
+    <meta charset="utf-8">
+    <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <script src="js/foundation.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script>
+        function goBack() {
+           // window.history.back();
+            var url = document.referrer;
+            window.location.href = url;
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#filter-search').click(function () {
+                $('#filter-search-box').slideToggle();
+            });
+
+
+        });
+
+
+    </script>
+
+</head>
+ 
+<body>
+
+    <div id="searchResult" style="display:none">
+        <div class="header-menu">
+            <div class="header-menu1" style="background:#ffd800; color:#000000;">
+                <div class="floatl header1">
+                    <div style="line-height:11vw;">
+                        <a href="javascript:void(0)" onclick="goBack();"> <img class="max-width70" src="images/leftGArrow.png" /></a>
+                    </div>
+                </div>
+                <div class="floatl header2">
+                    <div id="divSearchResultText" style="line-height:11vw;">Search Results</div>
+                </div>
+                <div class="floatl header3">
+                    <a href="#">
+                        <img class="max-width50" id="filter-search" src="images/filter.png" />
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="clearboth3"></div>
+        <div class="padding3-1" id="filter-search-box">
+            <input type="text" id ="txtSearch" class="width100" value="search" />
+        </div>
+
+        <div id="searchResultData">
+
+        </div>
+
+    </div>
+    <a href="http://myopps.in" class="color-w1"><div class="view-opps" id="divOpportunity" style="display:none;">View Opportunities</div></a>
+    <!--<div class="modal fade" style="z-index:1000" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                 Modal content
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                        <h4 class="modal-title">Searching Schemes</h4>
+                    </div>
+                    <div class="modal-body">
+                        <img style="width: 50px; height: 50px;" src="images/processing.gif" />
+                        <span>Searching Schemes, Please wait.....</span>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>-->
+
+    <script src="js/utils.js"></script>
+    <script src="js/DB.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script src="js/SearchResult.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+</body>
+</html>

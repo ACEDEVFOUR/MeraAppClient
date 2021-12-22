@@ -1,0 +1,447 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile</title>
+    <meta charset="utf-8">
+     <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script src="js/jquery-ui.js"></script> 
+    <script src="js/bootstrap.js"></script>
+   <script>
+       function goBack() {
+           var url = document.referrer;
+           window.location.href = url;
+       }
+</script> 
+
+</head>
+<body class="body-scroll">
+    <div class="header-menu">
+        <div class="header-menu1">
+            <div class="floatl header1">
+                <div><img class="max-width70" onclick="goBack()" src="images/leftGArrow-w.png" /></div>
+            </div>
+            <div class="floatl header2">
+                <div id="CmsEditProfile" class="upper-case">Edit family member</div>
+            </div>
+            <div class="floatl header4">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <div class="clearboth25"></div>
+    <div align="center" id="photoSize" style="display: none;">
+        <div>Actual Size :<span id="sizePic"></span></div>
+        <div>Compressed Size :<span id="resizePic"></span></div>
+    </div>
+    <div class="form-group form-group1" align="center">
+        <!--<div align="center" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">-->
+        <div class="" align="center" data-toggle="modal" data-target="#selectSource">
+            <img class="upload-photo-image" src="images/uploadPhoto.png" id="img-subBeneficiary" />
+        </div>
+        <div id="RemovePhoto" class="remove-photo"><div id="CmsRemovePhoto">Remove photo</div></div>
+    </div>
+    <div class="clearboth"></div>
+    <div>
+        <div class="profile-heading upper-case" id="CmsBasicInformation">Basic information</div>
+        <div id="returnMessage" class="ajax-return"></div>
+        <div class="box1">
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsFirstName" class="floatl width50">First Name*</div>
+                <div class="form-group form-group1 edit-flds">
+                    <input id="firstName" type="text" class="form-control form-control1 form-control2">
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsLastName" class="floatl width50">Surname*</div>
+                <div class="form-group form-group1 edit-flds">
+                    <input id="lastName" type="text" class="form-control form-control1 form-control2">
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsRelationship" class="floatl width50">Relationship</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <select class="form-control1 select2" id="BenRelationship"></select>
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsFathersName" class="floatl width50">Father's Name</div>
+                <div class="form-group form-group1 edit-flds">
+                    <input id="fathersName" type="text" class="form-control form-control1 form-control2">
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsHusbandsName" class="floatl width50">Spouse's Name</div>
+                <div class="form-group form-group1 edit-flds">
+                    <input id="husbandsName" type="text" class="form-control form-control1 form-control2">
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsAddress" class="floatl width50">Address</div>
+                <div class="form-group form-group1 edit-flds">
+                    <input id="Address" type="text" class="form-control form-control1 form-control2">
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsEMail" class="floatl width50">E-Mail Id</div>
+                <div class="form-group form-group1 edit-flds">
+                    <input id="EMail" type="text" class="form-control form-control1 form-control2">
+                </div>
+            </div>
+
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsDOB" class="floatl width50">Date of Birth</div>
+                <div class="form-group form-group1 edit-flds">
+                    <input placeholder="Date of birth" class="textbox-n form-control form-control1 form-control2" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="DOB">
+                </div>
+            </div>
+
+            <div class="width100 floatl beneficiary-profile" style="display:none;">
+                <div id="CmsIdDocument" class="floatl width50">ID Document</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <select class="form-control form-control1 form-control2 select2" id="BenIDProof"></select>
+                </div>
+
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsPhone" class="floatl width50">Mobile No.</div>
+                <div class="form-group form-group1 edit-flds">
+                    <input id="Mobile" type="tel" pattern="\d*" maxlength="10" class="form-control form-control1 form-control2">
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsIdNumber" class="floatl width50">Aadhar No.</div>
+                <div class="form-group form-group1 edit-flds">
+                    <input type="tel" pattern="\d*" class="form-control form-control1 form-control2" maxlength="12" id="IDProofDetails">
+                </div>
+
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsState" class="floatl width50">State</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <select class="form-control1 select2" id="BenStateName" disabled="disabled"></select>
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsDistrict" class="floatl width50">District</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <select class="form-control1 select2" id="BenDistrictName" disabled="disabled"></select>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+        <div id="CmsBackgroungInformation" class="profile-heading upper-case">BAckground information</div>
+
+        <div class="box1">
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsSex" class="floatl width50">Gender</div>
+                <div class="form-group form-group1 edit-flds-select ">
+                    <select class="form-control1 select2" id="BenGender"></select>
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile" style="display: none;">
+                <div id="CmsAge" class="floatl width50">Age(between)</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <select class="form-control1 select2" id="BenAge"></select>
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsReligion" class="floatl width50">Religion</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <select class="form-control1 select2" id="BenReligion"></select>
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsSocialStatus" class="floatl width50">Economic Status</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <select class="form-control1 select2" id="BenEcoStatus"></select>
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsOccupation" class="floatl width50">Occupation</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <select class="form-control1 select2" id="BenOccupation"></select>
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsQualification" class="floatl width50">Qualification</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <select class="form-control1 select2" id="BenQualification"></select>
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsMarital" class="floatl width50">Marital Status</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <select class="form-control1 select2" id="BenMaritalStatus"></select>
+                </div>
+            </div>
+
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsCategory" class="floatl width50">Category</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <select class="form-control1 select2" id="BenCategory"></select>
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile" style="display:none;">
+                <div id="CmsDepartment" class="floatl width50">Department</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <select class="form-control1 select2" id="BenDepartment"></select>
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsEmpStatus" class="floatl width50">Employment Status</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <select class="form-control1 select2" id="BenEmpStatus"></select>
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsSpecialGroup" class="floatl width50">Special Group</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <select class="form-control1 select2" id="BenVulGroup"></select>
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsFamilyIncome" class="floatl width50">Annual Family Income</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <input id="AnnualIncome" type="text" class="form-control form-control1 form-control2">
+                </div>
+            </div>
+
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsDisability" class="floatl width50">Type of Disability</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <select class="form-control1 select2" id="BenDisability"></select>
+                </div>
+            </div>
+
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmspercentageDisability" class="floatl width50">Percentage of Disability</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <input id="PercentageDisability" type="number" class="form-control form-control1 form-control2" maxlength="2">
+                </div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsSickness" class="floatl width50">Sickness</div>
+                <div class="form-group form-group1 edit-flds-select">
+                    <select class="form-control1 select2" id="BenSickness"></select>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="clearboth10"></div>
+    <div id="UpdateSubBeneficiary" href="searchschemes.html"><div class="save-proceed upper-case"><div id="CmsUpdateAndProceed">Update</div></div></div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title">Updating Member Profile</h4>
+                </div>
+                <div class="modal-body">
+                    <img style="width: 50px; height: 50px;" src="images/processing.gif" />
+                    <span>Updating Member profile, Please wait.....</span>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="selectSource" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="">Select the Source for the Photo</h4>
+                </div>
+                <div class="col-xs-12" style="margin: 10px 10px 10px 10px;">
+                    <div class="col-xs-5" style="border: 3px solid #F9F1F1; padding: 10px 10px 10px 10px; border-radius: 50%; background-color: #ffffe0">
+                        <div align="center" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">
+                            <img src="images/gallery-icon.png" style="width: 50px;height:50px;" />
+                            <h6>Gallery</h6>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-1">
+
+
+                    </div>
+                    <div class="col-xs-5" style="border: 3px solid #F9F1F1; padding: 10px 10px 10px 10px; border-radius:50%;background-color: #ffffe0">
+                        <div align="center" onclick="getPhoto(pictureSource.CAMERA);">
+                            <img src="images/camera-icon.png" style="width: 50px;height:50px;" />
+                            <h6>Camera</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="js/utils.js"></script>
+    <script src="js/editFamilyMember.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+        var pictureSource;   // picture source
+        var destinationType; // sets the format of returned value
+
+        // Wait for device API libraries to load
+        //
+        document.addEventListener("deviceready", onDeviceReady, false);
+
+        // device APIs are available
+        //
+        function onDeviceReady() {
+            pictureSource = navigator.camera.PictureSourceType;
+            destinationType = navigator.camera.DestinationType;
+        }
+        function readFileSize(fileUri, id) {
+
+            var size = btoa(fileUri);
+            $('#' + id).html((size.length / 1000) + " KB");
+        }
+        // Called when a photo is successfully retrieved
+        //
+        function onPhotoURISuccess(imageURI) {
+
+            readFileSize(imageURI, 'sizePic');
+            var newImage = new Image();
+
+            newImage.height = 115;
+            newImage.width = 115;
+            newImage.src = utils.getImage(imageURI);
+            setTimeout(function () {
+                compress(newImage, 70, 115, 'jpeg', 'img-subBeneficiary');
+                $('#photoSize').show();
+            }, 2000);
+            $('#temp-div').hide('photo-upload');
+            $('#round-temp').removeClass();
+
+        }
+        function compress(source_img_obj, quality, maxWidth, output_format, id) {
+            var mime_type = "image/jpeg";
+            if (typeof output_format !== "undefined" && output_format == "png") {
+                mime_type = "image/png";
+            }
+
+            maxWidth = maxWidth || 1000;
+            var natW = source_img_obj.naturalWidth;
+            var natH = source_img_obj.naturalHeight;
+            var ratio = natH / natW;
+            if (natW > maxWidth) {
+                natW = maxWidth;
+                natH = ratio * maxWidth;
+            }
+
+            var cvs = document.createElement('canvas');
+            cvs.width = natW;
+            cvs.height = natH;
+
+            var ctx = cvs.getContext("2d").drawImage(source_img_obj, 0, 0, natW, natH);
+            var newImageData = cvs.toDataURL(mime_type, quality / 100);
+            $('#' + id).attr('src', newImageData);
+            $('#' + id).show();
+            readFileSize(newImageData, 'resizePic');
+        }
+
+        function getPhoto(source) {
+            // Retrieve image file location from specified source
+            navigator.camera.getPicture(onPhotoURISuccess, onFail, {
+                quality: 50,
+                destinationType: destinationType.DATA_URL,
+                sourceType: source
+            });
+        }
+
+        // Called if something bad happens.
+        //
+        function onFail(message) {
+            //alert('Failed because: ' + message);
+        }
+        $('#FirstName').keyup(function () {
+            var regex = new RegExp("^[a-zA-Z ]+$");
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+        }
+        );
+        $('#FirstName').bind("cut copy paste", function (e) {
+            e.preventDefault();
+        });
+
+        $('#LastName').keyup(function () {
+            var regex = new RegExp("^[a-zA-Z ]+$");
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+        }
+        );
+        $('#LastName').bind("cut copy paste", function (e) {
+            e.preventDefault();
+        });
+
+        $('#Address').keyup(function () {
+            var regex = new RegExp("^[a-zA-Z ]+$");
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+        }
+        );
+        $('#Address').bind("cut copy paste", function (e) {
+            e.preventDefault();
+        });
+
+        $('#HusbandsName').keyup(function () {
+            var regex = new RegExp("^[a-zA-Z ]+$");
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+        }
+        );
+        $('#HusbandsName').bind("cut copy paste", function (e) {
+            e.preventDefault();
+        });
+
+        $('#FathersName').keyup(function () {
+            var regex = new RegExp("^[a-zA-Z ]+$");
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+        }
+        );
+        $('#FathersName').bind("cut copy paste", function (e) {
+            e.preventDefault();
+        });
+
+    </script>
+</body>
+</html>

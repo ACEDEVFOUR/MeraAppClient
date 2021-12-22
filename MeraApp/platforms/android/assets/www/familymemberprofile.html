@@ -1,0 +1,314 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Account</title>
+    <meta charset="utf-8">
+     <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+   <script>
+  
+  $(document).ready(function(){
+    $("#delete-fav").click(function(){
+    $("#hide-fav").slideUp();
+    });
+	
+	$("#top-menu-toggle").click(function(){
+    $("#top-menu-hide").slideToggle();
+    });
+	
+	$("#sp-schemes").click(function(){
+    $(".sp-beneficiaries-box").hide();
+    $(".sp-profile-box").hide();
+    $(".sp-services-box").hide();
+	$(".sp-scheme-box").show();
+	$("#sp-schemes").addClass("sp-schemes");
+	$("#sp-profile").removeClass("sp-schemes");
+	$("#sp-beneficiaries").removeClass("sp-schemes");
+	$("#sp-services").removeClass("sp-schemes");
+	
+    });
+	
+	$("#sp-beneficiaries").click(function () {
+	    $(".sp-beneficiaries-box").show();
+	    $(".sp-profile-box").hide();
+	    $(".sp-scheme-box").hide();
+	    $(".sp-services-box").hide();
+	    $("#sp-schemes").removeClass("sp-schemes");
+	    $("#sp-profile").removeClass("sp-schemes");
+	    $("#sp-services").removeClass("sp-schemes");
+	    $("#sp-beneficiaries").addClass("sp-schemes");
+
+	});
+	
+	$("#sp-profile").click(function(){
+	    $(".sp-beneficiaries-box").hide();
+	    $(".sp-profile-box").show();
+	    $(".sp-scheme-box").hide();
+	    $(".sp-services-box").hide();
+	$("#sp-schemes").removeClass("sp-schemes");
+	$("#sp-profile").addClass("sp-schemes");
+	$("#sp-beneficiaries").removeClass("sp-schemes");
+	$("#sp-services").removeClass("sp-schemes");
+	
+	});
+
+	$("#sp-services").click(function () {
+	    $(".sp-beneficiaries-box").hide();
+	    $(".sp-profile-box").hide();
+	    $(".sp-scheme-box").hide();
+	    $(".sp-services-box").show();
+	    $("#sp-schemes").removeClass("sp-schemes");
+	    $("#sp-services").addClass("sp-schemes");
+	    $("#sp-beneficiaries").removeClass("sp-schemes");
+	    $("#sp-schemes").removeClass("sp-schemes");
+
+	});
+	
+});
+  </script>  
+    <script>
+        function goBack() {
+            var url = document.referrer;
+            window.location.href = url;
+        }
+</script> 
+
+</head>
+<body class="body-scroll">
+	<div class="header-menu">
+		<div class="header-menu1">
+				<div class="floatl header1">
+					
+						<div><img class="max-width70" onclick="goBack()" src="images/leftGArrow-w.png" /></div>
+					
+				</div>
+				<div class="floatl header2">
+					<div class="upper-case" id="DivFamilyMemeberHead">Family Member profile</div>
+				</div>
+				<div class="floatl header4 text-align-r">
+					<a href="editfamilymember.html"><div><img class="max-width35" src="images/edit-white.png" /></div></a>
+				</div>
+		</div>
+	</div>
+	<div class="clearboth18 body6"></div>
+	<div class="width100 padding-box1 body6 floatl">
+		<div class="width50 floatl text-align-r padding-box1" data-toggle="popover" title="Edit Image" data-placement="right" 
+             data-content="To Edit Display Picture, Go to Edit Profile link above.">
+			<img class="profile-picture" id="img-subBeneficiary" src="images/account-plain.png" />
+		</div>
+		<div class="width50 floatl text-align-l padding-box1">
+			<div class="upper-case" id="name-subBeneficiary"></div>
+			<div id="Relation"></div>
+            <div><span id="DivStateText">State: </span><span id="spanSubBenState"></span></div>
+            <div><span id="DivDistrictText">District: </span><span id="spanSubBenDistrict"></span></div>
+			
+		</div>
+	</div>
+	<div class="width100 floatl sp-control-box sp-control-box2">
+		<!--<div class="width12p5 floatl">&nbsp;</div>-->
+        <div class="width25 floatl sp-schemes" id="sp-schemes">
+			<img class="max-width50" src="images/scheme-file-plain.png" />
+			<div class="font3" id="DivSchemeText">Schemes</div>
+		</div>
+		<div class="width25 floatl" id="sp-profile">
+			<img class="max-width50" src="images/account-plain.png" />
+			<div class="font3" id="DivProfileText">Profile</div>
+		</div>
+		<div class="width25 floatl" id="sp-beneficiaries">
+			<img class="max-width50" src="images/family-black.png" />
+			<div class="font3" id="DivFamilyText">Family of</div>
+		</div>
+        <div class="width25 floatl" id="sp-services">
+            <img class="max-width50" src="images/services-active.png" />
+            <div class="font3" id="DivServices">Digital Literacy</div>
+        </div>
+	</div>
+	<div class="clearboth"></div>
+	<div class="sp-profile-box">
+	<div>
+		<div id="CmsBasicInformation" class="profile-heading upper-case">Basic information</div>
+		<div class="box1">
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmsFirstName" class="floatl width50">First Name</div>
+				<div class="floatl width50 text-align-r anchor3" id="SubBenfirstName"></div>
+			</div>		
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmsLastName" class="floatl width50">Surname</div>
+				<div class="floatl width50 text-align-r anchor3" id="SubBenlastName"></div>
+			</div>
+            <div class="width100 floatl beneficiary-profile">
+                <div class="floatl width50" id="CmsPhone">Mobile No.</div>
+                <div class="floatl width50 text-align-r anchor3" id="SubBenMobileNumber"></div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsRelationship" class="floatl width50">Relationship</div>
+                <div class="floatl width50 text-align-r anchor3" id="SubBenRelationship"></div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div class="floatl width50" id="CmsAddress">Address</div>
+                <div class="floatl width50 text-align-r anchor3" id="SubBenAddress"></div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsState" class="floatl width50">State</div>
+                <div class="floatl width50 text-align-r anchor3" id="SubBenState"></div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsDistrict" class="floatl width50">District</div>
+                <div class="floatl width50 text-align-r anchor3" id="SubBenDistrict"></div>
+            </div>
+            <div class="width100 floatl beneficiary-profile">
+                <div class="floatl width50" id="CmsEMail">E-Mail ID</div>
+                <div class="floatl width50 text-align-r anchor3" id="SubBenEMail"></div>
+            </div>
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmsFathersName"  class="floatl width50">Father's Name</div>
+				<div class="floatl width50 text-align-r anchor3" id="SubBenfathersName"></div>
+			</div>
+            
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmsFatherOrHusbandName"  class="floatl width50">Spouse's Name</div>
+				<div class="floatl width50 text-align-r anchor3" id="SubBenhusbandsName"></div>
+			</div>
+            
+            
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmsDOB"  class="floatl width50">Date of Birth</div>
+				<div class="floatl width50 text-align-r anchor3" id="SubBenDOB"></div>
+			</div>
+			
+			<div class="width100 floatl beneficiary-profile" id="divSubBenIDProof">
+				<div class="floatl width50" id="SubBenIDProof"></div>
+				<div class="floatl width50 text-align-r anchor3" id="SubBenIDDetails"></div>
+			</div>		
+			
+								
+		</div>
+	</div>
+	<div>
+		<div id="CmsbackgroundInfo" class="profile-heading upper-case">Background information</div>
+		<div class="box1">
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmsSex"  class="floatl width50">Gender</div>
+				<div class="floatl width50 text-align-r anchor3" id="SubBenGender"></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmsAge"  class="floatl width50">Age(between)</div>
+				<div class="floatl width50 text-align-r anchor3"id="SubBenAge"></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmsReligion"  class="floatl width50">Religion</div>
+				<div class="floatl width50 text-align-r anchor3" id="SubBenReligion"></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmsSocialStatus"  class="floatl width50">Economic Status</div>
+				<div class="floatl width50 text-align-r anchor3" id="SubBenEcoStatus"></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmsOccupation"  class="floatl width50">Occupation</div>
+				<div class="floatl width50 text-align-r anchor3" id="SubBenOccupation" ></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmsQualification"  class="floatl width50">Qualification</div>
+				<div class="floatl width50 text-align-r anchor3" id="SubBenQualification" ></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmsMarital"  class="floatl width50">Marital Status</div>
+				<div class="floatl width50 text-align-r anchor3" id="SubBenMaritalStatus"></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmsCategory"  class="floatl width50">Category</div>
+				<div class="floatl width50 text-align-r anchor3" id="SubBenCategory" ></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile" style="display:none">
+				<div id="CmsDepartment"  class="floatl width50">Department</div>
+				<div class="floatl width50 text-align-r anchor3" id="SubBenDepartment" ></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmsEmpStatus"  class="floatl width50">Employment Status</div>
+				<div class="floatl width50 text-align-r anchor3" id="SubBenEmpStatus" ></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmsSplStatus"  class="floatl width50">Special Group</div>
+				<div class="floatl width50 text-align-r anchor3" id="SubBenVulGroup"></div>
+			</div>
+            <div class="width100 floatl beneficiary-profile">
+                <div id="CmsFamilyIncome" class="floatl width50">Annual Family Income</div>
+                <div class="floatl width50 text-align-r anchor3" id="SubBenAnnualIncome"></div>
+            </div>
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmsDisability"  class="floatl width50">Type of Disability</div>
+				<div class="floatl width50 text-align-r anchor3" id="SubBenTypeDisability"></div>
+			</div>
+			
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmspercentageDisability"  class="floatl width50">Percentage of Disability</div>
+				<div class="floatl width50 text-align-r anchor3"id="SubBenDisability" ></div>
+			</div>
+			<div class="width100 floatl beneficiary-profile">
+				<div id="CmsSickness"  class="floatl width50">Sickness</div>
+				<div class="floatl width50 text-align-r anchor3"id="SubBenSickness"></div>
+			</div>
+			
+		</div>
+	</div>
+	</div>
+	<div class="sp-beneficiaries-box">
+		<div class="width100 text-align-c">
+			<img  class="profile-picture" style="border:1vw solid#808080;" src="images/no-photo-image.jpg" id="img-Beneficiary" />
+		</div>
+		<a href="primarybeneficiary.html">
+			<div class="width70 padding-box1 border-beneficiary margin5 anchor3" align="center" id="Beneficiary"></div>
+		</a>
+		
+		
+	</div>
+    <div class="sp-services-box">
+        <div id="divWallet">
+
+        </div>
+
+    </div>
+	
+<div class="sp-scheme-box">
+	
+	<div id="divBenScheme">
+
+	</div>
+	
+	</div>
+	<div class="clearboth18"></div>
+	
+	
+	<div class="bottom-menu">
+		<a href="news-home.html">
+			<div class="bot-menu-item">
+				<div><img class="max-width20" src="images/home-plain.png" /></div>
+				<div class="font3" id="DivHome">Home</div>
+			</div>
+		</a>
+		<a href="searchschemes.html">
+			<div class="bot-menu-item">
+				<div><img class="max-width20" src="images/search-plain.png" /></div>
+				<div class="font3" id="DivSearch">Search</div>
+			</div>
+		</a>
+		<a href="myaccount.html">
+			<div class="bot-menu-item">
+				<div><img class="max-width20" src="images/account-red.png" /></div>
+				<div class="anchor3 font3" id="DivMyProfile">My Profile</div>
+			</div>
+		</a>
+	</div>
+    <script src="js/utils.js"></script>
+    <script src="js/DB.js"></script>
+    <script src="js/familymemberprofile.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Search by User Profile</title>
+    <meta charset="utf-8">
+     <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/DB.js"></script>
+    <script src="js/SearchByUserProfile.js"></script> 
+    <script>
+        function goBack() {
+            var url = document.referrer;
+            window.location.href = url;
+        }
+</script>
+   
+
+</head>
+<body class="body-scroll body3">
+	<div class="header-menu">
+		<div class="header-menu1">
+				<div class="floatl header1">
+					<a href="searchschemes.html"><div><img class="max-width70" onclick="goBack()" src="images/leftGArrow-w.png" /></div></a>
+				</div>
+				<div class="floatl header2">
+					<div class="upper-case" id="DivSearchUserProfileText">Search by user profile</div>
+				</div>
+                <div class="floatl header4">
+					
+				</div>
+		</div>
+	</div>
+	<div class="clearboth10 body5"></div>
+	<div class="padding5 add-scheme-beneficiary-block text-align-c body5">
+			<div class="padding5 scheme-detail2 letter-spacing0" id="DivUserSearchText">To find a particular user, please enter one of the following</div>
+			<div class="margin5">
+				<div class="form-group">
+					<input type="text" class="form-control text-align-l" id="txtName" placeholder="Name">
+				</div>		
+				<div class="form-group" style="display:none;">
+					<input type="text" class="form-control text-align-l" id="txtHusbandName" placeholder="Father/Husband's Name">
+				</div>
+				
+				<div class="form-group">
+					<select class="form-control select3 text-align-l" id="Identity" style="display:none;">
+						<option selected="true" disabled="disabled">User ID (Optional)</option>
+						<option value=1>Aadhar Card</option>
+						<option value=2>PAN Card.</option>
+						<option value=3>Valid Indian Passport</option>
+						<option value=4>Voter ID Card</option>
+						<option value=5>Permanent Driving License</option>
+						<option value=6>Govt./ Public Sector Employee ID Card</option>
+						<option value=7>Bank Passbook</option>
+                        <option value=8>Ration Card</option>
+					</select>
+					<input type="text" class="form-control text-align-l" id="txtIdentity" placeholder="Enter ID Details">
+				</div>
+				<div class="clearboth"></div>
+				<a style="cursor:pointer;" onclick="SearchUser();"><div class="save-btn" id="add-scheme-bene">Search</div></a>
+			</div>
+	</div>
+	<div class="clearboth body5"></div>
+	<div>
+		<div class="width100 floatl">
+			<div class="text-align-c padding15b3" id="DivUserListText">SELECT FROM USER'S LIST</div>
+            <!--<div class="width32 floatl margin-point5">-->
+                <div id="divBeneficiaryNames">
+                    <!--<div class="width31 margin1 floatl font3 text-align-c padding3-1 body5"><div class="width100 text-overflow">sdfsdfd</div></div>-->
+                </div>
+            <!--</div>-->
+
+            </div>
+	</div>
+
+
+</body>
+</html>

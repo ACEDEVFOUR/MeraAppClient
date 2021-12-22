@@ -1,0 +1,37 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.defIndia.meraApp"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.defIndia.meraApp"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.defIndia.meraApp"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "com.defIndia.meraApp"
+    },
+    "cordova-plugin-google-analytics": {
+      "PACKAGE_NAME": "com.defIndia.meraApp"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.defIndia.meraApp"
+    },
+    "cordova-plugin-canvas2image": {
+      "PACKAGE_NAME": "com.defIndia.meraApp"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-compat": {
+      "PACKAGE_NAME": "com.defIndia.meraApp"
+    }
+  }
+}

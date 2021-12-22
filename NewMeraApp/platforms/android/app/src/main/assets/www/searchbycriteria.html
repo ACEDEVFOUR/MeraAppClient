@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile</title>
+    <meta charset="utf-8">
+     <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+	<link rel="stylesheet" href="css/foundation.css">
+	<link rel="stylesheet" href="css/mobile.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+	
+     <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script src="js/jquery-ui.js"></script> 
+    <script src="js/bootstrap.js"></script>
+    <!--<script src="js/foundation.min.js"></script>-->
+	<script>
+	    function goBack() {
+	        window.history.back();
+	    }
+</script>
+	
+</head>
+ 
+<body>
+
+
+ <div id="searchScheme">
+
+	<div class="header-menu">
+		<div class="header-menu1 body7">
+				<div class="floatl header1">
+					<div><img class="max-width70" onclick="goBack()" src="images/leftGArrow.png" /></div>
+				</div>
+				<div class="floatl">
+					<div class="upper-case" id="DivSearchElgCriteriaText">search by eligibility criteria</div>
+				</div>
+                
+	</div>
+	</div>
+	<div class="clearboth15"></div>
+
+	<div class="width35 criteria-blk left">	
+	<ul class="tabs vertical" data-tab>
+	  <li class="tab-title active"><a href="#panel1" id="GenderText">Gender</a></li>
+	  <li class="tab-title"><a href="#panel2" id="AgeText">Age</a></li>
+	  <li class="tab-title"><a href="#panel3" id="ReligonText">Religion</a></li>
+	  <li class="tab-title"><a href="#panel4" id="CasteText">Caste</a></li>
+	  <li class="tab-title"><a href="#panel5" id="IncomeLevelText">Income level</a></li>
+	  <li class="tab-title"><a href="#panel6" id="OccupationText">Occupation</a></li>
+	  <li class="tab-title"><a href="#panel7" id="QualificationText">Qualification</a></li>
+	  <li class="tab-title"><a href="#panel8" id="MaritalStatusText">Marital Status</a></li>
+	  <li class="tab-title"><a href="#panel9" id="CategoryText">Category / Domain</a></li>
+	  <li class="tab-title"><a href="#panel10" id="DepartmentText">Department</a></li>
+	  <li class="tab-title"><a href="#panel11" id="EmpStatusText">Employment Status</a></li>
+	  <li class="tab-title"><a href="#panel12" id="SplStatusText">Special Status</a></li>
+	  <li class="tab-title"><a href="#panel13" id="FamilyIncomeText">Annual Family Income</a></li>
+	  <li class="tab-title"><a href="#panel14" id="DisabilityText">Disability</a></li>
+	  
+	  <li class="tab-title"><a href="#panel16" id="SicknessText">Sickness</a></li>
+	</ul>
+        <div class="clearboth20"></div>
+</div>
+<div class="width67 criteria-blk">
+    <div class="tabs-content">
+       
+  <div class="content active" id="panel1">
+	 
+	  
+  </div>
+  <div class="content" id="panel2">
+		
+        <div class="width100 padding-income">
+            <input type="text" id="EligibilityAge" placeholder="Enter your age"  onblur="this.placeholder='Enter your age'" onfocus="this.placeholder = ''" class="width90">
+        </div>
+        <div class="clearboth15"></div>
+  </div>
+  <div class="content" id="panel3">
+  </div>
+  <div class="content" id="panel4">
+		
+  </div>
+  <div class="content" id="panel5">
+  </div>
+  <div class="content" id="panel6">
+
+  </div>
+  <div class="content" id="panel7">
+		
+  </div>
+  <div class="content" id="panel8">
+
+  </div>
+
+  <div class="content" id="panel9">
+    
+  </div>
+
+  <div class="content" id="panel10">
+		
+  </div>
+
+  <div class="content" id="panel11">
+
+  </div>
+
+  <div class="content" id="panel12">
+		
+  </div>
+
+  <div class="content" id="panel13">
+		<div class="padding-income">
+            <input type="text" id="AnnualFamilyIncome" placeholder="Enter Annual Family Income" onblur="this.placeholder = 'Enter Annual Family Income'" onfocus="    this.placeholder = ''" class="width90">
+        </div>
+            <div class="clearboth15"></div>
+  </div>
+
+  <div class="content" id="panel14">
+				
+  </div>
+        
+  <div class="content" id="panel16">
+				
+  </div>
+            
+</div>
+</div>
+
+
+	<div class="clearboth">&nbsp;</div>
+	<a href="Javascript:void(0);" onclick="GetSchemesResult();"><div class="save-proceed upper-case" id="DivApply">Apply</div></a>    
+ 
+</div>
+
+<script src="js/utils.js"></script>
+    <script src="js/DB.js"></script>
+<script src="js/foundation.min.js"></script>
+<script src="js/Searchscheme.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Search schemes</title>
+    <meta charset="utf-8">
+     <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+    <script src="js/foundation.min.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/DB.js"></script>
+
+    <script src="js/Searchscheme.js"></script>
+    <script src="js/reverseSync.js"></script>
+</head>
+<body class="body-scroll">
+    <div style="position:absolute;top:1vw; left:2vw; z-index:1;"><img class="max-width10vw" id="toggle-side-menu" src="images/hambuger-white.png" /></div>
+    <div>
+        <div class="box-inner" id="side-menu">
+            <div style="position:absolute; top:6vw; right:6vw; color:#fff; font-size:6vw;" id="close-menu">X</div>
+            <nav class="navigation">
+                <ul class="mainmenu">
+                    <li><a href="news-home.html" id="aHome">Home</a></li>
+                    <li>
+                        <a style="cursor:pointer;" class="sub-menu-li" id="aSearchScheme">Search Schemes</a>
+                        <ul class="submenu">
+                            <li><a href="searchbycriteria.html" id="aSearchByCriteria">Search by criteria</a></li>
+                            <li><a href="searchbyuserprofile.html" id="aSearchByProfile">Search by profile</a></li>
+                        </ul>
+
+                    </li>
+                    <li>
+                        <a style="cursor:pointer;" id="aMyAccount" class="sub-menu-li">My Account</a>
+                        <ul class="submenu">
+                            <li><a href="" id="aMyBeneficiaries">All Beneficiaries</a></li>
+                            <li><a href="registerprimarybeneficiary.html" id="aRegisterBeneficiary">Add New Beneficiary</a></li>
+
+                        </ul>
+                    </li>
+                    <li><a href="your-wallet.html" id="aRevenue">Revenue</a></li>
+                    <li><a href="add-income.html" id="aAddRevenue">Add Revenue</a></li>
+                    <li><a id="aTrackBeneficiary" href="track-beneficiary.html">Track Beneficiary</a></li>
+                    <li onclick="SyncDataUpload()"><a style="cursor:pointer;" id="divSync">Sync Data</a></li>
+                    <li><a href="terms.html" id="divTerms">Terms and Conditions</a></li>
+                    <li><a style="cursor:pointer;" onclick="Logout();" id="divLogout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="outer overlay" id="SyncUpdateProgress" style="display:none;">
+        <div class="middle">
+            <div class="inner" align="center">
+                <div><img class="max-width20 sync-image" src="images/sync-data.png" /></div>
+                <div class="clearboth"></div>
+                <div class="sync-data" id="DivSyncMessage"></div>
+                <div class="sync-data"></div>
+
+            </div>
+        </div>
+
+    </div>
+	<div class="header-menu">
+		<div class="header-menu1">
+				<div class="floatl header1">
+					&nbsp;
+				</div>
+				<div class="floatl header2">
+					<div class="upper-case" id="DivSearchSchemesText">Search schemes</div>
+				</div>
+                <div class="floatl header4">
+					&nbsp;
+				</div>
+		</div>
+	</div>
+    <div class="clearboth10"></div>
+    <div class="search-padding-box">
+		<div class="form-group">
+			<input type="text" class="search-text-box width80" id="txtKeywords" placeholder="Quick search..."> <a href="Javascript:void(0);" onclick="SearchByKeyword();"><img class="max-width14" src="images/search-red.png" /></a>
+		</div>
+	</div>
+	
+	<a href="searchbycriteria.html">
+		<div class="search-padding-box search-padding-box1 text-align-c" id="DivSearchByEligibilty">
+			<img class="max-width15" src="images/search-el.png" /> Search by Eligibility Criteria
+		</div>
+	</a>
+	
+	<a href="searchbyuserprofile.html">
+		<div  class="search-padding-box search-padding-box1 text-align-c" id="DivSearchByProfile">
+			<img class="max-width15" src="images/search-account.png" /> Search by User Profile
+		</div>
+	</a>
+	<div class="padding-box1"></div>
+    <!-- Reverse Sync Modal -->
+    <div class="modal fade" id="RevSyncModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title" id="hMyAccount"></h4>
+                </div>
+                <div class="modal-body">
+                    <img style="width: 50px; height: 50px;" src="images/processing.gif" />
+                    <span id="spanUpload">Loading data, Please wait.....</span>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>   
+<div class="clearboth10"></div>
+	
+	
+	<div class="bottom-menu">
+        <a href="your-wallet.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/revenue-plain.png" /></div>
+                <div class="font-size2p5" id="divMyWallet">Revenue</div>
+            </div>
+        </a>
+        <a href="add-income.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/add-revenue-plain.png" /></div>
+                <div class="font-size2p5" id="divAddRevenue">Add Revenue</div>
+            </div>
+        </a>
+        <a href="track-beneficiary.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/track-plain.png" /></div>
+                <div class="font-size2p5" id="divTrackBeneficiary">Track Beneficiary</div>
+            </div>
+        </a>
+        <a href="news-home.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/home-plain.png" /></div>
+                <div class="font-size2p5" id="DivHomeText">Home</div>
+            </div>
+        </a>
+        <a href="searchschemes.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/search-red.png" /></div>
+                <div class="font-size2p5 anchor3" id="DivSearchText">Search</div>
+            </div>
+        </a>
+        <a href="myaccount.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/account-plain.png" /></div>
+                <div class="font-size2p5" id="DivMyAccountText">My Account</div>
+            </div>
+        </a>
+        
+        
+    </div>
+
+<!--<script src="js/jquery.js"></script>
+<script src="js/utils.js"></script>-->
+<script>
+
+        $('#toggle-side-menu').click(function () {
+            // $('#side-menu').show("slide", { direction: "left" }, 100);
+            $('#side-menu').show();
+        });
+
+        $('#close-menu').click(function () {
+           // $('#side-menu').hide("slide", { direction: "left" }, 100);
+            $('#side-menu').hide();
+        });
+   
+    function SearchByKeyword() {
+
+        var keywords = $('#txtKeywords').val();
+        var user = utils.localStorage().get('user');
+        var LangId = utils.localStorage().get('LangID');
+        if (keywords == undefined || keywords == '') {
+            if (LangId == 1) {
+                alert("Enter Keyword to Search Schemes");
+            }
+            else if (LangId == 2)
+            {
+                alert("खोज योजना के लिए कीवर्ड दर्ज करें।");
+            }
+            return false;
+        }
+        else {
+            var SearchCriteria = {
+                Gender: "",
+                Age: "",
+                Religon_Id: "",
+                Caste_Id: "",
+                IncomeLevel_Id: "",
+                Occupation_Id: "",
+                Qualification_Id: "",
+                MaritalStatus_Id: "",
+                Domain_Id: "",
+                Department_Id: "",
+                EmpStatus_Id: "",
+                VulnerableGroup_Id: "",
+                FamilyIncome: "",
+                Disablity_Id: "",
+                DisabilityPercent: "",
+                Sickness_Id: "",
+                Keywords: keywords.replace(' ', ','),
+                userId: user.userName,
+                LangId: LangId,
+                State_Id: user.State_Id
+            };
+
+            utils.localStorage().set('SchemeSearchObj', SearchCriteria);
+            utils.localStorage().set('SearchFrom', '3');
+            window.location.href = 'searchresult.html';
+        }
+
+        return false;
+    }
+</script>
+
+
+</body>
+</html>

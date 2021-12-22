@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Soochna Seva App</title>
+    <meta charset="utf-8">
+     <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/DB.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var MyDB = window.openDatabase("SoochnaSevaDB_Offline", "1.0", "SoochnaSevaDB_Offline", 2000000);
+            MyDB.transaction(queryDB, errorCB);
+            document.addEventListener("deviceready", onDeviceReady, false);
+            function onDeviceReady() {
+                window.analytics.trackEvent('Login', 'Sucessfully Logged in');
+            }
+            
+    });
+        function queryDB(tx) {
+            var user = utils.localStorage().get('user');
+            var LangId = utils.localStorage().get('LangID');
+            if (user != undefined && user != null && user.LangId != undefined && user.LangId != null) {
+                LangId = user.LangId;
+            }
+            var queryText = "SELECT ApplicationId, CMSKeyId, CMSKeyValueId, KeyName, KeyValue, LanguageId FROM CMS  WHERE LanguageId =" + LangId;
+            tx.executeSql(queryText, [], querySuccess, errorCB);
+        }
+
+        // Query the success callback
+        function querySuccess(tx, data) {
+           
+            var len = data.rows.length;
+            if (len > 0) {
+                for (var i = 0; i < len; i++) {
+                    
+                    if (data.rows.item(i).KeyName == 'CmsWelcome')
+                    {
+                        $('#divWelcomeMessage').html(data.rows.item(i).KeyValue);
+                    }
+                    if (data.rows.item(i).KeyName == 'CmsWelcomeHead') {
+                        $('#divWelcomeHead').html(data.rows.item(i).KeyValue);
+                    }
+                    if (data.rows.item(i).KeyName == 'CmsPlayTutorial') {
+                        $('#divTutorial').html(data.rows.item(i).KeyValue);
+                    }
+                    if (data.rows.item(i).KeyName == 'CmsSkipTutorial') {
+                        $('#divSkipTutorial').html(data.rows.item(i).KeyValue);
+                    }
+                }
+            }
+        }
+
+        function LoadTutorial() {
+            var LangId = 1;
+            LangId = utils.localStorage().get('LangID');
+            if (LangId == 1) {
+                window.location.href = "tutorial.html";
+            }
+            else
+                if (LangId == 2) {
+                    window.location.href = "tutorial-hindi.html";
+                }
+        }
+    </script>
+</head>
+<body class="body2 body-scroll">
+	
+	<div class="outer">
+        <div class="middle">
+            <div class="inner inner3 text-align-c color-w">
+		        <div class="font-weight-u font4" id="divWelcomeHead">Welcome to Soochnapreneur App</div>
+                <div class="clearboth"></div>
+		        <div class="welcome-msg3 font3p5" id="divWelcomeMessage">A unique platform to get information on popular Government schemes, entitlements, news and updates of 5 States in India. As a Soochnapreneur, you can add beneficiaries and their families to your account, suggest schemes most relevant to them and track the progress of your offline application. 
+</div>
+	            <div class="clearboth"></div>
+                <div class="padding5 width100"><a class="color-w" id="divTutorial" onclick="LoadTutorial();">Play Tutorial</a></div>
+                <div class="padding5 width100"><a class="color-w" href="news-home.html" id="divSkipTutorial">Skip Tutorial</a></div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile</title>
+    <meta charset="utf-8">
+    <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+
+    <script src="js/bootstrap.js"></script>
+    <script type="text/javascript">
+        function goBack() {
+            var url = document.referrer;
+            window.location.href = url;
+           
+        }
+
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#filter-search').click(function () {
+                $('#filter-search-box').slideToggle();
+            });
+            var benCount = utils.localStorage().get('NewBen');
+            var txtBenHeader = 'No new beneficiary';
+            txtBenHeader = 'No new beneficiary <br />';
+            var txt = '';
+            if (benCount != undefined && benCount != '' && benCount != 0) {
+
+                txtBenHeader = 'New beneficiary added<br />';
+
+                var res = benCount.split(",");
+                if (res != 0) {
+                    txt = '';
+                    for (var i = 0; i < res.length; i++) {
+                        
+                        if (res[i] != '')
+
+                          
+
+                            txt = txt + '<a href="#" onclick=loadBeneficiary(' + res[i].split("$$")[0] + ');><div class="notification-box" id="DivBen' + res[i].split("$$")[0] + '" >' + res[i].split("$$")[1] + '</div></a>';
+                    }
+                   
+                }
+            }
+           
+            $('#divNewBen').html(txtBenHeader + txt);
+               
+            
+
+            var schemeAppliedcnt = utils.localStorage().get('NewSchemeApplied');
+
+            var txtSchemeHeader = '';
+            txtSchemeHeader = 'No new schemes applicable <br />';
+            txt = '';
+            if (schemeAppliedcnt != undefined && schemeAppliedcnt != '' && schemeAppliedcnt != 0) {
+
+                txtSchemeHeader = 'New schemes applicable <br />';
+
+                var resscheme = schemeAppliedcnt.split(",");
+                if (resscheme != 0) {
+                    txt = '';
+                    for (var i = 0; i < resscheme.length; i++) {
+                        if (resscheme[i] != '') {
+                            resschem1 = resscheme[i].split("###");
+                            txt = txt + '<a href="#" onclick=loadScheme(' + resschem1[1] + ');> <div class="notification-box" id="DivBen' + resschem1[1] + '" >' + resschem1[0] + '</div></a>';
+                        }
+                    }
+
+                }
+            }
+
+            $('#DivNewScheme').html(txtSchemeHeader + txt);
+
+
+            var pointscnt = utils.localStorage().get('NewPoints');
+
+            var txtPointsHeader = '';
+            txtPointsHeader = 'No points added <br />';
+            txt = '';
+            if (pointscnt != undefined && pointscnt != '' && pointscnt != 0) {
+
+                txtPointsHeader = 'New points added <br />';
+
+                var respoint = pointscnt.split(",");
+                if (respoint != 0) {
+                    txt = '';
+                    for (var i = 0; i < respoint.length; i++) {
+                        if (respoint[i] != '') {
+                            txt = txt + '<a href="your-wallet.html" > <div class="notification-box" id="DivBen' + respoint[i] + '" >' + respoint[i] + '</div></a>';
+                        }
+                    }
+
+                }
+            }
+
+            $('#DivNewPoints').html(txtPointsHeader + txt);
+
+
+           
+           
+        });
+
+
+        function loadScheme(schemeId) {
+            window.location = 'schemedetails.html?schemeId=' + schemeId;
+        }
+
+    </script>
+
+
+</head>
+ 
+<body>
+
+    <div>
+        <div class="header-menu">
+            <div class="header-menu1" style="background:#ffd800; color:#000000;">
+                <div class="floatl header1">
+                    <div style="line-height:11vw;">
+                        <a href="javascript:void(0)" onclick="goBack();"> <img class="max-width70" src="images/leftGArrow.png" /></a>
+                    </div>
+                </div>
+                <div class="floatl header2">
+                    <div style="line-height:11vw;" id="DivNotification">Notification</div>
+                </div>
+                <div class="floatl header3">
+                    <a href="#">
+                        <img class="max-width50" id="filter-search" src="images/filter.png" />
+                    </a>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="clearboth3"></div>
+        <div class="padding3-1" id="filter-search-box">
+            <input type="text" class="width100" value="search" id="DivSearch" />
+        </div>
+        <div class="max-width80 margin0auto">
+            <!--This feature will be available soon.</div>
+    <div>-->
+            <!--<a href="#"> -->
+            <div class="survey-box-style1 back-register" id="divNewBen">
+                
+            </div>
+            <br />
+            <!--</a>-->
+            <!--<a href="#">-->
+                <div class="survey-box-style1 back-scheme">
+                    <div class="notification-box" id="DivNewScheme">No New schemes applicable</div>
+                </div>
+            <br />
+            <!--</a>-->
+            <a href="#">
+                <div class="survey-box-style1 back-news">
+                    <div class="notification-box" id="DivNewNews">No News Added</div>
+                </div>
+            </a>
+            <br />
+            <!--<a href="#">-->
+                <div class="survey-box-style1 back-general">
+                    <div class="notification-box" id="DivNewPoints">No Points Added.</div>
+                </div>
+            <!--</a>-->
+        </div>
+
+        </div>
+
+ 
+<script src="js/utils.js"></script>
+<script src="js/DB.js"></script>
+<script src="js/myaccount.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+</body>
+</html>

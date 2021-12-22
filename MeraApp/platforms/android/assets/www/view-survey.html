@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile</title>
+    <meta charset="utf-8">
+    <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+
+    <link rel="stylesheet" href="css/mobile.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+
+    <script src="js/bootstrap.js"></script>
+    <script>
+        function goBack() {
+            var url = document.referrer;
+            window.location.href = url;
+        }
+
+
+    </script>
+
+
+</head>
+
+<body>
+        <div class="header-menu ">
+            <div class="header-menu1" style="background:#ffd800; color:#000000;">
+                <div class="floatl header1">
+                    <div>
+                        <a href="view-submitted-survey.html" > <img class="max-width70" src="images/leftGArrow.png" /></a>
+                    </div>
+                </div>
+                <div class="floatl header2">
+                    <div>View Survey</div>
+                </div>
+                <!--<div class="floatl header3">
+                    <a href="searchbycriteria.html"><img class="max-width50" src="images/filter.png" />
+                    <div>Filter</div></a>
+                </div>-->
+            </div>
+
+
+        </div>
+ 
+    <div id="viewsurveydata"></div>
+    <script src="js/utils.js"></script>
+    <script src="js/DB.js"></script>
+    <script src="js/viewSurvey.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+</body>
+</html>

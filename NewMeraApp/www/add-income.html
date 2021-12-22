@@ -1,0 +1,504 @@
+﻿<!DOCTYPE html>
+<html lang="en" style="height:100%;">
+<head>
+    <title>Soochna Seva App</title>
+    <meta charset="utf-8">
+     <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+
+	<script>
+	    $(document).ready(function () {
+	        $('#toggle-side-menu').click(function () {
+	            $('#side-menu').show("slide", { direction: "left" }, 100);
+	        });
+
+	        $('#close-menu').click(function () {
+	            $('#side-menu').hide("slide", { direction: "left" }, 100);
+	        });
+
+	        $("#digital-literacy").click(function () {
+	            $("#digital-literacy").addClass("body2");
+	            $("#digital-service").removeClass("body2");
+	            $("#digital-ser-box").hide();
+	            $("#digital-lit-box").show();
+	        });
+
+	        $("#digital-service").click(function () {
+	            $("#digital-service").addClass("body2");
+	            $("#digital-literacy").removeClass("body2");
+	            $("#digital-ser-box").show();
+	            $("#digital-lit-box").hide();
+	        });
+
+	    });
+	</script>
+
+   <!--<script>
+       $(function () {
+           $("#accordion").accordion();
+       });
+  </script>-->
+
+    <style>
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    -webkit-animation-name: fadeIn; /* Fade in the background */
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+}
+
+.modal3 {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    -webkit-animation-name: fadeIn; /* Fade in the background */
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+}
+
+
+/* Modal Content */
+.modal-content {
+    /*position: fixed;
+    top: 0;
+    background-color: #fefefe;
+    width: 100%;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s*/
+   
+}
+
+/* The Close Button */
+.close {
+    
+    
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+/* Add Animation */
+@-webkit-keyframes slideIn {
+    from {bottom: -300px; opacity: 0} 
+    to {bottom: 0; opacity: 1}
+}
+
+@keyframes slideIn {
+    from {bottom: -300px; opacity: 0}
+    to {bottom: 0; opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+}
+</style>
+
+</head>
+
+<body class="body-scroll">
+
+    <div style="position:absolute;top:2vw; left:2vw;"><img class="max-width10vw" id="toggle-side-menu" src="images/hambuger-white.png" /></div>
+    <div>
+        <div class="box-inner" id="side-menu">
+            <div style="position:absolute; top:6vw; right:6vw; color:#fff; font-size:6vw;" id="close-menu">X</div>
+            <nav class="navigation">
+                <ul class="mainmenu">
+                    <li><a href="news-home.html" id="aHome">Home</a></li>
+                    <li>
+                        <a style="cursor:pointer;" class="sub-menu-li" id="aSearchScheme">Search Schemes</a>
+                        <ul class="submenu">
+                            <li><a href="searchbycriteria.html" id="aSearchByCriteria">Search by criteria</a></li>
+                            <li><a href="searchbyuserprofile.html" id="aSearchByProfile">Search by profile</a></li>
+                        </ul>
+
+                    </li>
+                    <li>
+                        <a style="cursor:pointer;" id="aMyAccount" class="sub-menu-li">My Account</a>
+                        <ul class="submenu">
+                            <li><a href="#" id="aMyBeneficiaries">All Beneficiaries</a></li>
+                            <li><a href="registerprimarybeneficiary.html" id="aRegisterBeneficiary">Add New Beneficiary</a></li>
+
+                        </ul>
+                    </li>
+                    <li><a href="your-wallet.html" id="aRevenue">Revenue</a></li>
+                    <li><a href="add-income.html" id="aAddRevenue">Add Revenue</a></li>
+                    <li><a id="aTrackBeneficiary" href="track-beneficiary.html">Track Beneficiary</a></li>
+                    <li onclick="SyncDataUpload()"><a style="cursor:pointer;" id="divSync">Sync Data</a></li>
+                    <li><a href="terms.html" id="divTerms">Terms and Conditions</a></li>
+                    <li><a style="cursor:pointer;" onclick="Logout();" id="divLogout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="outer overlay" id="SyncUpdateProgress" style="display:none;">
+		<div class="middle">
+            <div class="inner" align="center">
+                <div><img class="max-width20 sync-image" src="images/sync-data.png" /></div>
+                <div class="clearboth"></div>
+                <div class="sync-data" id="DivSyncMessage"></div>
+                <div class="sync-data"></div>
+
+            </div>
+		</div>
+
+	</div>
+    <div class="back-revenue text-align-c floatl width100">
+        <div class="padding-revenue-box font3p5">
+            <div><img class="max-width15vw" src="images/add-revenue-plain1.png" /></div>
+            <div class="color-w upper-case line-height11vw" id="divAddIncomeWallet">Add Revenue</div>
+            
+        </div>
+        <div class="width100 color-w upper-case floatl">
+                <div class="floatl width50 div-digital-service body2 font3p5" id="digital-literacy">Digital Literacy</div>
+                <div class="floatl width50 div-digital-service font3p5" id="digital-service">Digital Services</div>
+        </div>
+    </div>
+
+    <div id="digital-lit-box">
+
+        <div class="select-course" >
+            <div style="font-weight: bold;text-align: center;padding: 3vw;" id="DivSelectCourseText">Select Course</div>
+            <!--<div class="clearboth"></div>-->
+            <select class="form-control body5 form-control3 font3" id="DigitalLiteracyOption">
+                
+            </select>
+            <!--select class="select-box" id="DigitalLiteracyOption">
+                   
+                </select-->
+        
+        </div>
+        
+        <div class="select-course" >
+            
+            <div style="font-weight: bold;text-align: center;padding: 3vw;" id="DivLinkToBen">Link to the beneficiary</div>
+            <select class="form-control body5 form-control3 font3" id="BeneficiaryOption" onchange="GetIdDetails(this.value);">
+                
+            </select>
+            <!--select class="select-box" id="BeneficiaryOption" onchange="GetIdDetails(this.value);">
+                   
+                </select-->
+            <!--div style="text-align: center;padding: 2vw;">or</div!-->
+            <div class="form-control body5 form-control3 font3" id="idDetailsVal">Aadhaar No.</div>
+            <!--input class="form-control body5 form-control3 font3" type="text" placeholder="Aadhaar Card" /-->
+            
+        
+        </div>
+        <div style="width: 70%;margin: 0% 15%;padding-top: 3vw;float: left;" >
+            <div id="myBtn"><input class="form-control form-control3 font3" type="button" value="Link" id="LinkBeneficary" onclick="LinkBen();" /></div>
+
+        </div>
+
+    </div>
+     
+    
+    <div id="digital-ser-box">
+        <div class="select-course" >
+            <div class="clearboth"></div>
+            <div class="font-weight-b text-align-c font3p5" id="CmsService">Select Service</div>
+            
+                <select class="form-control body5 form-control3 font3" id="DigitalServiceOption">
+                            
+                         </select>
+          
+        
+        </div>
+        <div class="select-course" >
+            <div class="font-weight-b text-align-c font3p5" id="CmsQuantity">Quantity</div>
+            <input class="form-control body5 form-control3 font3" type="text" id="quantityVal"  onkeydown="UpdateINRVal();" onkeyup="UpdateINRVal();" onkeypress='return isNumberKey(event);' value="" placeholder="" />            
+        
+        </div>
+        <div class="select-course" >
+            <div class="font-weight-b text-align-c font3p5" id="CmsCost">Cost</div>
+            <div class="form-control body5 form-control3 font3" id="priceTotalVal">0</div>            
+        
+        </div>
+        <div class="select-course" >
+           <div id="myBtn3"><input class="form-control form-control3 font3" type="button" id="Donebtn" onclick="AddDigitalServiceToWallet();" value="Done" />  </div>
+        
+        </div>
+        
+
+    </div>
+
+    
+    
+    <!--div class="outer">
+        <div class="middle">
+            <div class="inner">
+                <div class="text-align-c upper-case" id="divAddIncomeWallet">Add income into Your Wallet</div>
+    <div align="center">
+        
+        <div id="accordion" class="width80">
+              <h3 id="DigitalLiteracy">Digital Literacy</h3>
+              <div>
+               <div>
+                
+                  <div class="clearboth"></div>
+                  <div>Link to the beneficiary</div>
+                  
+                  
+                 
+                   (It will depend on beneficiary name selected from the above select box.) 
+                  
+                  <input type="button" value="Link" id="LinkBeneficary" onclick="LinkBen();" />
+                  <div class="clearboth"></div>
+                  <div class="clearboth"></div>
+                  
+              </div>
+              </div>
+              <h3 id="divDigitalService">Digital Servcies</h3>
+              <div>
+                <div>
+                 
+                <div style="border:1px solid#ccc;" class="floatl width100">
+                    <div class="floatl width40 color-b text-align-l padding1">Select Service</div>
+                    <div class="floatl width60 padding1">
+                        
+
+                    </div>
+                </div>
+
+                  <div style="border:1px solid#ccc;" class="floatl width100">
+                    <div class="floatl width40 color-b text-align-l padding1">Quantity</div>
+                    <div class="floatl width60 padding1">
+                       <input type="text" class="width100" id="quantityVal"  style="border:none;" onkeydown="UpdateINRVal();" 
+                           onkeyup="UpdateINRVal();" onkeypress='return isNumberKey(event);' value="" placeholder="20" />
+                       
+                    </div>
+                </div>
+
+                  <div style="border:1px solid#ccc;" class="floatl width100">
+                    
+                    <div class="floatl width40 padding1">
+                       <input type="button" class="width100 paid-button-1" id="Donebtn" onclick="AddDigitalServiceToWallet();"  value="DONE" />
+
+                    </div>
+                </div>
+                
+              </div>
+              </div>
+  
+        </div>
+         
+      <div class="clearboth25"></div>
+        
+    </div>
+    </div>
+            </div>
+        </div-->
+    <div class="clearboth"></div>
+
+    <div class="bottom-menu">
+        <a href="your-wallet.html">
+            <!--div class="bot-menu-item bot-menu-sub-item"-->
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/revenue-plain.png" /></div>
+                <div class="font-size2p5" id="divMyWallet-AddIncome">Revenue</div>
+            </div>
+        </a>
+        <a href="add-income.html">
+            <!--div class="bot-menu-item bot-menu-sub-item bot-menu-sub-item-active"-->
+             <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/add-revenue-red.png" /></div>
+                <div class="font-size2p5 anchor3" id="divAddIncome-AddIncome">Add Revenue</div>
+            </div>
+        </a>
+        <a href="track-beneficiary.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/track-plain.png" /></div>
+                
+                <div class="font-size2p5" id="divTrackBeneficiary-AddIncome">Track Beneficiary</div>
+            </div>
+        </a>
+        <a href="news-home.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/home-plain.png" /></div>
+                <div class="font-size2p5" id="divHome">Home</div>
+            </div>
+        </a>
+        <a href="searchschemes.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/search-plain.png" /></div>
+                <div class="font-size2p5" id="divSearch">Search</div>
+            </div>
+        </a>
+        <a href="myaccount.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/account-plain.png" /></div>
+                <div class="font-size2p5" id="divMyAccount">My Account</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title" id="divGettingNewsAndSchemes"></h4>
+                </div>
+                <div class="modal-body">
+                    <img style="width: 50px; height: 50px;" src="images/processing.gif" />
+                    <span id="divGettingNews"></span>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>    
+    <!-- The Modal -->
+<div id="myModel2" class="modal">
+
+  <!-- Modal content -->
+    <div class="outer">
+        <div class="middle">
+            <div class="inner" style="width:80%;">
+                  <div class="modal-content" style="padding:10%;">
+                    <div class="modal-body"> <span id="digitalLiteracyMsg"></span> <br />
+                      <img style="max-width:7%;" src="images/rupees-black.png" /> <span id="digitalLiteracyTotalVal"></span> <span id="WalletAddMsg"> has been added in your wallet.</span>
+                        
+                    </div>
+                    <div class="clearboth"></div>
+                    <div class="close1 paid-button" style="text-transform:none;text-align:center" id="BtnClose">Close</div>
+                     
+                  </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+
+    <div id="myModel3" class="modal3">
+
+  <!-- Modal content -->
+    <div class="outer">
+        <div class="middle">
+            <div class="inner" style="width:80%;">
+                  <div class="modal-content" style="padding:10%;">
+                    <div class="modal-body"> 
+                      <img style="max-width:7%;" src="images/rupees-black.png" /> <span id="digitalServiceTotalVal"></span> <span id="WalletAdded"> has been added in your wallet. </span>
+                        
+                    </div>
+                    <div class="clearboth"></div>
+                    <div class="close3 paid-button" style="text-transform:none;text-align:center" id="BtnCloseDS">Close</div>
+                     
+                  </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+
+<!-- The Modal close-->
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/DB.js"></script>
+    <script type="text/javascript" src="js/reverseSync.js"></script>
+    <!--<script type="text/javascript" src="js/news.js"></script>-->
+     <script type="text/javascript" src="js/AddIncome.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script>
+
+        // Get the modal
+        var modal = document.getElementById('myModel2');
+        // Get the button that opens the modal
+        var btn = document.getElementById('myBtn');
+       // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close1")[0];
+
+        var modal3 = document.getElementById('myModel3');
+        var btn3 = document.getElementById('myBtn3');
+        var span3 = document.getElementsByClassName("close3")[0];
+
+        // When the user clicks the button, open the modal 
+        //btn.onclick = function () {
+        //    modal.style.display = "block";
+        //}
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+
+        }
+
+        //btn3.onclick = function () {
+        //    modal3.style.display = "block";
+        //}
+
+        span3.onclick = function () {
+            modal3.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal3) {
+                modal3.style.display = "none";
+            }
+
+        }
+</script>
+
+</body>
+</html>

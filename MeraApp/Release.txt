@@ -1,0 +1,8 @@
+version="3.0.84"	=> Points Test Server	20190112
+version="3.0.85"	=> Points Test Server	20190113
+version="3.0.86"	=> Debug App Points Test Server	20190113
+version="3.0.87"	=> Points Test Server	20190113
+version="3.0.88"	=> Points Live Server	20190115
+
+
+cordova build android --release --keystore="C:\Workspace\SoochnaSevaProj\MeraAppApkSign_v2.keystore" --alias=naresh --storePassword=naresh  --password=naresh

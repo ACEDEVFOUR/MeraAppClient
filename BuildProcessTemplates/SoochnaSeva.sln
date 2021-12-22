@@ -1,0 +1,104 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SoochnaEnterpreneur", "..\SoochnaEnterpreneur", "{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "SAK"
+		SccAuxPath = "SAK"
+		SccLocalPath = "SAK"
+		SccProvider = "SAK"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_17462"
+		Debug.AspNetCompiler.PhysicalPath = "..\SoochnaEnterpreneur\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_17462\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_17462"
+		Release.AspNetCompiler.PhysicalPath = "..\SoochnaEnterpreneur\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_17462\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "17462"
+		SlnRelativePath = "..\SoochnaEnterpreneur\"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Android = Debug|Android
+		Debug|Any CPU = Debug|Any CPU
+		Debug|iOS = Debug|iOS
+		Debug|Windows Phone (Universal) = Debug|Windows Phone (Universal)
+		Debug|Windows Phone 8 = Debug|Windows Phone 8
+		Debug|Windows-AnyCPU = Debug|Windows-AnyCPU
+		Debug|Windows-ARM = Debug|Windows-ARM
+		Debug|Windows-x64 = Debug|Windows-x64
+		Debug|Windows-x86 = Debug|Windows-x86
+		Release|Android = Release|Android
+		Release|Any CPU = Release|Any CPU
+		Release|iOS = Release|iOS
+		Release|Windows Phone (Universal) = Release|Windows Phone (Universal)
+		Release|Windows Phone 8 = Release|Windows Phone 8
+		Release|Windows-AnyCPU = Release|Windows-AnyCPU
+		Release|Windows-ARM = Release|Windows-ARM
+		Release|Windows-x64 = Release|Windows-x64
+		Release|Windows-x86 = Release|Windows-x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|Android.ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|Android.Build.0 = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|iOS.ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|iOS.Build.0 = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|Windows Phone (Universal).ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|Windows Phone (Universal).Build.0 = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|Windows Phone 8.ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|Windows Phone 8.Build.0 = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|Windows-AnyCPU.ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|Windows-AnyCPU.Build.0 = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|Windows-ARM.ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|Windows-ARM.Build.0 = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|Windows-x64.ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|Windows-x64.Build.0 = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|Windows-x86.ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Debug|Windows-x86.Build.0 = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|Android.ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|Android.Build.0 = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|iOS.ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|iOS.Build.0 = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|Windows Phone (Universal).ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|Windows Phone (Universal).Build.0 = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|Windows Phone 8.ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|Windows Phone 8.Build.0 = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|Windows-AnyCPU.ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|Windows-AnyCPU.Build.0 = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|Windows-ARM.ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|Windows-ARM.Build.0 = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|Windows-x64.ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|Windows-x64.Build.0 = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|Windows-x86.ActiveCfg = Debug|Any CPU
+		{C9704E31-1C6A-4102-A1CC-5C8AAD5964AD}.Release|Windows-x86.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://soochnasevamobile.visualstudio.com/
+		SccLocalPath0 = .
+		SccWebProject1 = true
+		SccProjectUniqueName1 = ..\\SoochnaEnterpreneur
+		SccProjectName1 = ../SoochnaEnterpreneur
+		SccLocalPath1 = C:\\Workspace\\SoochnaSevaProj\\SoochnaEnterpreneur\\
+		SccProjectEnlistmentChoice1 = 2
+	EndGlobalSection
+EndGlobal

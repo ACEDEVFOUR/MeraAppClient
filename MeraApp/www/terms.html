@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile</title>
+    <meta charset="utf-8">
+     <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script src="js/jquery-ui.js"></script> 
+
+    <script src="js/utils.js"></script>
+    <script src="js/DB.js"></script>
+
+</head>
+<body class="body-scroll">
+		<div class="header-menu">
+		<div class="header-menu1">
+				<div class="floatl header1">
+					<a href="myaccount.html"><div><img class="max-width70" src="images/leftGArrow-w.png" /></div></a>
+				</div>
+				<div class="floatl header2">
+					<div class="upper-case" id="DivTerms">Terms and conditions</div>
+				</div>
+                <div class="floatl header4">
+					&nbsp;
+				</div>
+		</div>
+	</div>
+	<div class="clearboth10"></div>
+    <div class="padding10">
+        <div class="upper-case" id="divWelcome">Welcome to MeraApp</div>
+        <div class="clearboth"></div>
+        <div id="divTermsContent">
+      
+        </div>
+    </div>
+<script type="text/javascript">
+    $(function () {
+        var db = window.openDatabase("SoochnaSevaDB_Offline", "1.0", "SoochnaSevaDB_Offline", 2000000);
+        db.transaction(queryCMS, errorCB);
+    });
+    function queryCMS(tx) {
+        var LangId = 1;
+        LangId = utils.localStorage().get('LangID');
+        var queryText = "SELECT ApplicationId, CMSKeyId, CMSKeyValueId, KeyName, KeyValue, LanguageId FROM CMS  WHERE LanguageId =" + LangId;
+        tx.executeSql(queryText, [], queryCMSSuccess, errorCB);
+    }
+
+    // Query the success callback
+    function queryCMSSuccess(tx, data) {
+        var len = data.rows.length;
+        if (len > 0) {
+            for (var i = 0; i < len; i++) {
+                
+                switch (data.rows.item(i).KeyName) {
+                    case 'CmsTerms':
+                        $('#DivTerms').html(data.rows.item(i).KeyValue);
+                        break;
+                    case 'CmsWelcomeHead':
+                        $('#divWelcome').html(data.rows.item(i).KeyValue);
+                        break;
+                    case 'CmsTermsContent':
+                      $('#divTermsContent').html(data.rows.item(i).KeyValue);
+                        break;
+                   
+
+                }
+
+            }
+        }
+    }
+</script>
+</body>
+</html>

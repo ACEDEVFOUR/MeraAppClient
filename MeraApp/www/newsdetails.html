@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en" style="height:100%;">
+<head>
+    <title>Soochna Seva App</title>
+    <meta charset="utf-8">
+     <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script>
+        function goBack() {
+            var url = document.referrer;
+            window.location.href = url;
+        }
+</script> 
+</head>
+
+<body class="body-scroll">
+    <div class="header-menu">
+        <div class="header-menu1 body8">
+            <div class="floatl header1">
+                <div><img class="max-width70" onclick="goBack()" src="images/leftGArrow-w.png" /></div>
+            </div>
+            <div class="floatl header2">
+                <div class="upper-case" id="DivNewsHead">News</div>
+            </div>
+            <div class="floatl header4">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--<div class="clearboth10"></div>-->
+    <div id="row" class="width100">
+
+        <div class="width100 items" id="divNews" style="text-align:left;">
+
+
+        </div>
+    </div>
+    <script src="js/utils.js"></script>
+    <script src="js/DB.js"></script>
+    <script src="js/newsDetails.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile</title>
+    <meta charset="utf-8">
+    <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+    
+    <link rel="stylesheet" href="css/mobile.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    
+    <script src="js/bootstrap.js"></script>
+    <script>
+        function goBack() {
+            var url = document.referrer;
+            window.location.href = url;
+        }
+
+
+    </script>
+    
+
+</head>
+ 
+<body>
+
+    <div>
+        <div class="header-menu ">
+            <div class="header-menu1" style="background:#ffd800; color:#000000;">
+                <div class="floatl header1">
+                    <div>
+                        <a href="javscript:void(0);" onclick="goBack();"> <img class="max-width70" src="images/leftGArrow.png" /></a>
+                    </div>
+                </div>
+                <div class="floatl header2">
+                    <div>Institutional Surveys</div>
+                </div>
+                <!--<div class="floatl header3">
+                    <a href="searchbycriteria.html"><img class="max-width50" src="images/filter.png" />
+                    <div>Filter</div></a>
+                </div>-->
+            </div>
+
+
+        </div>
+        <div class="clearboth"></div>
+        <div class="max-width90 margin0auto">
+            <div class="upper-case">Basic Information</div>
+            <div class="clearboth"></div>
+            <div>Name of beneficiary</div>
+            <div><input type="text" class="survey-input"></div>
+            <div>Type of Institution</div>
+            <div>
+                <select class="survey-input">
+                    <option>One</option>
+                    <option>Two</option>
+                </select>
+            </div>
+            <div>Name of beneficiary</div>
+            <div><input type="text" class="survey-input"></div>
+            <div>Name of beneficiary</div>
+            <div><input type="text" class="survey-input"></div>
+
+            <div class="upper-case">Medical Information</div>
+            <div class="clearboth"></div>
+            <div>Name of beneficiary</div>
+            <div><input type="text" class="survey-input"></div>
+            <div>Gender</div>
+            <div class="survey-input">Male <input type="radio" name="gender" /> Female <input type="radio" name="gender" /> </div>
+            <div>Name of beneficiary</div>
+            <div><input type="text" class="survey-input"></div>
+            <div>Name of beneficiary</div>
+            <div><input type="text" class="survey-input"></div>
+
+        </div>
+    </div>
+    <div class="clearboth10"></div>
+    
+        <div class="save-proceed">Save</div>
+    
+    <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <a href="new-survey.html" class="color-black text-decoration"><div class="survey-btn">Add New Survey</div></a>
+                    <a href="view-submitted-survey.html" class="color-black text-decoration"><div class="survey-btn">View submitted Survey</div></a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+
+
+        $('.survey-box-style').on('click', function (e) {
+            $('#myModal').modal('show');
+        });
+
+
+
+
+    </script>
+    <script src="js/utils.js"></script>
+    <script src="js/DB.js"></script>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+</body>
+</html>

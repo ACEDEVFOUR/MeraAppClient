@@ -1,0 +1,382 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile</title>
+    <meta charset="utf-8">
+     <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script src="js/jquery-ui.js"></script> 
+    <script src="js/bootstrap.js"></script>
+    <script>
+        function goBack() {
+            var url = document.referrer;
+            window.location.href = url;
+        }
+</script>
+
+</head>
+<body class="body-scroll">
+    <div class="header-menu">
+        <div class="header-menu1">
+            <div class="floatl header1">
+                <div><img class="max-width70" onclick="goBack()" src="images/leftGArrow-w.png" /></div>
+            </div>
+            <div class="floatl header2">
+                <div id="newReistrationHeader" class="upper-case">Add family member</div>
+            </div>
+            <div class="floatl header4">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <div class="clearboth"></div>
+    <div class="col-xs-12" id="infoMessage"></div>
+    <div class="clearboth25"></div>
+
+    <div align="center" id="photoSize" style="display: none;">
+        <div>Actual Size :<span id="sizePic"></span></div>
+        <div>Compressed Size :<span id="resizePic"></span></div>
+    </div>
+    <div class="form-group form-group1" align="center">
+        <!--<div class="photo-upload" align="center" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">-->
+        <div class="" align="center" data-toggle="modal" data-target="#selectSource">
+            <div><img class="max-width100 upload-photo-image" src="images/uploadPhoto.png" id="imgProfilePic" /></div>
+
+        </div>
+        <div id="RemovePhoto" class="remove-photo">Remove photo</div>
+    </div>
+    <div class="clearboth"></div>
+    <div>
+        <div id="basicInfo" class="profile-heading upper-case">Basic information</div>
+        <div id="returnMessage" class="ajax-return"></div>
+        <div class="box1">
+            <div class="form-group form-group1">
+                <input type="text" class="form-control form-control1" id="FirstName" placeholder="First Name *">
+            </div>
+            <div class="form-group form-group1">
+                <input type="text" class="form-control form-control1" id="LastName" placeholder="Surname *">
+            </div>
+            <div class="form-group form-group1">
+                <select class="form-control1 select1" id="Relationship"></select>
+            </div>
+
+            <div class="form-group form-group1">
+                <input type="text" class="form-control form-control1" id="Address" placeholder="Address">
+            </div>
+            <div class="form-group form-group1">
+                <!--<select class="form-control1 select1" id="State">
+                </select>-->
+                <div class="form-control1">
+                    <input type="hidden" id="State" />
+                    <div id="bindState"></div>
+                </div>
+            </div>
+            <div class="form-group form-group1">
+                <!--<select class="form-control1 select1" id="District">
+                </select>-->
+                <div class="form-control1">
+                    <input type="hidden" id="District" />
+                    <div id="bindDistrict"></div>
+                </div>
+
+            </div>
+            <div class="form-group form-group1">
+                <input type="text" class="form-control form-control1" id="EMail" placeholder="E-Mail ID">
+            </div>
+
+            <div class="form-group form-group1">
+                <input type="text" class="form-control form-control1" id="FathersName" placeholder="Father's Name">
+            </div>
+            <div class="form-group form-group1">
+                <input type="text" class="form-control form-control1" id="HusbandsName" placeholder="Spouse's Name">
+            </div>
+
+            <div class="form-group form-group1">
+                <input placeholder="Date of birth" class="textbox-n form-control form-control1" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="DOB">
+            </div>
+            <div class="form-group form-group1">
+                <input type="tel" pattern="\d*" maxlength="10" class="form-control form-control1" id="Phone" placeholder="Mobile Number">
+            </div>
+            <div class="form-group form-group1">
+                <select class="form-control1 select1" id="IDProof" style="display:none;"></select>
+                <input type="tel" pattern="\d*" maxlength="12" class="form-control form-control1" id="IdDetails" placeholder="Enter Aadhar Number">
+            </div>
+
+
+        </div>
+    </div>
+
+    <div>
+        <div id="backgroundInfo" class="profile-heading upper-case">Background information</div>
+        <div class="box1">
+            <div class="form-group form-group1">
+                <select class="form-control1 select1" id="Gender"></select>
+            </div>
+            <div class="form-group form-group1" style="display: none;">
+                <select class="form-control1 select1" id="Age"></select>
+            </div>
+            <div class="form-group form-group1">
+                <select class="form-control1 select1" id="Religion"></select>
+            </div>
+            <div class="form-group form-group1">
+                <select class="form-control1 select1" id="EconomicSocial"></select>
+            </div>
+            <div class="form-group form-group1">
+                <select class="form-control1 select1" id="Occupation"></select>
+            </div>
+            <div class="form-group form-group1">
+                <select class="form-control1 select1" id="Qualification"></select>
+            </div>
+            <div class="form-group form-group1">
+                <select class="form-control1 select1" id="MaritalStatus"></select>
+            </div>
+            <div class="form-group form-group1">
+                <select class="form-control1 select1" id="Category"></select>
+            </div>
+            <div class="form-group form-group1" style="display: none;">
+                <select class="form-control1 select1" id="Department"></select>
+            </div>
+            <div class="form-group form-group1">
+                <select class="form-control1 select1" id="EmpStatus"></select>
+            </div>
+            <div class="form-group form-group1">
+                <select class="form-control1 select1" id="SpecialGroup"></select>
+            </div>
+            <div class="form-group form-group1">
+                <input type="number" class="form-control form-control1" id="FamilyIncome" placeholder="Annual Family Income">
+            </div>
+            <div class="form-group form-group1">
+                <select class="form-control1 select1" id="TypeofDisability"></select>
+            </div>
+            <div class="form-group form-group1">
+                <input id="percentageDisability" type="number" class="form-control form-control1" placeholder="Percentage of disability" maxlength="2">
+            </div>
+            <div class="form-group form-group1">
+                <select class="form-control1 select1" id="Sickness"></select>
+            </div>
+        </div>
+    </div>
+    <div class="clearboth18"></div>
+
+    <div class="save-proceed upper-case cursor-pointer" id="AddBeneficiaryFamily"><div id="registerBeneficiary">Register</div></div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <div id="FamilyMember" class="modal-title">Family Member User</div>
+                </div>
+                <div class="modal-body">
+                    <img style="width: 50px; height: 50px;" src="images/processing.gif" />
+                    <span id="AddingFamily">Adding Family Member, Please wait.....</span>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><div id="Close">Close</div></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="selectSource" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="">Select the Source for the Photo</h4>
+                </div>
+                <div class="col-xs-12" style="margin: 10px 10px 10px 10px;">
+                    <div class="col-xs-5" style="border: 3px solid #F9F1F1; padding: 10px 10px 10px 10px; border-radius: 50%; background-color: #ffffe0">
+                        <div align="center" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">
+                            <img src="images/gallery-icon.png" style="width: 50px;height:50px;" />
+                            <h6>Gallery</h6>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-1">
+
+
+                    </div>
+                    <div class="col-xs-5" style="border: 3px solid #F9F1F1; padding: 10px 10px 10px 10px; border-radius:50%;background-color: #ffffe0">
+                        <div align="center" onclick="getPhoto(pictureSource.CAMERA);">
+                            <img src="images/camera-icon.png" style="width: 50px;height:50px;" />
+                            <h6>Camera</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="js/utils.js"></script>
+    <script src="js/addfamilymember.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(function () {
+
+            var image = document.getElementById('imgProfilePic');
+            if (image != null) {
+                utils.imageToBase64(image.src, image);
+            }
+            utils.localStorage().set('setImage', false);
+        });
+        var pictureSource;   // picture source
+        var destinationType; // sets the format of returned value
+
+        // Wait for device API libraries to load
+        //
+        document.addEventListener("deviceready", onDeviceReady, false);
+
+        // device APIs are available
+        //
+        function onDeviceReady() {
+            pictureSource = navigator.camera.PictureSourceType;
+            destinationType = navigator.camera.DestinationType;
+        }
+        function readFileSize(fileUri, id) {
+
+            var size = btoa(fileUri);
+            $('#' + id).html((size.length / 1000) + " KB");
+        }
+        // Called when a photo is successfully retrieved
+        //
+        function onPhotoURISuccess(imageURI) {
+
+            readFileSize(imageURI, 'sizePic');
+            utils.localStorage().set('setImage', true);
+            var newImage = new Image();
+
+            newImage.height = 115;
+            newImage.width = 115;
+            newImage.src = utils.getImage(imageURI);
+            setTimeout(function () {
+                compress(newImage, 70, 115, 'jpeg', 'imgProfilePic');
+                $('#photoSize').show();
+            }, 2000);
+
+            $('#temp-div').hide();
+            $('#round-temp').removeClass('photo-upload');
+
+        }
+        function compress(source_img_obj, quality, maxWidth, output_format, id) {
+            var mime_type = "image/jpeg";
+            if (typeof output_format !== "undefined" && output_format == "png") {
+                mime_type = "image/png";
+            }
+
+            maxWidth = maxWidth || 1000;
+            var natW = source_img_obj.naturalWidth;
+            var natH = source_img_obj.naturalHeight;
+            var ratio = natH / natW;
+            if (natW > maxWidth) {
+                natW = maxWidth;
+                natH = ratio * maxWidth;
+            }
+
+            var cvs = document.createElement('canvas');
+            cvs.width = natW;
+            cvs.height = natH;
+
+            var ctx = cvs.getContext("2d").drawImage(source_img_obj, 0, 0, natW, natH);
+            var newImageData = cvs.toDataURL(mime_type, quality / 100);
+            $('#' + id).attr('src', newImageData);
+            $('#' + id).show();
+            readFileSize(newImageData, 'resizePic');
+        }
+
+        function getPhoto(source) {
+            // Retrieve image file location from specified source
+            navigator.camera.getPicture(onPhotoURISuccess, onFail, {
+                quality: 50,
+                destinationType: destinationType.DATA_URL,
+                sourceType: source
+            });
+        }
+
+        // Called if something bad happens.
+        //
+        function onFail(message) {
+            //alert('Failed because: ' + message);
+        }
+
+        $('#FirstName').keyup(function () {
+            var regex = new RegExp("^[a-zA-Z ]+$");
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+        }
+        );
+        $('#FirstName').bind("cut copy paste", function (e) {
+            e.preventDefault();
+        });
+
+        $('#LastName').keyup(function () {
+            var regex = new RegExp("^[a-zA-Z ]+$");
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+        }
+        );
+        $('#LastName').bind("cut copy paste", function (e) {
+            e.preventDefault();
+        });
+
+        $('#Address').keyup(function () {
+            var regex = new RegExp("^[a-zA-Z ]+$");
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+        }
+        );
+        $('#Address').bind("cut copy paste", function (e) {
+            e.preventDefault();
+        });
+
+        $('#HusbandsName').keyup(function () {
+            var regex = new RegExp("^[a-zA-Z ]+$");
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+        }
+        );
+        $('#HusbandsName').bind("cut copy paste", function (e) {
+            e.preventDefault();
+        });
+
+        $('#FathersName').keyup(function () {
+            var regex = new RegExp("^[a-zA-Z ]+$");
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+        }
+        );
+        $('#FathersName').bind("cut copy paste", function (e) {
+            e.preventDefault();
+        });
+
+    </script>
+</body>
+</html>

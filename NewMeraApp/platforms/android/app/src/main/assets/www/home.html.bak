@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="en" style="height:100%;">
+<head>
+    <title>Soochna Seva App</title>
+    <meta charset="utf-8">
+     <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mobile.css">
+   
+</head>
+
+<!--<body onload="setTimeout(function(){window.location = 'login.html';}, 4000)" class="body12">-->
+<body class="body3">
+    <div class="outer">
+        <div class="middle">
+            <div class="inner inner3" align="center">
+                <img class="max-width50" id="logo" src="images/meraapp_black.png" />
+
+            </div>
+        </div>
+
+    </div>
+   
+     <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script  type="text/javascript" src="js/utils.js"></script>
+    <script  type="text/javascript" src="js/DB.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        var login = utils.localStorage().get('loggedIn');
+        if (login == true) {
+            window.location.href = 'login.html';
+        }
+        function onDeviceReady() {
+            var device = {
+                'cordovaVersion': device.cordova,
+                'manufacturer': device.manufacturer,
+                'deviceVersion': device.version,
+                'deviceUUID': device.uuid,
+                'devicePlatform': device.platform,
+                'deviceModel': device.model,
+                'deviceSerial': device.serial
+            };
+
+            utils.localStorage().set('deviceDetails', JSON.stringify(device));
+            //if (navigator.geolocation) {
+            //    var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { enableHighAccuracy: true });
+            //    function onSuccess(position) {
+            //        utils.localStorage().set('geolocation', JSON.stringify(position));
+            //    }
+            //    function onError(error) {
+            //        utils.localStorage().set('geolocation', JSON.stringify(error));
+            //    }
+
+            //}
+            //else {
+            //    utils.localStorage().set('geolocation', 'Navigation is offline');
+              
+            //}
+        }
+        var db = window.openDatabase("SoochnaSevaDB_Offline", "1.0", "SoochnaSevaDB_Offline", 2000000);
+        //Check if internet is available
+        $.ajax({
+            url: utils.Urls.IsOnline,
+            type: 'GET',
+            cache: false,
+            contentType: 'application/json',
+            crossdomain: true,
+            async: false,
+            success(data) {
+                db.transaction(GetAnalyticsMaster, errorCB);
+                db.transaction(CreateAnalyticsApp, errorCB);
+                db.transaction(PopulateUsers, errorCB);
+                db.transaction(PopulateLanguages, errorCB);
+                db.transaction(CheckTable, errorCB);
+               // db.transaction(PopulateAppUserWallet, errorCB);
+                db.transaction(PopulateCMS, errorCB);
+            },
+            error(error) {
+                setTimeout(function () { window.location = 'login.html'; }, 4000);
+            }
+        });
+   
+        //if (navigator.onLine == true) {
+        //   //alert('Syncing Data. Please wait ...');
+        //    //alert('navigator.onLine = ' + navigator.onLine);
+        //   // db.transaction(PopulateUsers, errorCB);
+        //  //  db.transaction(PopulateLanguages, errorCB);
+        //}
+        
+        $('#logo').hide().fadeIn(3000);
+		
+    });
+   
+</script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+</body>
+</html>

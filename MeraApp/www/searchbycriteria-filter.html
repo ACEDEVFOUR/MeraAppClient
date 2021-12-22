@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile</title>
+    <meta charset="utf-8">
+     <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    
+	<link rel="stylesheet" href="css/foundation.css">
+	<link rel="stylesheet" href="css/mobile.css">
+    <script src="js/modernizr.js"></script>
+	<script src="js/foundation.min.js"></script>
+	<script>
+	    function goBack() {
+            var url = document.referrer;
+            window.location.href = url;
+	    }
+</script>
+	
+</head>
+ 
+<body class="body-scroll">
+	<div class="header-menu">
+		<div class="header-menu1 body7">
+				<div class="floatl header1">
+					<a href="searchschemes.html"><div><img class="max-width70" onclick="goBack()" src="images/leftGArrow.png" /></div></a>
+				</div>
+				<div class="floatl header2">
+					<div class="upper-case">Filter</div>
+				</div>
+				<div class="floatl header4">
+					
+				</div>
+		</div>
+	</div>
+	<div class="clearboth10"></div>
+<div class="floatl width100">
+	<div class="width42 floatl">	
+	<ul class="tabs vertical" data-tab>
+	  <li class="tab-title active"><a href="#panel1">Gender</a></li>
+	  
+	  <li class="tab-title"><a href="#panel3">Religion</a></li>
+	  <li class="tab-title"><a href="#panel4">Caste<br><span class="anchor3">-SC-</span></a></li>
+	  <li class="tab-title"><a href="#panel5">Economic Status</a></li>
+	  <li class="tab-title"><a href="#panel6">Occupation<br><span class="anchor3">-Farmer-</span></a></li>
+	  <li class="tab-title"><a href="#panel7">Qualification</a></li>
+	  <li class="tab-title"><a href="#panel8">Marital Status</a></li>
+	  <li class="tab-title"><a href="#panel9">Category</a></li>
+	  
+	  <li class="tab-title"><a href="#panel11">Employment Status</a></li>
+	  <li class="tab-title"><a href="#panel12">Social Group</a></li>
+	  
+	  <li class="tab-title"><a href="#panel14">Disability</a></li>
+	  
+	  <li class="tab-title"><a href="#panel16">Sickness</a></li>
+	</ul>
+</div>
+<div class="tabs-content width58 criteria-blk">
+  <div class="content active" id="panel1">
+	  <input type="radio" name="gender" id="male" value="male"> <label class="label-inline-block" for="male">Male</label><br>
+	  <input type="radio" name="gender" id="female" value="female"> <label class="label-inline-block" for="female">Female</label><br>
+	  <input type="radio" name="gender" id="trans" value="Transgender"> <label class="label-inline-block" for="trans">Transgender</label><br>
+	  <div class="clearboth50"></div>
+  </div>
+ 
+  <div class="content" id="panel3">
+		<input type="radio" name="religion" value="Hindu" id="hindu"> <label class="label-inline-block" for="hindu">Hindu</label><br>
+		<input type="radio" name="religion" value="Muslim" id="muslim"> <label class="label-inline-block" for="muslim">Muslim</label><br>
+		<input type="radio" name="religion" value="Sikh" id="sikh"> <label class="label-inline-block" for="sikh">Sikh</label><br>
+		<input type="radio" name="religion" value="Christian" id="christian"> <label class="label-inline-block" for="christian">Christian</label><br>
+		<input type="radio" name="religion" value="Buddhist" id="buddhist"> <label class="label-inline-block" for="buddhist"> Buddhist</label><br>
+		<input type="radio" name="religion" value="Jain" id="jain"> <label class="label-inline-block" for="jain"> Jain</label><br>
+		<div class="clearboth100"></div>
+  </div>
+  <div class="content" id="panel4">
+		<div class="width90 border-bottom-filter font3p5 padding3"><img class="max-width20" src="images/leftGArrow-red.png" /> Caste-SC</div>
+		<div class="clearboth"></div>
+		<input type="radio" name="Caste" value="General" id="General"> <label class="label-inline-block" for="General">General</label><br>
+		<input type="radio" name="Caste" value="Minority" id="Minority"> <label class="label-inline-block" for="Minority">Minority</label><br>
+		<input type="radio" name="Caste" value="Nomadic Tribes" id="Nomadic"> <label class="label-inline-block" for="Nomadic">Nomadic Tribes</label><br>
+		<input type="radio" name="Caste" value="(Other Backward Classes)OBC" id="obc"> <label class="label-inline-block" for="obc">OBC</label><br>
+		<input type="radio" name="Caste" value="(Scheduled Caste)SC" id="sc"> <label class="label-inline-block" for="sc">SC</label><br>
+		<input type="radio" name="Caste" value="(Scheduled Tribe)ST" id="st"> <label class="label-inline-block" for="st">ST</label><br>
+		<input type="radio" name="Caste" value="(Special Backward Classes)SBC" id="sbc"> <label class="label-inline-block" for="sbc">SBC</label><br>
+		<div class="clearboth100"></div>
+  </div>
+  <div class="content" id="panel5">
+		<input type="radio" name="Economic" value="APL" id="apl"> <label class="label-inline-block" for="apl">APL</label><br>
+		<input type="radio" name="Economic" value="BPL" id="bpl"> <label class="label-inline-block" for="bpl">BPL</label><br>
+		<div class="clearboth15"></div>
+  </div>
+  <div class="content" id="panel6">
+		<div class="width90 border-bottom-filter font3p5 padding3"><img class="max-width20" src="images/leftGArrow-red.png" /> Occupation-Farmer</div>
+		<div class="clearboth"></div>
+		<input type="radio" name="Occupation" value="Artisan" id="art"> <label class="label-inline-block" for="art">Tea</label><br>
+		<input type="radio" name="Occupation" value="Daily Wage Worker" id="daily"> <label class="label-inline-block" for="daily">Vegetables</label><br>
+		<input type="radio" name="Occupation" value="Farming" id="farming"> <label class="label-inline-block" for="farming">Potato</label><br>
+		<input type="radio" name="Occupation" value="Govt. Job" id="govt"> <label class="label-inline-block" for="govt">Grains</label><br>
+		<input type="radio" name="Occupation" value="Pvt. Job" id="pvt"> <label class="label-inline-block" for="pvt">Rice</label><br>
+		<input type="radio" name="Occupation" value="Housewife" id="hw"> <label class="label-inline-block" for="hw">Mustard</label><br>
+		
+		<div class="clearboth15"></div>
+  </div>
+  <div class="content" id="panel7">
+		<input type="radio" name="Qualification" value="Below Class 10th Pass" id="below10"> <label class="label-inline-block" for="below10">Below 10th Pass</label><br>
+		<input type="radio" name="Qualification" value="Clas 10th pass (Metric)" id="10th"> <label class="label-inline-block" for="10th">10th pass</label><br>
+		<input type="radio" name="Qualification" value="Diploma Holder" id="diploma"> <label class="label-inline-block" for="diploma">Diploma Holder</label><br>
+		<input type="radio" name="Qualification" value="Graduate" id="graduate"> <label class="label-inline-block" for="graduate">Graduate</label><br>
+		<input type="radio" name="Qualification" value="Post Graduate" id="postg"> <label class="label-inline-block" for="postg">Post Graduate</label><br>
+		<input type="radio" name="Qualification" value="Illiterate" id="illiterate"> <label class="label-inline-block" for="illiterate">Illiterate</label><br>
+		<div class="clearboth15"></div>
+		
+  </div>
+  <div class="content" id="panel8">
+		<input type="radio" name="Marital" id="Divorced/Separated" value="Divorced/Separated"> <label class="label-inline-block" for="Divorced/Separated">Divorced/Separated</label><br>
+		<input type="radio" name="Marital" id="Married" value="Married"> <label class="label-inline-block" for="Married">Married</label><br>
+		<input type="radio" name="Marital" id="unmarried" value="Never Married"> <label class="label-inline-block" for="trans">Never Married</label><br>
+		<input type="radio" name="Marital" id="Widowed" value="Widowed"> <label class="label-inline-block" for="Widowed">Widowed</label><br>
+		<div class="clearboth15"></div>
+  </div>
+  <div class="content" id="panel9">
+		<input type="radio" name="category" id="Education" value="Education"> <label class="label-inline-block" for="Education">Education</label><br>
+		<input type="radio" name="category" id="Employment" value="Employment"> <label class="label-inline-block" for="Employment">Employment</label><br>
+		<input type="radio" name="category" id="financial" value="Financial Inclusion"> <label class="label-inline-block" for="financial">Financial Inclusion</label><br>
+		<input type="radio" name="category" id="Health" value="Health"> <label class="label-inline-block" for="Health">Health</label><br>
+		<input type="radio" name="category" id="Livelihood" value="Livelihood"> <label class="label-inline-block" for="Livelihood">Livelihood</label><br>
+		<input type="radio" name="category" id="Social" value="Social Security"> <label class="label-inline-block" for="Social">Social Security</label><br>
+		<input type="radio" name="category" id="Agriculture" value="Agriculture"> <label class="label-inline-block" for="Agriculture">Agriculture</label><br>
+		<input type="radio" name="category" id="All" value="All"> <label class="label-inline-block" for="All">All</label><br>
+		<div class="clearboth15"></div>
+    
+  </div>
+  
+  <div class="content" id="panel11">
+		<input type="radio" name="Employment" id="Employed" value="Employed"> <label class="label-inline-block" for="Employed">Employed</label><br>
+		<input type="radio" name="Employment" id="Unemployed" value="Unemployed"> <label class="label-inline-block" for="Unemployed">Unemployed</label><br>
+		<div class="clearboth15"></div>
+  </div>
+  <div class="content" id="panel12">
+		<input type="radio" name="special" id="bonded" value="Bonded Laborers"> <label class="label-inline-block" for="bonded">Bonded Laborers</label><br>
+		<input type="radio" name="special" id="deserted" value="Deserted Woman"> <label class="label-inline-block" for="deserted">Deserted Women</label><br>
+		<input type="radio" name="special" id="Dwarves" value="Dwarves"> <label class="label-inline-block" for="Dwarves">Dwarves</label><br>
+		<input type="radio" name="special" id="pregnant" value="Pregnant Woman"> <label class="label-inline-block" for="pregnant">Pregnant Women</label><br>
+		<input type="radio" name="special" id="lactating" value="Lactating Women"> <label class="label-inline-block" for="lactating">Lactating Women</label><br>
+		<input type="radio" name="special" id="scavengers" value="Manual Scavengers"> <label class="label-inline-block" for="scavengers">Manual Scavengers</label><br>
+		<input type="radio" name="special" id="victim" value="Women victims of crime and harassment"> <label class="label-inline-block" for="victim">Women victims of crime and harassment</label><br>
+		<input type="radio" name="special" id="disasters" value="Families affected due to natural or man-made disasters"> <label class="label-inline-block" for="disasters">Families affected due to natural or man-made disasters</label><br>
+		<div class="clearboth15"></div>
+  </div>
+  
+  <div class="content" id="panel14">
+		<input type="radio" name="Disability" value="Hearing" id="Hearing"> <label class="label-inline-block" for="Hearing">Hearing</label><br>
+		<input type="radio" name="Disability" value="Mental Illness" id="mental"> <label class="label-inline-block" for="mental">Mental Illness</label><br>
+		<input type="radio" name="Disability" value="Mental Retardation" id="retardation"> <label class="label-inline-block" for="retardation">Mental Retardation</label><br>
+		<input type="radio" name="Disability" value="Movement" id="Movement"> <label class="label-inline-block" for="Movement">Movement</label><br>
+		<input type="radio" name="Disability" value="Speech" id="Speech"> <label class="label-inline-block" for="Speech">Speech</label><br>
+		<input type="radio" name="Disability" value="Visual" id="Visual"> <label class="label-inline-block" for="Visual">Visual</label><br>
+		<input type="radio" name="Disability" value="None" id="None"> <label class="label-inline-block" for="None">None</label><br>
+		<input type="radio" name="Disability" value="Others" id="Others"> <label class="label-inline-block" for="Others">Others</label><br>
+		<div class="clearboth15"></div>
+				
+  </div>
+  
+  <div class="content" id="panel16">
+		<input type="radio" name="illness" value="AIDS" id="AIDS"> <label class="label-inline-block" for="AIDS">AIDS</label><br>
+		<input type="radio" name="illness" value="Cancer" id="Cancer"> <label class="label-inline-block" for="Cancer">Cancer</label><br>
+		<input type="radio" name="illness" value="Leprosy" id="Leprosy"> <label class="label-inline-block" for="Leprosy">Leprosy</label><br>
+		<input type="radio" name="illness" value="Tuberculosis" id="Tuberculosis"> <label class="label-inline-block" for="Tuberculosis">Tuberculosis</label><br>
+		<input type="radio" name="illness" value="Paralysis" id="Paralysis"> <label class="label-inline-block" for="Paralysis">Paralysis</label><br>
+		<div class="clearboth15"></div>
+   
+  </div>
+</div>
+
+</div>
+
+	<div class="clearboth">&nbsp;</div>
+	<a href="searchresult.html"><div class="save-proceed upper-case">Apply</div></a>    
+
+<script src="js/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>	
+</body>
+</html>

@@ -1,0 +1,563 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile</title>
+    <meta charset="utf-8">
+    <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/DB.js"></script>
+    <script>
+        function goBack() {
+            var url = document.referrer;
+            window.location.href = url;
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            $("#lblinprocess").click(function () {
+
+                if (!isWalletAdd) {
+                    $(".position-a-status").css("display", "block");
+                    $("#in-process-box").css("display", "block");
+                }
+                else {
+                    $(".position-a-status").css("display", "none");
+                    $("#in-process-box").css("display", "none");
+                    UpdateStatus(4);
+                }
+
+
+                $("#approved-box").css("display", "none");
+                //$("#rejected-box").css("display", "none");
+            });
+
+            $("#lblApproved").click(function () {
+                $(".position-a-status").css("display", "block");
+                $("#in-process-box").css("display", "none");
+                $("#approved-box").css("display", "block");
+                //$("#rejected-box").css("display", "none");
+            });
+
+            //$("#lblRejected").click(function () {
+            //    $(".position-a-status").css("display", "block");
+            //    $("#in-process-box").css("display", "none");
+            //    $("#approved-box").css("display", "none");
+            //    //$("#rejected-box").css("display", "block");
+            //});
+
+            //$(".paid-button").click(function () {
+            //    $(".position-a-status").css("display", "none");
+
+            //});
+
+        });
+    </script>
+    <script>
+        var SchemeId;
+        var isWalletAdd = false;
+        $(document).ready(function () {
+            var db = window.openDatabase("SoochnaSevaDB_Offline", "1.0", "SoochnaSevaDB_Offline", 2000000);
+            db.transaction(queryCMS, errorCB);
+            var LangId = 1;
+
+            LangId = utils.localStorage().get('LangID');
+            $(".span-steps-btn").click(function () {
+                $(this).toggleClass('span-steps-btn-back');
+            });
+            $(".circle-steps").click(function () {
+                $(this).toggleClass('circle-steps-back');
+            });
+
+            var benSchemeDtls = utils.localStorage().get('SchemStatusDtls');
+            if (LangId == 1) {
+                $("#benName").html(benSchemeDtls.BenName.toUpperCase() + " SCHEME ");
+            }
+            else
+                if (LangId == 2) {
+
+                    var name = benSchemeDtls.BenName.replace("'s", '');
+                    name
+                    $("#benName").html(name + " की योजना");
+                }
+            $("#lglProcessingFee").html(benSchemeDtls.ProcessingFee)
+            $("#SchemeName").html(benSchemeDtls.SchemeName);
+            $("#SchemeDesc").html(benSchemeDtls.Desc);
+            $("#SchemeStatus").html("Status: " + benSchemeDtls.Status);
+
+            if (benSchemeDtls.Status == "Pending") {
+                $("#lblPending").removeClass('checkedScheme');
+                $("#lblRejected").removeClass('checkedScheme');
+                $("#lblinprocess").removeClass('checkedScheme');
+                $("#lblApproved").removeClass('checkedScheme');
+                $("#lblPending").addClass('checkedScheme');
+            } else if (benSchemeDtls.Status == "Rejected") {
+                $("#lblPending").removeClass('checkedScheme');
+                $("#lblRejected").removeClass('checkedScheme');
+                $("#lblinprocess").removeClass('checkedScheme');
+                $("#lblApproved").removeClass('checkedScheme');
+                $("#lblRejected").addClass('checkedScheme');
+            } else if (benSchemeDtls.Status == "Approved") {
+                $("#lblPending").removeClass('checkedScheme');
+                $("#lblRejected").removeClass('checkedScheme');
+                $("#lblinprocess").removeClass('checkedScheme');
+                $("#lblApproved").removeClass('checkedScheme');
+                $("#lblApproved").addClass('checkedScheme');
+            }
+            else if (benSchemeDtls.Status == "In Process") {
+                $("#lblPending").removeClass('checkedScheme');
+                $("#lblRejected").removeClass('checkedScheme');
+                $("#lblApproved").removeClass('checkedScheme');
+                $("#lblinprocess").removeClass('checkedScheme');
+                $("#lblinprocess").addClass('checkedScheme');
+            }
+
+            SchemeId = benSchemeDtls.SchemId;
+
+        });
+
+        function NotRequired() {
+            $("#lblinprocess").removeClass('checkedScheme');
+            $(".position-a-status").css("display", "none");
+            $("#in-process-box").css("display", "none");
+        }
+
+        function StatusUpdate(state) {
+            $("#approved-box").css("display", "none");
+            $(".position-a-status").css("display", "none");
+            if (state == 'U') {
+
+            } else if (status == 'UC') {
+
+            }
+
+            UpdateStatus(3);
+        }
+
+        var ShowScheme = function () {
+            utils.localStorage().set('SchemeId', SchemeId);
+            window.location.href = 'schemedetails.html?schemeId=' + SchemeId;
+            return false;
+        };
+
+        var updatedStatus = 0;
+        function UpdateStatus(Status) {
+            debugger;
+            $("#lblPending").removeClass('checkedScheme');
+            $("#lblRejected").removeClass('checkedScheme');
+            $("#lblApproved").removeClass('checkedScheme');
+            $("#lblinprocess").removeClass('checkedScheme');
+            utils.localStorage().set('SchemeStatus', Status);
+
+            var db = window.openDatabase("SoochnaSevaDB_Offline", "1.0", "SoochnaSevaDB_Offline", 2000000);
+
+            db.transaction(callBackUpdateBenStatus, errorCB);
+
+
+            //utils.ajaxCall(ajaxObj.url, ajaxObj.type, ajaxObj.obj, callBackUpdateBenStatus);
+        }
+
+
+
+        function callBackUpdateBenStatus(tx) {
+            var benSchemeDtls = utils.localStorage().get('SchemStatusDtls');
+            var user = utils.localStorage().get('user');
+            var Status = utils.localStorage().get('SchemeStatus');
+            var LangId = utils.localStorage().get('LangID');
+            updatedStatus = Status;
+            //var ajaxObj = {
+            //    url: utils.Urls.UpdateBenStatus,
+            //    type: 'POST',
+            //    obj: {
+            //        'schemeId': benSchemeDtls.SchemId,
+            //        'beneficiaryId': benSchemeDtls.BenId,
+            //        'userId': user.userName,
+            //        'Status': Status
+            //    }
+            //};
+
+            var db = window.openDatabase("SoochnaSevaDB_Offline", "1.0", "SoochnaSevaDB_Offline", 2000000);
+            db.transaction(callBackCheckBenStatus, errorCB);
+
+        }
+
+        function callBackCheckBenStatus(tx) {
+            var benSchemeDtls = utils.localStorage().get('SchemStatusDtls');
+            var user = utils.localStorage().get('user');
+            var Status = utils.localStorage().get('SchemeStatus');
+            var LangId = utils.localStorage().get('LangID');
+            updatedStatus = Status;
+            //var ajaxObj = {
+            //    url: utils.Urls.UpdateBenStatus,
+            //    type: 'POST',
+            //    obj: {
+            //        'schemeId': benSchemeDtls.SchemId,
+            //        'beneficiaryId': benSchemeDtls.BenId,
+            //        'userId': user.userName,
+            //        'Status': Status
+            //    }
+            //};
+
+            //var queryText = "Select * from AppUserWallet where SchemeId = " + benSchemeDtls.SchemId + " and BeneficiaryId = " + benSchemeDtls.BenId + " and UserId = '" + user.userName + "'";
+            //tx.executeSql(queryText, [], UpdateCheckBenStatusSuccess, errorCB);
+
+            var queryText = "update BeneficiaryApplied set Status =" + updatedStatus + " where SchemeId = " + benSchemeDtls.SchemId + " and BeneficiaryId = " + benSchemeDtls.BenId + " and UserId = '" + user.userName + "'";
+            tx.executeSql(queryText, [], UpdateBenStatusSuccess, errorCB);
+
+            if (!isWalletAdd && updatedStatus == 4) {
+                var queryText = "select s.Id, s.ServiceTypeId, s.ProgramName, st.ServiceName, s.Price, s.LangID  from Services s inner join ServiceType st on st.Id = s.ServiceTypeId  where s.ProgramName = 'Scheme Services' and s.LangID =" + LangId;
+                tx.executeSql(queryText, [], querySchemeServicesSuccess, errorCB);
+
+
+                //if (!isWalletAdd) {
+                //    $(".position-a-status").css("display", "block");
+                //    $("#in-process-box").css("display", "block");
+                //}
+                //else {
+                //    $(".position-a-status").css("display", "none");
+                //    $("#in-process-box").css("display", "none");
+                //    UpdateStatus(4);
+                //}
+
+
+                $("#approved-box").css("display", "none");
+                //$("#rejected-box").css("display", "none");
+            }
+
+
+
+        }
+
+
+
+        function UpdateBenStatusSuccess(tx, data) {
+            var LangId = 1;
+            LangId = utils.localStorage().get('LangID');
+            var len = data.rows.length;
+            if (data.rowsAffected > 0) {
+
+                var Status = utils.localStorage().get('SchemeStatus');
+                if (LangId == 1) {
+                    alert("Status Updated Successfully.");
+                }
+                else if (LangId == 2) {
+                    alert("Status सफलतापूर्वक अपडेट किया गया।");
+                }
+
+                //1:Pending; 2:Rejected; 3:Approved; 4:In Process
+                if (Status == 1) {
+                    $("#SchemeStatus").html("Status: Pending");
+                } else if (Status == 2) {
+                    $("#SchemeStatus").html("Status: Rejected");
+                } else if (Status == 3) {
+                    $("#SchemeStatus").html("Status: Approved");
+                } else if (Status == 4) {
+                    $("#SchemeStatus").html("Status: In Process");
+                }
+
+
+            }
+            else {
+                if (LangId == 1) {
+                    alert("Error while updating Status.");
+                }
+                else if (LangId == 2) {
+                    alert("अपडेट नहीं किया जा सकता है। कृपया कुछ देर बाद प्रयास करें।");
+                }
+
+            }
+        }
+
+        function querySchemeServicesSuccess(tx, data) {
+            var len = data.rows.length;
+            if (len > 0) {
+                var benSchemeDtls = utils.localStorage().get('SchemStatusDtls');
+                var LangId = utils.localStorage().get('LangID');
+                var benVal = benSchemeDtls.BenId;
+                var today = new Date();
+                var user = utils.localStorage().get('user');
+                var formattedtoday = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+                SchemeId = " + benSchemeDtls.SchemId + "
+                var queryText = "INSERT INTO AppUserWallet (Id, UserId, ServiceTypeId, BeneficiaryId, ServiceName, Price, Date, LangID, SchemeId ) VALUES (" + utils.randomNum() + ",'" +
+                    user.userName + "'," + data.rows[0].Id + "," + benVal + ",'" + data.rows[0].ServiceName + "'," + benSchemeDtls.ProcessingFee + ",'" + formattedtoday + "'," +
+                    LangId + "," + benSchemeDtls.SchemId + ")";
+
+                tx.executeSql(queryText, [], querySaveAppUserWalletSuccess, errorCB);
+
+            }
+        }
+
+        function querySaveAppUserWalletSuccess(tx, data) {
+            var len = data.rows.length;
+            return false;
+        }
+
+
+
+        function queryCMS(tx) {
+            var user = utils.localStorage().get('user');
+            var LangId = utils.localStorage().get('LangID');
+            var benSchemeDtls = utils.localStorage().get('SchemStatusDtls');
+            if (user != undefined && user != null && user.LangId != undefined && user.LangId != null) {
+                LangId = user.LangId;
+            }
+            var queryText = "SELECT ApplicationId, CMSKeyId, CMSKeyValueId, KeyName, KeyValue, LanguageId FROM CMS  WHERE LanguageId =" + LangId;
+            tx.executeSql(queryText, [], queryCMSSuccess, errorCB);
+
+            var queryText = "Select * from AppUserWallet where SchemeId = " + benSchemeDtls.SchemId + " and BeneficiaryId = " + benSchemeDtls.BenId + " and UserId = '" + user.userName + "'";
+            tx.executeSql(queryText, [], UpdateCheckBenStatusSuccess, errorCB);
+
+        }
+
+        // Query the success callback
+        function queryCMSSuccess(tx, data) {
+            var len = data.rows.length;
+            if (len > 0) {
+                $.each(data.rows, function (i, dat) {
+
+                    var element = dat.KeyName;
+                    var id = element.replace("CmsKey", "div");
+                    $('#' + id).html(dat.KeyValue);
+
+                });
+                for (var i = 0; i < len; i++) {
+                    switch (data.rows.item(i).KeyName) {
+
+                        case 'CmsReadFullScheme':
+                            $('#DivReadFullScheme').html(data.rows.item(i).KeyValue);
+                            break;
+                        case 'CmsApplicationStatus':
+                            $('#DivApplicationStatus').html(data.rows.item(i).KeyValue);
+                            break;
+                        case 'CmsUpdateAndProceed':
+                            $('#DivSaveScheme').html(data.rows.item(i).KeyValue);
+                            break;
+
+
+                    }
+
+                }
+            }
+        }
+
+        function UpdateCheckBenStatusSuccess(tx, data) {
+            var LangId = utils.localStorage().get('LangID');
+            var len = data.rows.length;
+            if (len > 0) {
+                isWalletAdd = true;
+            }
+            else {
+                isWalletAdd = false;
+            }
+        }
+    </script>
+
+    <style>
+            /* The Modal (background) */
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+                -webkit-animation-name: fadeIn; /* Fade in the background */
+                -webkit-animation-duration: 0.4s;
+                animation-name: fadeIn;
+                animation-duration: 0.4s
+            }
+
+            /* Modal Content */
+            .modal-content {
+                /*position: fixed;
+        top: 0;
+        background-color: #fefefe;
+        width: 100%;
+        -webkit-animation-name: slideIn;
+        -webkit-animation-duration: 0.4s;
+        animation-name: slideIn;
+        animation-duration: 0.4s*/
+            }
+
+            /* The Close Button */
+            .close {
+            }
+
+                .close:hover,
+                .close:focus {
+                    color: #000;
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+
+            .modal-header {
+                padding: 2px 16px;
+                background-color: #5cb85c;
+                color: white;
+            }
+
+            .modal-body {
+                padding: 2px 16px;
+            }
+
+            .modal-footer {
+                padding: 2px 16px;
+                background-color: #5cb85c;
+                color: white;
+            }
+
+            /* Add Animation */
+            @-webkit-keyframes slideIn {
+                from {
+                    bottom: -300px;
+                    opacity: 0
+                }
+
+                to {
+                    bottom: 0;
+                    opacity: 1
+                }
+            }
+
+            @keyframes slideIn {
+                from {
+                    bottom: -300px;
+                    opacity: 0
+                }
+
+                to {
+                    bottom: 0;
+                    opacity: 1
+                }
+            }
+
+            @-webkit-keyframes fadeIn {
+                from {
+                    opacity: 0
+                }
+
+                to {
+                    opacity: 1
+                }
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0
+                }
+
+                to {
+                    opacity: 1
+                }
+            }
+    </style>
+
+</head>
+<body class="body-scroll body10">
+    <div class="header-menu">
+        <div class="header-menu1">
+            <div class="floatl header1">
+                <div><img class="max-width70" onclick="goBack()" src="images/leftGArrow-w.png" /></div>
+            </div>
+            <div class="floatl header2">
+                <div class="upper-case" id="benName"></div>
+            </div>
+            <div class="floatl header4">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <div class="clearboth10"></div>
+    <div class="padding10 body5">
+        <div class="upper-case" id="SchemeName"></div>
+        <div class="clearboth"></div>
+        <div id="SchemeDesc"></div>
+        <div class="clearboth"></div>
+        <div>
+            <div class="tags floatl width50 padding2" id="SchemeStatus"></div>
+            <a href="#"><div class="tags floatl width50 padding2 text-align-c border-aba9ab" onclick="ShowScheme();" id="DivReadFullScheme">Read Full Scheme</div></a>
+        </div>
+        <div class="clearboth0"></div>
+    </div>
+    <div class="padding10">
+        <div class="floatl position-r width100">
+            <div class="floatl width40">
+                <div class="clearboth10"></div>
+                <div class="color-w font3p5" id="DivApplicationStatus">Application <br>Status</div>
+            </div>
+            <div class="width60 floatl">
+                <input class="radio-opacity floatl" type="radio" name="schemestatus" id="pending" onclick="UpdateStatus(1);" /> <label for="pending" id="lblPending" class="label-radio1 label-radio text-align-c">Pending</label>
+                <div class="clearboth2"></div>
+                <input class="radio-opacity floatl" type="radio" name="schemestatus" id="inprocess" /> <label for="inprocess" id="lblinprocess" class="label-radio1 label-radio text-align-c">In Process</label>
+                <div class="clearboth2"></div>
+                <input class="radio-opacity floatl" type="radio" name="schemestatus" id="approved" /> <label for="approved" id="lblApproved" class="label-radio1 label-radio text-align-c">Approved</label>
+                <div class="clearboth2"></div>
+                <input class="radio-opacity floatl" type="radio" name="schemestatus" id="rejected" onclick="UpdateStatus(2);" /> <label for="rejected" id="lblRejected" class="label-radio1 label-radio text-align-c">Rejected</label>
+                <div class="clearboth2"></div>
+
+                <div class="position-a-status">
+                    <div id="in-process-box">
+                        The process fee is Rs. <label id="lglProcessingFee" class=""></label>.
+                        <br /><br />
+                        <div class="text-align-c">
+                            <input type="button" id="myBtn" class="paid-button" value="Paid" />
+                            <input type="button" class="paid-button unpaid-button" value="Not Paid" onclick="NotRequired();" />
+
+                        </div>
+                        </div>
+                        <div id="approved-box">
+                            <!--Upload Evidence
+                        <br /><br />-->
+                        <div class="text-align-c"><!--<input type="file" class="" value="Upload" /><br /><br />-->
+                            <input type="button" class="paid-button" value="Save" onclick="StatusUpdate('U');" /> <input type="button" class="paid-button" style="background:#666" value="Cancel" onclick="StatusUpdate('UC');" />
+                        </div>
+                    </div>
+                    <!--<div id="rejected-box">
+                        <div><textarea placeholder="Specify the reason" cols="25" rows="5"></textarea> <br /><br />
+                        <div class="text-align-c"><input type="button" class="paid-button" value="Save" onclick="StatusUpdate();" /> <input type="button" class="paid-button" style="background:#666" value="Cancel" /></div></div>
+                    </div>-->
+                </div>
+            </div>
+            <div class="clearboth10"></div>
+        </div>
+
+
+        <!-- The Modal -->
+
+
+        <script>
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn");
+
+            // When the user clicks the button, open the modal
+            btn.onclick = function () {
+                $(".position-a-status").css("display", "none");
+                $("#in-process-box").css("display", "none");
+                UpdateStatus(4);
+            }
+
+            //// When the user clicks anywhere outside of the modal, close it
+            //window.onclick = function (event) {
+            //    if (event.target == modal) {
+            //        modal.style.display = "none";
+            //    }
+            //}
+        </script>
+
+    </div>
+    <div class="clearboth10"></div>
+    <a class="upper-case" href="myaccount.html">
+        <div class="save-proceed" id="DivSaveScheme">Save Scheme Status</div>
+    </a>
+</body>
+</html>

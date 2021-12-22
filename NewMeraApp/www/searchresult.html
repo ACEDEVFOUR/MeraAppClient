@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile</title>
+    <meta charset="utf-8">
+     <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+	<link rel="stylesheet" href="css/foundation.css">
+	<link rel="stylesheet" href="css/mobile.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+	<script src="js/foundation.min.js"></script>
+     <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script src="js/jquery-ui.js"></script> 
+    <script src="js/bootstrap.js"></script>
+	<script>
+	    function goBack() {
+	        window.history.back();
+	    }
+</script>
+	
+</head>
+ 
+<body>
+
+ <div id="searchResult" style="display:none">
+     <div class="header-menu">
+    <div class="header-menu1">
+		<div class="floatl header1">
+			<div>
+                <a href="Javscript:void(0);" onclick="goBack();"> <img class="max-width70"  src="images/leftGArrow-w.png" /></a>
+			</div>
+		</div>
+		<div class="floatl header2">
+			<div id="divSearchResultText">Search Results</div>
+		</div>
+		<!--<div class="floatl header3">
+			<a href="searchbycriteria.html"><img class="max-width50" src="images/filter.png" />
+			<div>Filter</div></a>
+		</div>-->
+	</div>
+         </div>
+	<div class="clearboth15"></div>
+     <div id="searchResultData">
+
+     </div>
+    </div>
+
+<div class="modal fade" style="z-index:1000" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title">Searching Schemes</h4>
+                </div>
+                <div class="modal-body">
+                    <img style="width: 50px; height: 50px;" src="images/processing.gif" />
+                    <span>Searching Schemes, Please wait.....</span>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>   
+
+<script src="js/utils.js"></script>
+<script src="js/DB.js"></script>
+<script src="js/foundation.min.js"></script>
+<script src="js/SearchResult.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+</body>
+</html>

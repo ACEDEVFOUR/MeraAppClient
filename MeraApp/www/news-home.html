@@ -1,0 +1,401 @@
+﻿<!DOCTYPE html>
+<html lang="en" style="height:100%;">
+<head>
+    <title>Soochna Seva App</title>
+    <meta charset="utf-8">
+    <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LLFW6FG6QY"></script>
+    <script>
+        $(document).ready(function () {
+            //var langId = utils.localStorage().get('LangID');
+            //if (langId == 1) {
+            //    $('#DivNotification').prop('title', 'This feature will be available soon.');
+            //    $('#DivSurvey').prop('title', 'This feature will be available soon.');
+            //    $('#DivGrievance').prop('title', 'This feature will be available soon.');
+            //}
+            //else if (langId == 2) {
+            //    $('#DivNotification').prop('title', 'यह सुविधा जल्द ही उपलब्ध होगी।');
+            //    $('#DivSurvey').prop('title', 'यह सुविधा जल्द ही उपलब्ध होगी।');
+            //    $('#DivGrievance').prop('title', 'यह सुविधा जल्द ही उपलब्ध होगी।');
+            //}
+
+            $('#toggle-side-menu').click(function () {
+                $('#side-menu').show("slide", { direction: "left" }, 100);
+            });
+
+            $('#close-menu').click(function () {
+                $('#side-menu').hide("slide", { direction: "left" }, 100);
+            });
+
+            $('#bot-menu-hide').click(function () {
+                $(".bottom-menu").slideToggle();
+                $("#bot-menu-show").show();
+            });
+
+            $('#bot-menu-show').click(function () {
+                $("#bot-menu-show").slideToggle();
+                $(".bottom-menu").slideToggle();
+            });
+        });
+
+
+    </script>
+
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+        }
+
+        img {
+            vertical-align: middle;
+        }
+
+        /* Position the image container (needed to position the left and right arrows) */
+        .container {
+            position: relative;
+        }
+
+        /* Hide the images by default */
+        .mySlides {
+            display: none;
+        }
+
+        /* Add a pointer when hovering over the thumbnail images */
+        .cursor {
+            cursor: pointer;
+        }
+
+        /* Next & previous buttons */
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 10vw;
+            width: auto;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            -webkit-user-select: none;
+            z-index: 100;
+        }
+
+        /* Position the "next button" to the right */
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+            /* On hover, add a black background color with a little bit see-through */
+            .prev:hover,
+            .next:hover {
+                background-color: rgba(0, 0, 0, 0.8);
+            }
+
+        /* Number text (1/3 etc) */
+        .numbertext {
+            color: #f2f2f2;
+            font-size: 12px;
+            padding: 8px 12px;
+            position: absolute;
+            top: 0;
+        }
+
+        /* Container for image text */
+        .caption-container {
+            text-align: center;
+            background-color: #222;
+            padding: 2px 16px;
+            color: white;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Six columns side by side */
+        .column {
+            float: left;
+            width: 16.66%;
+        }
+
+        /* Add a transparency effect for thumnbail images */
+        .demo {
+            opacity: 0.6;
+        }
+
+            .active,
+            .demo:hover {
+                opacity: 1;
+            }
+    </style>
+</head>
+
+<body>
+
+
+    <div style="position:absolute;top:2vw; left:2vw; z-index:1;"><img class="max-width10vw" id="toggle-side-menu" src="images/hambuger-white.png" /></div>
+    <div id="bot-menu-show"><img src="images/uparrow.png" /></div>
+    <div>
+        <div class="box-inner" id="side-menu">
+            <div style="position:absolute; top:6vw; right:6vw; color:#fff;font-size:6vw;" id="close-menu">X</div>
+            <nav class="navigation">
+                <ul class="mainmenu">
+                    <li><a href="news-home.html" id="aHome">Home</a></li>
+                    <li>
+                        <a style="cursor:pointer;" class="sub-menu-li" id="aSearchScheme">Search Schemes</a>
+                        <ul class="submenu">
+                            <li><a href="searchbycriteria.html" id="aSearchByCriteria">Search by criteria</a></li>
+                            <li><a href="searchbyuserprofile.html" id="aSearchByProfile">Search by profile</a></li>
+                        </ul>
+
+                    </li>
+                    <li>
+                        <a style="cursor:pointer;" id="aMyAccount" class="sub-menu-li">My Account</a>
+                        <ul class="submenu">
+                            <li><a href="" id="aMyBeneficiaries">All Beneficiaries</a></li>
+                            <li><a href="registerprimarybeneficiary.html" id="aRegisterBeneficiary">Add New Beneficiary</a></li>
+
+                        </ul>
+                    </li>
+                    <li><a href="your-wallet.html" id="aRevenue">Revenue</a></li>
+                    <li><a href="add-income.html" id="aAddRevenue">Add Revenue</a></li>
+                    <li><a id="aTrackBeneficiary" href="track-beneficiary.html">Track Beneficiary</a></li>
+                    <li onclick="SyncDataUpload()"><a style="cursor:pointer;" id="divSync">Sync Data</a></li>
+                    <li><a href="terms.html" id="divTerms">Terms and Conditions</a></li>
+                    <li><a style="cursor:pointer;" onclick="Logout();" id="divLogout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="outer overlay" id="SyncUpdateProgress" style="display:none;">
+        <div class="middle">
+            <div class="inner" align="center">
+                <div><img class="max-width20 sync-image" src="images/sync-data.png" /></div>
+                <div class="clearboth"></div>
+                <div class="sync-data" id="DivSyncMessage"></div>
+                <div class="sync-data"></div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="body8">
+        <div align="center"><img style="max-width:10%;padding-top:2vw;" src="images/news.png" /></div>
+         <!--<a class="prev" onclick="plusSlides(-1)">❮</a> <a class="next" onclick="plusSlides(1)">❯</a>-->
+        <div id="divNews" class="sub-app-box">
+
+
+        </div>
+
+    </div>
+    <div class="clearboth3"></div>
+   
+    <div class="sub-app-box" style="background:#f3f1f1;padding:10px 10px 0px 10px;">
+        <a href="notification.html"><div id="DivNotification" class="notification" data-toggle="tooltip" title='This feature will be available soon.' data-placement="auto;"></div></a>
+
+        <div class="items width25" onclick="GetSubAppSchemesResult('Education');">
+            <div><img class="max-width100" src="images/education-sub.png" /></div>
+            <div class="text-align-c overflow-ellipse font3" style="color:#a0a0a0;" id="DivEducation">Education</div>
+        </div>
+        <div class="items width25" onclick="GetSubAppSchemesResult('Agriculture');">
+            <div><img class="max-width100" src="images/agri-sub.png" /></div>
+            <div class="text-align-c overflow-ellipse font3" style="color:#a0a0a0;" id="DivAgriculture">Agriculture</div>
+        </div>
+        <div class="items width25" onclick="GetSubAppSchemesResult('Empowerment');">
+            <div><img class="max-width100" src="images/women-sub.png" /></div>
+            <div class="text-align-c overflow-ellipse font3" style="color:#a0a0a0;" id="DivEmpowerment">Women Empowerment</div>
+        </div>
+        <div class="items width25" onclick="GetSubAppSchemesResult('Health');">
+            <div><img class="max-width100" src="images/health-sub.png" /></div>
+            <div class="text-align-c overflow-ellipse font3" style="color:#a0a0a0;" id="DivHealth">Health</div>
+        </div>
+        <div class="items width25" onclick="GetSubAppSchemesResult('Disability');">
+            <div><img class="max-width100" src="images/differently-abled.png" /></div>
+            <div class="text-align-c overflow-ellipse font3" style="color:#a0a0a0;" id="DivDisability">Differently Abled</div>
+        </div>
+        <div class="items width25" onclick="GetSubAppSchemesResult('Legal');">
+            <div><img class="max-width100" src="images/rights_sub.png" /></div>
+            <div class="text-align-c overflow-ellipse font3" style="color:#a0a0a0;" id="DivRights">Rights</div>
+        </div>
+    </div>
+
+
+    <div class="upper-case" id="divPopularScheme" style="padding:2%;">Popular schemes</div>
+
+    <div id="row1">
+        <div id="divPopular">
+
+        </div>
+    </div>
+
+    <div class="clearboth3"></div>
+
+    <div class="text-align-c">
+        <div style="width:30%; display:inline-block;">
+            <a href="https://rtionline.gov.in/request/request.php" target="_blank">
+                <div id="divRTI" class="">
+                    <img class="max-width35" src="images/rti-file.png" />
+                </div>
+
+            </a>
+        </div>
+        <div style="width:30%; display:inline-block;">
+
+            <div data-toggle="tooltipSurvey" title='This feature will be available soon.' data-placement="auto;" id="DivSurvey"><a href="survey.html"><img class="max-width35" src="images/survey.png" /></a></div>
+            <div class="font3" id="DivStartSurvey">Start Survey</div>
+
+        </div>
+        <div style="width:32%; display:inline-block;" data-toggle="tooltipGrievance" title='This feature will be available soon.' data-placement="auto;" id="DivGrievance">
+            <div><a href="tel:+91-8130313910"><img class="max-width35" src="images/call.png" /></a></div>
+            <div class="font3" id="DivStartGrievance">Register Grievance</div>
+        </div>
+    </div>
+
+
+    <div class="clearboth25"></div>
+
+    <div class="bottom-menu">
+        <div id="bot-menu-hide"><img src="images/downarrow.png" /></div>
+
+        <a href="your-wallet.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/revenue-plain.png" /></div>
+                <div class="font-size2p5" id="divMyWallet">Revenue</div>
+            </div>
+        </a>
+        <a href="add-income.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/add-revenue-plain.png" /></div>
+                <div class="font-size2p5" id="divAddIncome">Add Revenue</div>
+            </div>
+        </a>
+        <a href="track-beneficiary.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/track-plain.png" /></div>
+                <div class="font-size2p5" id="divTrackBeneficiary">Track Beneficiary</div>
+            </div>
+        </a>
+        <a href="news-home.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/home-red.png" /></div>
+                <div class="font-size2p5 anchor3" id="divHome">Home</div>
+            </div>
+        </a>
+        <a href="searchschemes.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/search-plain.png" /></div>
+                <div class="font-size2p5" id="divSearch">Search</div>
+            </div>
+        </a>
+        <a href="myaccount.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/account-plain.png" /></div>
+                <div class="font-size2p5" id="divMyAccount">My Account</div>
+            </div>
+        </a>
+
+
+    </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title" id="divGettingNewsAndSchemes"></h4>
+                </div>
+                <div class="modal-body">
+                    <img style="width: 50px; height: 50px;" src="images/processing.gif" />
+                    <span id="divGettingNews"></span>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Reverse Sync Modal -->
+    <div class="modal fade" id="RevSyncModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title" id="hMyAccount"></h4>
+                </div>
+                <div class="modal-body">
+                    <img style="width: 50px; height: 50px;" src="images/processing.gif" />
+                    <span id="spanUpload">Loading data, Please wait.....</span>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/DB.js"></script>
+    <script type="text/javascript" src="js/reverseSync.js"></script>
+    <script type="text/javascript" src="js/news.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script src="js/SearchSubApp.js"></script>
+    <!--<script src="js/myaccount.js"></script>-->
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+    <!--<script type="text/javascript">
+
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        // Next/previous controls
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        // Thumbnail image controls
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+
+            slides[slideIndex - 1].style.display = "block";
+
+        }
+    </script>-->
+
+
+</body>
+</html>

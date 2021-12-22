@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <meta charset="utf-8">
+    <!-- //<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LLFW6FG6QY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-LLFW6FG6QY');
+    </script>
+
+
+</head>
+<body class="body3 body-scroll">
+
+    <div class="outer">
+        <div class="logOut" id="logOut">
+            <img src="images/logOut.png" />
+        </div>
+        <div class="middle">
+            <div class="inner inner3">
+                <div class="form-group" align="center">
+                    <img class="max-width25" src="images/meraapp_black.png" />
+
+                </div>
+                <div class="clear10">&nbsp;</div>
+                <div class="clear10">&nbsp;</div>
+                <div id="returnMessage" class="ajax-return"></div>
+                <div class="form-group form-group2">
+                    <input type="text" class="form-control text-align-c" placeholder="Mobile Number" id="userId">
+                    <span style="color:red" id="eid"></span>
+                </div>
+                <div class="form-group form-group2">
+                    <input type="password" class="form-control text-align-c" placeholder="Password" id="password">
+
+                </div>
+
+                <div class="form-group">
+                    <select class="form-control width100" id="language"></select>
+                </div>
+
+                <div class="clear10">&nbsp;</div>
+                <!--<div class="form-group" align="right">
+                    <a class="anchor1" href="forgotpassword.html" id="aForgotPassword">Forgot password?</a>
+                </div>
+                <div class="clear10">&nbsp;</div>
+                <div class="clear10">&nbsp;</div>
+                <div class="clear10">&nbsp;</div>-->
+                <div class="hand-pointer form-group" id="login">
+                    <div class="form-control text-align-c" style="cursor:pointer;" id="DivLoginText">Log in</div>
+                </div>
+                <div class="form-group" id="AlreadyLoggedIn">
+                    <p>You are already Logged In.</p>
+                </div>
+                <div class="hand-pointer form-group" id="goToWelcome">
+                    <a href="welcome.html">
+                        <div class="form-control text-align-c" style="cursor:pointer;">Go To Welcome Page</div>
+                    </a>
+                    
+                </div>
+                <div class="clear10">&nbsp;</div>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/DB.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+cordova plugin add cordova-plugin-camera
+
+cordova plugin add cordova-plugin-device
+
+cordova plugin add cordova-plugin-file
+
+cordova plugin add cordova-plugin-geolocation
+
+cordova plugin add cordova-plugin-splashscreen
+
+cordova plugin add cordova-plugin-sim
+
+cordova plugin add cordova-plugin-google-analytics

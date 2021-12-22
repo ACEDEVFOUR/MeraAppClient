@@ -1,0 +1,1383 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Scheme Details</title>
+    <meta charset="utf-8">
+    <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LLFW6FG6QY"></script>
+    <script>
+
+        var isExist = false;
+        var schemePrice = '';
+        var getCmsKeyVal = function (cmsKeys, key) {
+            var keyVal = '';
+            $.each(cmsKeys, function (i, dat) {
+
+                var cmsKey = 'Cms' + key;
+                if (dat.KeyName == cmsKey) {
+
+                    keyVal = dat.KeyValue;
+
+                }
+            });
+            return keyVal;
+        }
+
+        var filterByLang = function (data) {
+            var lang = utils.localStorage().get('LangID');
+            var k = 0;
+            var obj = new Object();
+            $.each(data, function (i, dat) {
+                if (dat.LangID == lang || dat.LangId == lang) {
+                    obj[k] = dat;
+                    k += 1;
+                }
+
+            });
+            return obj;
+        };
+
+
+        function callBackAppliedScheme(data) {
+
+            $('#SearchFilter').hide();
+            $('#SearchResult').hide();
+
+            var BenId = $('input[name=apply-scheme]:checked').val();
+            var benDtls = $('#' + BenId + '-NameId').html();
+            bendtl = benDtls.split(',');
+            $('#benProfile').html("Go to " + bendtl[0] + " Profile");
+
+
+            var beneficiary = utils.localStorage().get('primaryBeneficiaries');
+            for (var j = 0; j < beneficiary.length; j++) {
+                if (beneficiary[j].Id == bendtl[1]) {
+                    utils.localStorage().set('primaryBeneficiary', beneficiary[j]);
+                    //window.location.href = 'primarybeneficiary.html';
+                    break;
+                }
+            }
+
+            //utils.localStorage().set('primaryBeneficiary', bendtl[1]);
+            //window.location.href = 'primarybeneficiary.html';
+
+
+            $("#redirectlinks").show();
+            if (data == true) {
+                $("#successShow").show();
+                $("#erroShow").hide();
+            }
+            else {
+                $("#erroShow").show();
+                $("#successShow").hide();
+            }
+
+        }
+
+        function RedirectBeneficiaryProfile() {
+            //alert('naresh');
+            return false;
+        }
+
+        function SaveSchemeToBen() {
+            var db = window.openDatabase("SoochnaSevaDB_Offline", "1.0", "SoochnaSevaDB_Offline", 2000000);
+            db.transaction(queryValidateSchemeinBen, errorCB);
+        }
+
+
+
+        function queryValidateSchemeinBen(tx) {
+            if ($('input[name=apply-scheme]:checked').length > 0) {
+                var schemeId = utils.localStorage().get('SchemeId');
+                var BenId = $('input[name=apply-scheme]:checked').val();
+                var user = utils.localStorage().get('user');
+                var UserId = user.userName;
+
+                var queryText = "SELECT * FROM BeneficiaryApplied  WHERE SchemeID = " + schemeId + " AND BeneficiaryId=" + BenId;
+                tx.executeSql(queryText, [], queryValidateSchemeinBenSuccess, errorCB);
+
+            }
+        }
+
+        function queryValidateSchemeinBenSuccess(tx, data) {
+            var len = data.rows.length;
+            if (len > 0) {
+                $("#erroShow").show();
+                $("#successShow").hide();
+                modal.style.display = "none";
+            }
+            else {
+                modal.style.display = "block";
+                var db = window.openDatabase("SoochnaSevaDB_Offline", "1.0", "SoochnaSevaDB_Offline", 2000000);
+                db.transaction(querySaveSchemeinBen, errorCB);
+            }
+        }
+
+        function querySaveSchemeinBen(tx) {
+            if ($('input[name=apply-scheme]:checked').length > 0) {
+                var schemeId = utils.localStorage().get('SchemeId');
+                var BenId = $('input[name=apply-scheme]:checked').val();
+                var user = utils.localStorage().get('user');
+                var UserId = user.userName;
+                var LangId = utils.localStorage().get('LangID');
+                var today = new Date();
+                var queryText = "insert into BeneficiaryApplied (ID, SchemeId, BeneficiaryId, UserId, Status, DateApplied) values(" + utils.randomNum() + ", " + schemeId + ", " + BenId + ", '" + user.userName + "',1,'" + today.toJSON().slice(0, 10).replace(/-/g, '/') + "')";
+                tx.executeSql(queryText, [], querySaveSchemeinBenSuccess, errorCB);
+
+
+                var schemeAppliedcnt = utils.localStorage().get('NewSchemeApplied');
+                schemdtls = $('#divSchemeName').text() + "###";
+                schemdtls = schemdtls + schemeId;
+                if (schemeAppliedcnt != undefined && schemeAppliedcnt != '' && schemeAppliedcnt == 0) {
+                    utils.localStorage().set('NewSchemeApplied', schemdtls);
+                }
+                else {
+
+                    if (schemeAppliedcnt != undefined || schemeAppliedcnt > 0) {
+                        schemeAppliedcnt = schemeAppliedcnt + ',' + schemdtls;
+                    }
+                    else {
+                        schemeAppliedcnt = schemdtls;
+                    }
+
+
+                    utils.localStorage().set('NewSchemeApplied', schemeAppliedcnt);
+                }
+
+                var queryText = "select s.Id, s.ServiceTypeId, s.ProgramName, st.ServiceName, s.Price, s.LangID  from Services s inner join ServiceType st on st.Id = s.ServiceTypeId  where s.ProgramName = 'Scheme Registration' and s.LangID =" + LangId;
+                tx.executeSql(queryText, [], querySchemeServicesSuccess, errorCB);
+
+            }
+        }
+
+
+        //function querySchemeServices(tx) {
+        //    var queryText = "select s.Price from Services s inner join ServiceType st on st.Id = s.ServiceTypeId  where st.ServiceName = 'Scheme Services' and s.LangID =" + LangId;
+        //    tx.executeSql(queryText, [], queryDigitalLiteracySuccess, errorCB);
+        //}
+
+        function querySchemeServicesSuccess(tx, data) {
+            var len = data.rows.length;
+            if (len > 0) {
+
+                var LangId = utils.localStorage().get('LangID');
+                var benVal = $('input[name=apply-scheme]:checked').val();
+                var today = new Date();
+                var user = utils.localStorage().get('user');
+                var formattedtoday = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+                var queryText = "INSERT INTO AppUserWallet (Id, UserId, ServiceTypeId, BeneficiaryId, ServiceName, Price, Date, LangID ) VALUES (" + utils.randomNum() + ",'" +
+                    user.userName + "'," + data.rows[0].Id + "," + benVal + ",'" + data.rows[0].ServiceName + "'," + data.rows[0].Price + ",'" + formattedtoday + "'," +
+                    LangId + ")";
+
+                tx.executeSql(queryText, [], querySaveAppUserWalletSuccess, errorCB);
+
+            }
+        }
+
+        function querySaveAppUserWalletSuccess(tx, data) {
+            var len = data.rows.length;
+            return false;
+        }
+
+
+        function querySaveSchemeinBenSuccess(tx, data) {
+            var len = data.rows.length;
+
+            $('#SearchFilter').hide();
+            $('#SearchResult').hide();
+
+            var BenId = $('input[name=apply-scheme]:checked').val();
+            var benDtls = $('#' + BenId + '-NameId').html();
+            bendtl = benDtls.split(',');
+            var LangId = 1;
+            LangId = utils.localStorage().get('LangID');
+            if (LangId == 1) {
+                $('#benProfile').html("Go to " + bendtl[0] + " Profile");
+            }
+            else if (LangId == 2) {
+                var name = bendtl[0].replace(/'s/g, '');
+                $('#benProfile').html("लाभार्थी  " + name + " के प्रोफ़ाइल पर जाएं");
+            }
+
+
+            var beneficiary = utils.localStorage().get('primaryBeneficiaries');
+            for (var j = 0; j < Object.keys(beneficiary).length; j++) {
+                if (beneficiary[j].Id == bendtl[1]) {
+                    utils.localStorage().set('primaryBeneficiary', beneficiary[j]);
+                    //window.location.href = 'primarybeneficiary.html';
+                    break;
+                }
+            }
+
+            $("#successShow").show();
+            $("#erroShow").hide();
+
+            $("#redirectlinks").show();
+
+
+        }
+
+
+
+
+
+
+        $(document).ready(function () {
+            $("#successShow").hide();
+            $("#erroShow").hide();
+            $(".share-icon").click(function () {
+                var src = $(this).attr('src');
+                var newsrc = (src == 'images/share-plain.png') ? 'images/share.png' : 'images/share-plain.png';
+                $(this).attr('src', newsrc);
+            });
+
+            $(".scheme-media").click(function () {
+                $(".scheme-media").attr('src', 'images/scheme-media-red.png');
+                $(".scheme-info").attr('src', 'images/scheme-info-plain.png');
+                $(".scheme-doc").attr('src', 'images/scheme-doc-plain.png');
+            });
+
+            $(".scheme-info").click(function () {
+                $(".scheme-media").attr('src', 'images/scheme-media-plain.png');
+                $(".scheme-info").attr('src', 'images/scheme-info-red.png');
+                $(".scheme-doc").attr('src', 'images/scheme-doc-plain.png');
+            });
+
+            $(".scheme-doc").click(function () {
+                $(".scheme-media").attr('src', 'images/scheme-media-plain.png');
+                $(".scheme-info").attr('src', 'images/scheme-info-plain.png');
+                $(".scheme-doc").attr('src', 'images/scheme-doc-red.png');
+            });
+
+            $(".apply-icon").click(function () {
+                var src = $(this).attr('src');
+                var newsrc = (src == 'images/apply-plain.png') ? 'images/apply.png' : 'images/apply-plain.png';
+                $(this).attr('src', newsrc);
+                $("#scheme-details-block").toggle();
+                $("#apply-block").toggle();
+                $(".apply-block-arrow").toggle();
+            });
+
+            $("#apply-cross").click(function () {
+                var newsrc = 'images/apply-plain.png';
+                $(".apply-icon").attr('src', newsrc);
+                $("#scheme-details-block").toggle();
+                $("#apply-block").toggle();
+                $(".apply-block-arrow").toggle();
+            });
+
+            $("#add-scheme-bene").click(function () {
+                $("#ApplyBenDtls").html("");
+                $("#redirectlinks").hide();
+                $("#successShow").hide();
+                $("#erroShow").hide();
+                $(".add-scheme-success").show();
+                var db = window.openDatabase("SoochnaSevaDB_Offline", "1.0", "SoochnaSevaDB_Offline", 2000000);
+                db.transaction(queryScheme, errorCB);
+                db.transaction(querySearchBenResult, errorCB);
+                db.transaction(querySearchSubBenResult, errorCB);
+            });
+
+
+            var SetValue = function (id, type) {
+                if (type == 'input') {
+                    return $('#' + id).val();
+                }
+                else if (type == 'date') {
+                    var txt = $('#' + id).val();
+                    var date = new Date(txt);
+                    return date;
+                }
+                else if (type == 'dropDown') {
+                    return $('#' + id).val();
+                }
+                else if (type == 'state') {
+                    return $('#' + id).val();
+                }
+                else if (type == 'district') {
+                    return $('#' + id).val();
+                }
+
+            };
+
+            $("#add-scheme-another-bene").click(function () {
+                $("#successShow").hide();
+                $('#SearchResult').show();
+                $(".add-scheme-beneficiary-block").show();
+                $(".add-scheme-success").hide();
+            });
+
+            $(".check-scheme").click(function () {
+
+                $(".check-scheme-show").show();
+            });
+
+            $(".check-scheme-show").click(function () {
+
+                $(".apply-bene-profile-show").show();
+            });
+
+            //$(".fav-icon").click(function(){
+            //var src = $(this).attr('src');
+            //var newsrc = (src=='images/fav-plain.png') ? 'images/fav.png' : 'images/fav-plain.png';
+            //$(this).attr('src', newsrc );
+            //});
+
+            function queryScheme(tx) {
+                var schemeId = utils.localStorage().get('SchemeId');
+
+                var queryText = "SELECT Sc.ID, Sc.SchemeName, Sc.MinAge, Sc.MaxAge,Sc.Sex, S.ID AS Gender, Sc.ReligonID, Sc.LangID FROM Scheme Sc ";
+                queryText += " JOIN Sex S On Sc.Sex = S.Name ";
+                queryText += " WHERE Sc.ID = " + schemeId;
+
+                // queryText += " WHERE  LangID = " + LangId;
+                //console.log(queryText);
+                tx.executeSql(queryText, [], querySchemeDetailSuccess, errorCB);
+
+            }
+            function querySchemeDetailSuccess(tx, scheme) {
+                var len = scheme.rows.length;
+                if (len > 0) {
+                    for (var i = 0; i < len; i++) {
+                        utils.localStorage().set('schemeMinAge', scheme.rows.item(i).MinAge);
+                        utils.localStorage().set('schemeMaxAge', scheme.rows.item(i).MaxAge);
+                        utils.localStorage().set('schemeSex', scheme.rows.item(i).Gender);
+                        utils.localStorage().set('schemeReligonID', scheme.rows.item(i).ReligonID);
+                        utils.localStorage().set('schemeLangID', scheme.rows.item(i).LangID);
+                    }
+                }
+
+            }
+            function querySearchBenResult(tx) {
+                var user = utils.localStorage().get('user');
+                var firstName = SetValue('benFirstName', 'input') != null ? SetValue('benFirstName', 'input') : "";
+                firstName = $.trim(firstName);
+                var IDProof = SetValue('IDProof', 'dropDown') != null ? SetValue('IDProof', 'dropDown') : "";
+                var benIDDtls = SetValue('benIDDtls', 'input') != null ? SetValue('benIDDtls', 'input') : "";
+
+
+                var queryText = " SELECT ben.Id, ben.FirstName, ben.LastName,  ben.FathersName, ";
+                queryText = queryText + " ben.HusbandsName, ben.DOB, ben.IDProof, ben.IDDetails, ";
+                queryText = queryText + " ben.State, ben.District, ben.Sex, ben.Age, ben.Religion, ";
+                queryText = queryText + " ben.Socio, ben.Occupation, ben.MaritalStatus, ben.Category, ben.Department, ";
+                queryText = queryText + " ben.EmploymentStatus, ben.VulGroup, ben.AnnualIncome, ben.Disabilty, ben.Photo, ben.Relationship, ben.Sickness, idp.Name FROM ";
+                queryText = queryText + " Beneficiary ben ";
+                queryText = queryText + " LEFT OUTER JOIN IDProofDocuments idp on idp.ID = ben.IDProof ";
+
+                var whereClause = " where SoochnaPreneur='" + user.userName + "' ";
+
+                if (firstName != '' && firstName != undefined) {
+                    var firstNameQuery = " ben.FirstName like '%" + firstName + "%' ";
+                    if (whereClause != '') {
+                        whereClause = whereClause + ' AND (' + firstNameQuery + ') ';
+                    }
+                    else {
+                        whereClause = ' (' + firstNameQuery + ') ';
+                    }
+                }
+
+                if (IDProof != '' && IDProof != undefined) {
+                    var IDProofQuery = " ben.IDProof = " + IDProof + " ";
+                    if (whereClause != '') {
+                        whereClause = whereClause + ' AND (' + IDProofQuery + ') ';
+                    }
+                    else {
+                        whereClause = ' (' + IDProofQuery + ') ';
+                    }
+                }
+
+                if (benIDDtls != '' && benIDDtls != undefined) {
+                    var benIDDtlsQuery = " ben.IDDetails = '" + benIDDtls + "' ";
+                    if (whereClause != '') {
+                        whereClause = whereClause + ' AND (' + benIDDtlsQuery + ') ';
+                    }
+                    else {
+                        whereClause = ' (' + benIDDtlsQuery + ') ';
+                    }
+                }
+                //var schemeSex = utils.localStorage().get('schemeSex');
+                //if (schemeSex != '' && schemeSex != undefined) {
+                //    var schemeSexQuery = " ben.Sex = " + schemeSex + " ";
+                //    if (whereClause != '') {
+                //        whereClause = whereClause + ' AND ' + schemeSexQuery + ' ';
+                //    }
+                //    else {
+                //        whereClause = ' ' + schemeSexQuery + ' ';
+                //    }
+                //}
+
+                var schemeReligion = utils.localStorage().get('schemeReligonID');
+                if (schemeReligion != 1021 && schemeReligion != 1020) {
+                    if (schemeReligion != '' && schemeReligion != undefined) {
+                        var schemeReligionQuery = " ben.Religion = " + schemeReligion + " ";
+                        if (whereClause != '') {
+                            whereClause = whereClause + ' AND ' + schemeReligionQuery + ' ';
+                        }
+                        else {
+                            whereClause = ' ' + schemeReligionQuery + ' ';
+                        }
+                    }
+                }
+
+                var schemeMinAge = utils.localStorage().get('schemeMinAge');
+                var schemeMaxAge = utils.localStorage().get('schemeMaxAge');
+                if (schemeMinAge != '' && schemeMinAge != undefined && schemeMaxAge != undefined) {
+                    var schemeAgeQuery = " ben.DOB >= " + schemeMinAge;
+                    if (schemeMaxAge > 0 && schemeMaxAge > schemeMinAge) {
+                        schemeAgeQuery += " AND  ben.DOB <= " + schemeMaxAge;
+                    }
+                    if (whereClause != '') {
+                        whereClause = whereClause + ' AND ' + schemeAgeQuery + ' ';
+                    }
+                    else {
+                        whereClause = ' ' + schemeAgeQuery + ' ';
+                    }
+                }
+
+                if (whereClause != '')
+                    queryText = queryText + whereClause;
+
+                tx.executeSql(queryText, [], querySearchBenResultSuccess, errorCB);
+
+            }
+
+            function querySearchBenResultSuccess(tx, data) {
+                var len = data.rows.length;
+                $("#ApplyBenDtls").html("");
+
+                if (len > 0) {
+                    isExist = true;
+                    utils.localStorage().set('primaryBeneficiaries', data.rows);
+
+                    var searchResultData = "";
+                    var LangId = 1;
+                    LangId = utils.localStorage().get('LangID');
+
+                    var NameText = utils.localStorage().get('CmsName');
+                    var FatherNameText = utils.localStorage().get('CmsFatherOrHusbandName');
+                    var IDText = utils.localStorage().get('CmsIdNumber');
+                    for (var i = 0; i < len; i++) {
+
+                        var skillsSelect = document.getElementById("IDProof");
+                        var selectedText = skillsSelect.options[skillsSelect.selectedIndex].text;
+
+                        var appendedBenList = "";
+                        appendedBenList = "<div class='width100 margin-bottom3 body9 padding5 position-r floatl'>";
+                        appendedBenList = appendedBenList + "<div class='width100 padding2 border-bottom-rgb floatl'>";
+                        appendedBenList = appendedBenList + "<div class='width50 floatl' id='DivNameResult'>" + NameText + ": </div>";
+                        var lastName = data.rows.item(i).LastName == null ? "" : data.rows.item(i).LastName;
+                        appendedBenList = appendedBenList + "<div class='width50 floatl color-w'>" + data.rows.item(i).FirstName + " " + lastName + "</div>";
+                        appendedBenList = appendedBenList + "<div id='" + data.rows.item(i).Id + "-NameId' style=\"display:none\">" + data.rows.item(i).FirstName + "'s" + "," + data.rows.item(i).Id + "</div>";
+                        appendedBenList = appendedBenList + "</div>";
+
+                        if (data.rows.item(i).FathersName != "" && data.rows.item(i).FathersName != undefined) {
+                            appendedBenList = appendedBenList + "<div class='width100 padding2 border-bottom-rgb floatl'>";
+                            appendedBenList = appendedBenList + "<div class='width50 floatl' id='DivFatherNameResult'>" + FatherNameText + ": </div>";
+                            appendedBenList = appendedBenList + "<div class='width50 floatl color-w'>" + data.rows.item(i).FathersName + "</div>";
+                            appendedBenList = appendedBenList + "</div>";
+                        }
+
+                        if (data.rows.item(i).IDDetails != "" && data.rows.item(i).IDDetails != undefined) {
+                            appendedBenList = appendedBenList + "<div class='width100 padding2 border-bottom-rgb floatl'>";
+                            appendedBenList = appendedBenList + "<div class='width50 floatl' id='DivIdNumberResult'>" + IDText + ": </div>";
+                            appendedBenList = appendedBenList + "<div class='width50 floatl color-w'>" + data.rows.item(i).IDDetails + " <br />(<span class='font3'>" + data.rows.item(i).Name + "</span>)</div>";
+                            appendedBenList = appendedBenList + "</div>";
+                        }
+
+                        appendedBenList = appendedBenList + "<div class='position-a-2'><input value='" + data.rows.item(i).Id + "' class='check-scheme' type='radio' name='apply-scheme' id='ben-" + data.rows.item(i).Id + "-" + i + "'/></div>";
+                        appendedBenList = appendedBenList + "</div>";
+                        appendedBenList = appendedBenList + "<div class='clearboth5'></div>";
+
+                        $("#ApplyBenDtls").append(appendedBenList);
+                    }
+                }
+                else {
+                    var LangId = utils.localStorage().get('LangID');
+                    if (LangId == 1) {
+                        $("#ApplyBenDtls").html("<div class=\"scheme-detail1 scheme-detail5\" style=\"border-bottom: 0 !important\"><div class=\"upper-case\">No Result Found</div></div>");
+                    }
+                    else if (LangId == 2) {
+                        $("#ApplyBenDtls").html("<div class=\"scheme-detail1 scheme-detail5\" style=\"border-bottom: 0 !important\"><div class=\"upper-case\">परिणाम नहीं मिला</div></div>");
+                    }
+
+                }
+            }
+
+            function querySearchSubBenResult(tx) {
+                var user = utils.localStorage().get('user');
+                var firstName = SetValue('benFirstName', 'input') != null ? SetValue('benFirstName', 'input') : "";
+                firstName = $.trim(firstName);
+                var IDProof = SetValue('IDProof', 'dropDown') != null ? SetValue('IDProof', 'dropDown') : "";
+                var benIDDtls = SetValue('benIDDtls', 'input') != null ? SetValue('benIDDtls', 'input') : "";
+
+
+                var queryText = " SELECT ben.Id, ben.FirstName, ben.LastName,  ben.FathersName, ";
+                queryText = queryText + " ben.HusbandsName, ben.DOB, ben.IDProof, ben.IDDetails, ";
+                queryText = queryText + " ben.State, ben.District, ben.Sex, ben.Age, ben.Religion, ";
+                queryText = queryText + " ben.Socio, ben.Occupation, ben.MaritalStatus, ben.Category, ben.Department, ";
+                queryText = queryText + " ben.EmploymentStatus, ben.VulGroup, ben.AnnualIncome, ben.Disabilty, ben.Photo, ben.Relationship, ben.Sickness, idp.Name FROM ";
+                queryText = queryText + " subBeneficiary ben ";
+                queryText = queryText + " LEFT OUTER JOIN IDProofDocuments idp on idp.ID = ben.IDProof ";
+
+                var whereClause = " where SoochnaPreneur='" + user.userName + "' ";
+
+                if (firstName != '' && firstName != undefined) {
+                    var firstNameQuery = " ben.FirstName like '%" + firstName + "%' ";
+                    if (whereClause != '') {
+                        whereClause = whereClause + ' AND (' + firstNameQuery + ') ';
+                    }
+                    else {
+                        whereClause = ' (' + firstNameQuery + ') ';
+                    }
+                }
+
+                if (IDProof != '' && IDProof != undefined) {
+                    var IDProofQuery = " ben.IDProof = " + IDProof + " ";
+                    if (whereClause != '') {
+                        whereClause = whereClause + ' AND (' + IDProofQuery + ') ';
+                    }
+                    else {
+                        whereClause = ' (' + IDProofQuery + ') ';
+                    }
+                }
+
+                if (benIDDtls != '' && benIDDtls != undefined) {
+                    var benIDDtlsQuery = " ben.IDDetails = '" + benIDDtls + "' ";
+                    if (whereClause != '') {
+                        whereClause = whereClause + ' AND (' + benIDDtlsQuery + ') ';
+                    }
+                    else {
+                        whereClause = ' (' + benIDDtlsQuery + ') ';
+                    }
+                }
+
+                if (whereClause != '')
+                    queryText = queryText + whereClause;
+
+                tx.executeSql(queryText, [], querySearchSubBenResultSuccess, errorCB);
+
+            }
+
+            function querySearchSubBenResultSuccess(tx, data) {
+                var len = data.rows.length;
+
+                if (!isExist) {
+                    $("#ApplyBenDtls").html("");
+                }
+
+                if (len > 0) {
+
+
+                    var oldNew = [];
+                    var old = utils.localStorage().get('primaryBeneficiaries');
+
+                    if (old === null) {
+                        oldNew.push(data.rows);
+                    }
+                    else {
+
+                        var array = $.map(old, function (value, index) {
+                            return [value];
+                        });
+                        for (var i = 0; i < array.length; i++) {
+                            oldNew.push(array[i]);
+                        }
+
+                        for (var i = 0; i < data.rows.length; i++) {
+                            oldNew.push(data.rows[i]);
+                        }
+
+
+                    }
+
+
+                    utils.localStorage().set('primaryBeneficiaries', oldNew);
+
+
+                    var searchResultData = "";
+                    var LangId = 1;
+                    LangId = utils.localStorage().get('LangID');
+
+                    var NameText = utils.localStorage().get('CmsName');
+                    var FatherNameText = utils.localStorage().get('CmsFatherOrHusbandName');
+                    var IDText = utils.localStorage().get('CmsIdNumber');
+                    for (var i = 0; i < len; i++) {
+
+                        var skillsSelect = document.getElementById("IDProof");
+                        var selectedText = skillsSelect.options[skillsSelect.selectedIndex].text;
+
+                        var appendedBenList = "";
+                        appendedBenList = "<div class='width100 margin-bottom3 body9 padding5 position-r floatl'>";
+                        appendedBenList = appendedBenList + "<div class='width100 padding2 border-bottom-rgb floatl'>";
+                        appendedBenList = appendedBenList + "<div class='width50 floatl' id='DivNameResult'>" + NameText + ": </div>";
+                        var lastName = data.rows.item(i).LastName == null ? "" : data.rows.item(i).LastName;
+                        appendedBenList = appendedBenList + "<div class='width50 floatl color-w'>" + data.rows.item(i).FirstName + " " + lastName + "</div>";
+                        appendedBenList = appendedBenList + "<div id='" + data.rows.item(i).Id + "-NameId' style=\"display:none\">" + data.rows.item(i).FirstName + "'s" + "," + data.rows.item(i).Id + "</div>";
+                        appendedBenList = appendedBenList + "</div>";
+
+                        if (data.rows.item(i).FathersName != "" && data.rows.item(i).FathersName != undefined) {
+                            appendedBenList = appendedBenList + "<div class='width100 padding2 border-bottom-rgb floatl'>";
+                            appendedBenList = appendedBenList + "<div class='width50 floatl' id='DivFatherNameResult'>" + FatherNameText + ": </div>";
+                            appendedBenList = appendedBenList + "<div class='width50 floatl color-w'>" + data.rows.item(i).FathersName + "</div>";
+                            appendedBenList = appendedBenList + "</div>";
+                        }
+
+                        if (data.rows.item(i).IDDetails != "" && data.rows.item(i).IDDetails != undefined) {
+                            appendedBenList = appendedBenList + "<div class='width100 padding2 border-bottom-rgb floatl'>";
+                            appendedBenList = appendedBenList + "<div class='width50 floatl' id='DivIdNumberResult'>" + IDText + ": </div>";
+                            appendedBenList = appendedBenList + "<div class='width50 floatl color-w'>" + data.rows.item(i).IDDetails + " <br />(<span class='font3'>" + data.rows.item(i).Name + "</span>)</div>";
+                            appendedBenList = appendedBenList + "</div>";
+                        }
+
+                        appendedBenList = appendedBenList + "<div class='position-a-2'><input value='" + data.rows.item(i).Id + "' class='check-scheme' type='radio' name='apply-scheme' id='ben-" + data.rows.item(i).Id + "-" + i + "'/></div>";
+                        appendedBenList = appendedBenList + "</div>";
+                        appendedBenList = appendedBenList + "<div class='clearboth5'></div>";
+
+                        $("#ApplyBenDtls").append(appendedBenList);
+                    }
+                }
+                else {
+                    var LangId = utils.localStorage().get('LangID');
+                    if (!isExist) {
+                        if (LangId == 1) {
+                            $("#ApplyBenDtls").html("<div class=\"scheme-detail1 scheme-detail5\" style=\"border-bottom: 0 !important\"><div class=\"upper-case\">No Result Found</div></div>");
+                        }
+                        else if (LangId == 2) {
+                            $("#ApplyBenDtls").html("<div class=\"scheme-detail1 scheme-detail5\" style=\"border-bottom: 0 !important\"><div class=\"upper-case\">परिणाम नहीं मिला</div></div>");
+                        }
+                    }
+
+
+                }
+            }
+
+        });
+
+
+
+
+    </script>
+    <script>
+        //function goBack() {
+        //    var url = document.referrer;
+        //    window.location.href = url;
+        //}
+    </script>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+    <style>
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            -webkit-animation-name: fadeIn; /* Fade in the background */
+            -webkit-animation-duration: 0.4s;
+            animation-name: fadeIn;
+            animation-duration: 0.4s
+        }
+
+        /* Modal Content */
+        .modal-content {
+            /*position: fixed;
+        top: 0;
+        background-color: #fefefe;
+        width: 100%;
+        -webkit-animation-name: slideIn;
+        -webkit-animation-duration: 0.4s;
+        animation-name: slideIn;
+        animation-duration: 0.4s*/
+        }
+
+        /* The Close Button */
+        .close {
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        .modal-header {
+            padding: 2px 16px;
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        .modal-body {
+            padding: 2px 16px;
+        }
+
+        .modal-footer {
+            padding: 2px 16px;
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        /* Add Animation */
+        @-webkit-keyframes slideIn {
+            from {
+                bottom: -300px;
+                opacity: 0
+            }
+
+            to {
+                bottom: 0;
+                opacity: 1
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                bottom: -300px;
+                opacity: 0
+            }
+
+            to {
+                bottom: 0;
+                opacity: 1
+            }
+        }
+
+        @-webkit-keyframes fadeIn {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+    </style>
+
+</head>
+<body class="body-scroll">
+   
+	<div class="header-menu">
+		<div class="header-menu1">
+			<div class="floatl header1"><img class="max-width70" onclick="goBack()" src="images/leftGArrow-w.png" /></div>
+			<div class="floatl header2" id="DivSchemeDetails">SCHEME DETAILS</div>
+			<div class="floatl header4"></div>
+		</div>
+		
+		<div class="body4 width100 floatl">
+				<a href="javascript:void(0)" onclick="GetTab(1);">
+					<div class="bot-menu-item scheme-info">
+						<div><img class="max-width30 scheme-info" src="images/scheme-info-red.png" /></div>
+						
+					</div>
+				</a>
+				<a href="javascript:void(0)" onclick="GetTab(2);">
+					<div class="bot-menu-item scheme-media">
+						<div><img class="max-width30 scheme-media" src="images/scheme-media-plain.png" /></div>
+						
+					</div>
+				</a>
+				<a href="javascript:void(0)" onclick="GetTab(3);">
+					<div class="bot-menu-item scheme-doc">
+						<div><img class="max-width30 scheme-doc" src="images/scheme-doc-plain.png" /></div>
+						
+					</div>
+				</a>
+		</div>
+	</div>
+	<div class="clearboth2"></div>
+    <div id="divSchemeData">
+	<div>
+		<div class="text-align-c border-none padding-bottom width60 margin0b20">
+			<div class="scheme-title" id="divSchemeName"></div>
+			<div class="tags" id="divObjectiveHeader"></div>
+			
+		</div>
+		<div class="clearboth2"></div>
+		<div class="body5 width100 floatl">
+					
+						<div class="bot-menu-item bot-menu-item-scheme text-align-r" >
+							<div id="divShareScheme"><img class="max-width30" src="images/share-plain.png" /></div>
+							<div id="DivShare">Share</div>
+							
+						</div>
+					
+					
+						<div class="bot-menu-item bot-menu-item-scheme text-align-c">
+							<div id="divFav" onclick="MakeSchemeFavourite();"><img class="max-width30 fav-icon" src="images/fav-plain.png" /></div>
+							<div id="DivFavourite">Favourite</div>
+						</div>
+					
+						<div class="bot-menu-item bot-menu-item-scheme text-align-l">
+							<div><img class="max-width30 apply-icon" src="images/apply-plain.png" />
+                            </div>
+							<div id="DivApply">Apply</div>
+							<div class="apply-block-arrow"></div>
+						</div>
+					
+		</div>
+	</div>
+	<div class="clearboth0"></div>
+	<div id="apply-block" class="width100 text-align-c">
+		<div id="SearchFilter" class="padding5 add-scheme-beneficiary-block position-r">
+            <div class="position-a-5 cursor-pointer" id="apply-cross">X</div>
+			<div class="padding5" id="DivUserFindText">To find a particular user, <br />please enter one of the following</div>
+			<div class="margin5">
+				<div class="form-group">
+					<input type="text" id="benFirstName" class="form-control text-align-l" placeholder="First Name">
+				</div>		
+				<div class="form-group">
+                    <select class="form-control1 select4 text-align-l" id="IDProof" disabled style="display:none;">
+				    </select>
+
+					<input type="text" class="form-control text-align-l" id="benIDDtls" placeholder="Enter ID Number">
+				</div>
+				<div class="clearboth"></div>
+				<a href="#"><div class="save-btn" id="add-scheme-bene">Search</div></a>
+			</div>
+            
+		</div>
+		<div class="add-scheme-success padding5">
+            <div class="">
+	    <div>
+		    <div class="width100 floatl">
+			    <div id="SearchResult">
+			    <div id="ApplyBenDtls" class="width100 floatl margin-point5 text-align-l">				   					  
+			    </div>
+			    <div class="clearboth10"></div>
+			    <div id="myBtn"><div class="save-btn cursor-pointer" onclick="SaveSchemeToBen();" id="DivAddToBenProfile">Add Scheme to Beneficiary's Profile</div></div>
+                <div class="clearboth5"></div>
+                    </div>
+			    <div class="margin5 apply-bene-profile-show" id="successShow">
+				<div class="anchor3 font5" id="msg">The scheme has been succesfully added to selected profile.</div>
+				<div class="clearboth"></div>
+				
+			</div>
+                <div class="margin5 apply-bene-profile-show" id="erroShow">
+				<div class="anchor3 font5" id="Div1">This scheme already added to selected profile.</div>
+				<div class="clearboth"></div>
+				<!--<a href="primarybeneficiary.html"><div class="save-btn">Go to Parul's Profile</div></a>
+				<div class="clearboth"></div>-->
+				<!--<div class="save-btn cursor-pointer" id="add-scheme-another-bene">Add to another beneficiary</div>-->
+			</div>
+                <div class="margin5 apply-bene-profile-show" id="redirectlinks">
+                    <!--Block Added to show beneficiary profile--->
+                    <a href="Javascript:void(0);" onclick="RedirectBen();"><div class="save-btn" id="benProfile">Go to Benficiary Profile</div></a>
+				    <div class="clearboth"></div>
+				    <div class="save-btn cursor-pointer" id="add-scheme-another-bene">Add to another beneficiary</div>
+                <!--end of Block Added to show beneficiary profile--->
+                </div>
+		    </div>
+	    </div>
+		 <!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+    <div class="outer">
+        <div class="middle">
+            <div class="inner" style="width:80%;">
+                  <div class="modal-content" style="padding:10%;">
+                    <div class="modal-body">
+                      <img style="max-width:7%;" src="images/rupees-black.png" /> <span>25 </span> <span id="SchemeAmountAdded">has been added in your wallet.</span>
+                        
+                    </div>
+                    <div class="clearboth"></div>
+                    <div class="close paid-button" style="text-transform:none;" id="BtnClose">Close</div>
+                     
+                  </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+
+<!-- The Modal close-->
+		<div class="clearboth"></div>
+	</div>
+			
+		</div>
+	</div>
+
+<div id="scheme-details-block">
+	<div class="clearboth"></div>
+    <div>
+        <button class="accordion" id="btnBasicDetails">Basic Details</button>
+        <div class="panel" id="mainBasicDetails">
+            <div class="floatl width90 margin3p5">
+
+                <div id="mainbjective">
+                    <div class="floatl upper-case width35" id="DivObjectiveText">Objective</div>
+                    <div class="floatl width63" id="divObjective"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainStartDate">
+                    <div class="floatl upper-case width35" id="DivStartDateText">Start Date</div>
+                    <div class="floatl width63" id="divStartDate"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainEndDate">
+                    <div class="floatl upper-case width35" id="DivEndDateText">End Date</div>
+                    <div class="floatl width63" id="divEndDate"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainIsActive">
+                    <div class="floatl upper-case width35" id="DivIsActiveText">Is Active</div>
+                    <div class="floatl width63" id="divIsActive"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainAmendDate">
+                    <div class="floatl upper-case width35" id="DivAmendDateText">Amendment date</div>
+                    <div class="floatl width63" id="divAmendDate"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainOriginatedBy">
+                    <div class="floatl upper-case width35" id="DivOriginatedByText">Originated by</div>
+                    <div class="floatl width63" id="divOriginatedBy"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainSchemeURL">
+                    <div class="floatl upper-case width35" id="DivSchemeURLText">Scheme URL</div>
+                    <a class="floatl width63" id="aSchemeURL" target="_blank" href="" style="cursor:pointer; color:blue; text-underline-position:below;"></a>
+                    <div class="clearboth"></div>
+                </div>
+
+                <div id="mainStates">
+                    <div class="floatl upper-case width35" id="DivStateText">State</div>
+                    <div class="floatl width63" id="divStates"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainDistrict">
+                    <div class="floatl upper-case width35" id="DivDistrictText">District</div>
+                    <div class="floatl width63" id="divDistrict"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainDepartment">
+                    <div class="floatl upper-case width35" id="DivDepartmentText">Department</div>
+                    <div class="floatl width63" id="divDepartment"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainDomain">
+                    <div class="floatl upper-case width35" id="DivDomainText">Domain</div>
+                    <div class="floatl width63" id="divDomain"></div>
+                    <div class="clearboth"></div>
+                </div>
+
+                <div id="mainSchemeType">
+                    <div class="floatl upper-case width35" id="DivSchemeTypeText">Scheme Type</div>
+                    <div class="floatl width63" id="DivSchemeType"></div>
+                    <div class="clearboth"></div>
+                </div>
+
+                <div id="mainProcessingFee">
+                    <div class="floatl upper-case width35" id="DivProcessingFeeText">Processing Fee</div>
+                    <div class="floatl width63" id="DivProcessingFee"></div>
+                    <div class="clearboth"></div>
+                </div>
+
+                <div id="mainSpecialBasicDetailsAddon">
+                    <div class="floatl upper-case width35" id="DivSpecialBasicDetailsAddonText">Additional Basic Details</div>
+                    <div class="floatl width63" id="DivSpecialBasicDetailsAddon"></div>
+                    <div class="clearboth"></div>
+                </div>
+            </div>
+
+        </div>
+        <button class="accordion" id="btnEligibility">Eligibility</button>
+        <div class="panel" id="mainEligibility">
+            <div class="floatl  width90 margin3p5">
+
+                <div id="mainMinAge">
+                    <div class="floatl upper-case width35" id="DivMinAgeText">Min Age</div>
+                    <div class="floatl width63" id="divMinAge"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainMaxAge">
+                    <div class="floatl upper-case width35" id="DivMaxAgeText">Max Age</div>
+                    <div class="floatl width63" id="divMaxAge"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainSex">
+                    <div class="floatl upper-case width35" id="DivSexText">Sex</div>
+                    <div class="floatl width63" id="divSex"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainQualifaction">
+                    <div class="floatl upper-case width35" id="DivQualificationText">Qualification</div>
+                    <div class="floatl width63" id="divQualifaction"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainMaritalStatus">
+                    <div class="floatl upper-case width35" id="DivMaritalText">Marital Status</div>
+                    <div class="floatl width63" id="divMaritalStatus"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainOccupation">
+                    <div class="floatl upper-case width35" id="DivOccupationText">Occupation</div>
+                    <div class="floatl width63" id="divOccupation"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainReligion">
+                    <div class="floatl upper-case width35" id="DivReligionText">Religion</div>
+                    <div class="floatl width63" id="divReligion"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainCasteNames">
+                    <div class="floatl upper-case width35" id="DivCasteText">Caste</div>
+                    <div class="floatl width63" id="divCasteNames"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainEmploymentStatus">
+                    <div class="floatl upper-case width35" id="DivEmpStatusText">Employment Status</div>
+                    <div class="floatl width63" id="divEmploymentStatus"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainSpecialStatus">
+                    <div class="floatl upper-case width35" id="DivSplStatusText">Special Status</div>
+                    <div class="floatl width63" id="divSpecialStatus"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainIncomeLevel">
+                    <div class="floatl upper-case width35" id="DivIncomeLevelText">Income Level</div>
+                    <div class="floatl width63" id="divIncomeLevel"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainAnnualFamilyIncome">
+                    <div class="floatl upper-case width35" id="DivFamilyIncomeText">Annual Family Income</div>
+                    <div class="floatl width63" id="divAnnualFamilyIncome"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainTypeOfDisability">
+                    <div class="floatl upper-case width35" id="DivDisabilityText">Type of disability</div>
+                    <div class="floatl width63" id="divTypeOfDisability"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainPercentageOfDisablity">
+                    <div class="floatl upper-case width35" id="DivPercentgeText">Percentage of disability</div>
+                    <div class="floatl width63" id="divPercentageOfDisablity"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainSickness">
+                    <div class="floatl upper-case width35" id="DivSicknessText">Sickness</div>
+                    <div class="floatl width63" id="divSickness"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainAddEligibilityCriteria">
+                    <div class="floatl upper-case width35" id="DivAddElgText">Additional Eligibility Criteria</div>
+                    <div class="floatl width63" id="divAddEligibilityCriteria"></div>
+                    <div class="clearboth"></div>
+                </div>
+            </div>
+
+        </div>
+        <button class="accordion" id="btnBenefits">Benefits</button>
+        <div class="panel" id="mainBenefits">
+            <div class="floatl width90 margin3p5">
+                <div id="mainSchemeDtls">
+                    <div class="floatl upper-case width35" id="DivSchemeBenefitsText">Scheme Benefits</div>
+                    <div class="floatl width63" id="divSchemeDtls"></div>
+                    <div class="clearboth"></div>
+                </div>
+            </div>
+        </div>
+        <button class="accordion" id="btnApplicationDetails">Application Details</button>
+        <div class="panel" id="mainApplicationDetails">
+            <div class="floatl  width90 margin3p5">
+                <div id="mainDocumentSubmitted">
+                    <div class="floatl upper-case width35" id="DivDocToSubmitText">Documents to be submitted</div>
+                    <div class="floatl width63" id="divDocumentSubmitted"></div>
+                    <div class="clearboth"></div>
+                </div>
+
+                <div id="mainIdProofComments">
+                    <div class="floatl upper-case width35" id="DivIdProofCommentsText">Id Proof Comments</div>
+                    <div class="floatl width63" id="divIdProofComments"></div>
+                    <div class="clearboth"></div>
+                </div>
+
+                <div id="mainAddressProofComments">
+                    <div class="floatl upper-case width35" id="DivAddressProofCommentsText">Address Proof Comments</div>
+                    <div class="floatl width63" id="divAddressProofComments"></div>
+                    <div class="clearboth"></div>
+                </div>
+
+                <div id="mainWhomWhereTSubDoc">
+                    <div class="floatl upper-case width35" id="DivWhereToSubmitText">Whom/Where to submit Documents?</div>
+                    <div class="floatl width63" id="divWhomWhereTSubDoc"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainAppAvalDate">
+                    <div class="floatl upper-case width35" id="DivFormAvailabilityText">Application Form Availability Date</div>
+                    <div class="floatl width63" id="divAppAvalDate"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainLastAppDate">
+                    <div class="floatl upper-case width35" id="DivFormLastDateText">Last date to get application form</div>
+                    <div class="floatl width63" id="divLastAppDate"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainLastDateSubmit">
+                    <div class="floatl upper-case width35" id="DivFormSubmissionText">Last date to submit application</div>
+                    <div class="floatl width63" id="divLastDateSubmit"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainBeneficiaryAnnounmentDate">
+                    <div class="floatl upper-case width35" id="DivBeneficiarySelectionText">beneficiary selection announcement date</div>
+                    <div class="floatl width63" id="divBeneficiaryAnnounmentDate"></div>
+                    <div class="clearboth"></div>
+                </div>
+
+                <div id="mainSpecialApplicationAddon">
+                    <div class="floatl upper-case width35" id="DivSpecialApplicationAddonText">Additional Application Details</div>
+                    <div class="floatl width63" id="divSpecialApplicationAddon"></div>
+                    <div class="clearboth"></div>
+                </div>
+            </div>
+        </div>
+        <button class="accordion" id="btnFundreimbursement">Fund reimbursement</button>
+        <div class="panel" id="mainFundreimbursement">
+            <div class="floatl width90 margin3p5">
+                <div id="mainModeOfPayment">
+                    <div class="floatl upper-case width35" id="divPaymentModeText">MODE OF PAYMENT</div>
+                    <div class="floatl width63" id="divModeOfPayment"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainPaymentLocation">
+                    <div class="floatl upper-case width35" id="divPaymentLocationText">LOCATION <span class="sub-line" id="PaymentLocationTextCriteria">(BASED ON MODE OF PAYMENT)</span></div>
+                    <div class="floatl width63" id="divPaymentLocation"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainTimeOfPayment">
+                    <div class="floatl upper-case width35" id="divPaymentTimeText">TIME OF PAYMENT</div>
+                    <div class="floatl width63" id="divTimeOfPayment"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainFrequency">
+                    <div class="floatl upper-case width35" id="divFrequencyText">FREQUENCY</div>
+                    <div class="floatl width63" id="divFrequency"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <!--<div>
+                <div class="floatl upper-case width35">Fund Deposit</div>
+                <div class="floatl width63" id="fundDeposit">na</div>
+                <div class="clearboth"></div>
+            </div>-->
+            </div>
+        </div>
+        <button class="accordion" id="btnContactDetails">Contact Details</button>
+        <div class="panel" id="mainContactDetails">
+            <div class="floatl  width90 margin3p5">
+                <div id="mainContactPerson">
+                    <div class="floatl upper-case width35" id="DivContactPersonText">Contact Person</div>
+                    <div class="floatl width63" id="divContactPerson"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainContactNumber">
+                    <div class="floatl upper-case width35" id="DivContactNumberText">Contact Number</div>
+                    <div class="floatl width63" id="divContactNumber"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="mainContactEmail">
+                    <div class="floatl upper-case width35" id="DivContactEmailText">Contact Email ID</div>
+                    <div class="floatl width63" id="divContactEmail"></div>
+                    <div class="clearboth"></div>
+                </div>
+
+            </div>
+        </div>
+        <button class="accordion" id="btnAdditionalDetails">Additional Details</button>
+        <div class="panel" id="mainAdditionalDetails">
+            <div class="floatl width90 margin3p5">
+                <div id="mainKeywords">
+                    <div class="floatl upper-case width35" id="DivKeywordsText">Keywords</div>
+                    <div class="floatl width63" id="divKeywords"></div>
+                    <div class="clearboth"></div>
+                </div>
+                <div id="divQueAns">
+                </div>
+                <div id="mainRemarks">
+                    <div class="floatl upper-case width35" id="DivRemarksText">Remarks</div>
+                    <div class="floatl width63" id="divRemarks"></div>
+                    <div class="clearboth"></div>
+                </div>
+
+            </div>
+        </div>
+        <button class="accordion" id="btnFAQs">FAQs</button>
+        <div class="panel" id="mainFAQs">
+            <div class="floatl width90 margin3p5">
+                <div id="">
+                    <div class="floatl upper-case width35" id="">Question one</div>
+                    <div class="floatl width63" id="">Test</div>
+                    <div class="clearboth"></div>
+                </div>
+
+                <div id="">
+                </div>
+                <div id="">
+                    <div class="floatl upper-case width35" id="">Question Two</div>
+                    <div class="floatl width63" id="">Test</div>
+                    <div class="clearboth"></div>
+                </div>
+
+            </div>
+        </div>
+        <button class="accordion" id="btnOtherInfo">Other Information</button>
+        <div class="panel" id="mainOtherInfo">
+            <div class="floatl width90 margin3p5">
+                <div id="">
+                    <div class="floatl upper-case width35" id="">Other Info</div>
+                    <div class="floatl width63" id="">Test</div>
+                    <div class="clearboth"></div>
+                </div>
+
+                
+
+            </div>
+        </div>
+    </div>
+<div class="clearboth"></div>
+</div>	
+	</div>
+    
+    <div id="divSchemeMedia" style="display:none" class="text-align-c">
+        <!--<iframe width="420" height="345" src="media/PMSS.mp4"></iframe>-->
+      <div class="clearboth"></div>
+       
+        <video id="VideoPM" class="video-tag" controls="controls" preload="none"  poster="media/PM.jpg" style="display:none;">
+            <source src="media/PM.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+        
+        <video id="VideoNWPS" class="video-tag" controls="controls" preload="none" poster="media/PM.jpg" style="display:none;">
+            <source src="media/NWPS.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+        
+    </div>
+
+
+    <div id="divSchemeDoc" style="display:none">
+        <div class="scheme-doc-detail">
+            <div id="schemeDocDownloadFiles">
+		<div class="anchor3 text-align-l" id="DivSchemeDocuments">Scheme Documents</div>
+        </div>
+	</div>
+         
+    </div>
+    <script>
+
+        $(".my_audio").trigger('load');
+
+        function play_audio(task) {
+            if (task == 'play') {
+                $(".my_audio").trigger('play');
+            }
+            if (task == 'stop') {
+                $(".my_audio").trigger('pause');
+                $(".my_audio").prop("currentTime", 0);
+            }
+        }
+
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].onclick = function () {
+                this.classList.toggle("active");
+                this.nextElementSibling.classList.toggle("show");
+            }
+        }
+</script>
+<script src="js/utils.js"></script>
+    <script src="js/DB.js"></script>
+<script src="js/schemeDtls.js"></script>
+<!--<script src="js/registerBeneficiary.js"></script>-->
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script type="text/javascript">
+
+    function RedirectBen() {
+        window.location.href = 'primarybeneficiary.html';
+        return false;
+    }
+
+    var masterData = utils.localStorage().get('masterDataBeneficiary');
+    var cmsKeys = utils.localStorage().get('CMSKey');
+    if (masterData != null && masterData != undefined) {
+        utils.bindDropDown(filterByLang(masterData.IDProofs), getCmsKeyVal(cmsKeys, 'IdDetails'), 'IDProof');
+    }
+
+
+    $(function () {
+        $('#divShareScheme').click(function () {
+         
+
+        });
+        $('.panel').addClass('hide');
+        var AdditionalDetailsCnt = utils.localStorage().get('AdditionalDetailsCnt');
+        if (AdditionalDetailsCnt == 0) {
+            $("#mainAdditionalDetails").removeClass('show');
+        }
+        $('#btnBasicDetails').addClass('active');
+        $('#mainBasicDetails').addClass('show');
+        $('#btnFAQs').addClass('hide');
+        $('#mainFAQs').addClass('hide');
+        $('#btnOtherInfo').addClass('hide');
+        $('#mainOtherInfo').addClass('hide');
+    });
+
+</script>
+    <script>
+       
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+        // Get the button that opens the modal
+        var btn = document.getElementById('myBtn');
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        //btn.onclick = function () {
+        //    modal.style.display = "block";
+        //}
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+</script>
+</body>
+</html>

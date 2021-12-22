@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Account</title>
+    <meta charset="utf-8">
+     <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+    <script>
+  $( function() {
+    $( "#accordion" ).accordion();
+  } );
+  
+  $(document).ready(function(){
+    $(".share-icon").click(function(){
+    var src = $(this).attr('src');
+    var newsrc = (src=='images/share-plain.png') ? 'images/share.png' : 'images/share-plain.png';
+    $(this).attr('src', newsrc );
+    });
+	
+	$(".apply-icon").click(function(){
+    var src = $(this).attr('src');
+    var newsrc = (src=='images/apply-plain.png') ? 'images/apply.png' : 'images/apply-plain.png';
+    $(this).attr('src', newsrc );
+    });
+	
+	$(".fav-icon").click(function(){
+    var src = $(this).attr('src');
+    var newsrc = (src=='images/fav-plain.png') ? 'images/fav.png' : 'images/fav-plain.png';
+    $(this).attr('src', newsrc );
+    });
+});
+  </script>
+   
+
+</head>
+<body>
+	<div class="header-menu">
+		<div class="header-menu1">
+			<div class="floatl header1">
+				
+				<a href="searchresult.html"><div><img class="max-width70" src="images/leftGArrow-w.png" /></div></a>
+			</div>
+			<div class="floatl header2">
+				
+				<div>SCHEME DETAIL</div>
+			</div>
+		</div>
+		<div class="clear10">&nbsp;</div>
+		<div class="body4 width100 floatl">
+				<a href="#">
+					<div class="bot-menu-item body5">
+						<div><img class="max-width35" src="images/scheme-info-red.png" /></div>
+						
+					</div>
+				</a>
+				<a href="#">
+					<div class="bot-menu-item">
+						<div><img class="max-width35" src="images/scheme-media-plain.png" /></div>
+						
+					</div>
+				</a>
+				<a href="schemedocument.html">
+					<div class="bot-menu-item">
+						<div><img class="max-width35" src="images/scheme-doc-plain.png" /></div>
+						
+					</div>
+				</a>
+		</div>
+	</div>
+	<div>
+		<div class="scheme-detail1 scheme-top">
+			<div class="scheme-title">Scheme for Stipends to Physically Handicapped Students</div>
+			<div class="tags"><span>#disability</span> <span>#disability</span> <span>#impairment</span> <span>#disability</span> <span>#disability</span> <span>#disability</span></div>
+			
+		</div>
+		<div class="clearboth"></div>
+		<div class="body5 width100 floatl" style="position:relative;margin-left:20%;">
+					<!--<a href="#" class="share-icon">
+						<div class="bot-menu-item bot-menu-item-scheme text-align-r">
+							<div><img class="max-width35 share-icon" src="images/share-plain.png" /></div>
+							<div>Share</div>
+							
+						</div>
+					</a>-->
+					<a href="#" class="fav-icon">
+						<div class="bot-menu-item bot-menu-item-scheme">
+							<div><img class="max-width35 fav-icon" src="images/fav-plain.png" /></div>
+							<div>Favourite</div>
+						</div>
+					</a>
+					
+					<a href="#" class="apply-icon">
+						<div class="bot-menu-item bot-menu-item-scheme text-align-l">
+							<div><img class="max-width35 apply-icon" src="images/apply-plain.png" /></div>
+							<div>Apply</div>
+							
+						</div>
+					</a>
+					
+					
+			<div style="position:absolute; top:20px;">fdkjfhdf</div>			
+		</div>
+	</div>
+	
+	
+	
+	
+	
+
+
+</body>
+</html>

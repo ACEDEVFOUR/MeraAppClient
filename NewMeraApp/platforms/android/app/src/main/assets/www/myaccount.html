@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Account</title>
+    <meta charset="utf-8">
+     <!--//<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script>
+        
+        $(document).mouseup(function (e) {
+            var container = $(".slide-up");
+
+            if (!container.is(e.target) // if the target of the click isn't the container...
+                && container.has(e.target).length === 0) // ... nor a descendant of the container
+            {
+                container.slideUp();
+            }
+
+        });
+
+        $(document).ready(function () {
+            
+            $(".sync-data-link").click(function () {
+                $(".sync-data-box").css("display", "table");
+                SyncData();
+               // window.location.href = "news-home.html";
+            });
+            $('#toggle-side-menu').click(function () {
+                $('#side-menu').show("slide", { direction: "left" }, 100);
+            });
+
+            $('#close-menu').click(function () {
+                $('#side-menu').hide("slide", { direction: "left" }, 100);
+            });
+
+           
+        });
+      
+        //function ToggleAlert()
+        //{
+        //    debugger;
+        //    $(".position-a-6").toggleClass('position-a-6-display');
+        //}
+    </script>
+
+</head>
+<body class="body-scroll">
+
+    <div style="position:absolute;top:2vw; left:2vw; z-index:1;"><img class="max-width10vw" id="toggle-side-menu" src="images/hambuger-white.png" /></div>
+    <div>
+        <div class="box-inner" id="side-menu">
+        <div style="position:absolute; top:6vw; right:6vw; color:#fff; font-size:6vw;" id="close-menu">X</div>
+        <nav class="navigation">
+          <ul class="mainmenu">
+            <li><a href="news-home.html" id="aHome">Home</a></li>
+            <li><a  style="cursor:pointer;" class="sub-menu-li" id="aSearchScheme">Search Schemes</a>
+                <ul class="submenu">
+                <li><a href="searchbycriteria.html" id="aSearchByCriteria">Search by criteria</a></li>
+                <li><a href="searchbyuserprofile.html" id="aSearchByProfile">Search by profile</a></li>
+                </ul>
+
+            </li>
+            <li><a style="cursor:pointer;" id="aMyAccount" class="sub-menu-li">My Account</a>
+              <ul class="submenu">
+                <li><a href="" id="aMyBeneficiaries">All Beneficiaries</a></li>
+                <li><a href="registerprimarybeneficiary.html" id="aRegisterBeneficiary">Add New Beneficiary</a></li>
+                
+              </ul>
+            </li>
+            <li><a href="your-wallet.html" id="aRevenue">Revenue</a></li>
+            <li><a href="add-income.html" id="aAddRevenue">Add Revenue</a></li>
+            <li><a id="aTrackBeneficiary" href="track-beneficiary.html">Track Beneficiary</a></li>
+            <li onclick="SyncDataUpload()"><a style="cursor:pointer;" id="divSync">Sync Data</a></li>
+            <li><a href="terms.html" id="divTerms">Terms and Conditions</a></li>
+              <li><a style="cursor:pointer;" onclick="Logout();" id="divLogout">Logout</a></li>
+          </ul>
+        </nav>
+    </div>
+</div>
+    <div class="outer overlay" id="SyncUpdateProgress" style="display:none;">
+        <div class="middle">
+            <div class="inner" align="center">
+                <div><img class="max-width20 sync-image" src="images/sync-data.png" /></div>
+                <div class="clearboth"></div>
+                <div class="sync-data" id="DivSyncMessage"></div>
+                <div class="sync-data"></div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!--div class="top-menu width100 padding2 text-align-r">
+        <a href="editprofile.html"><img class="max-width8" src="images/edit.png" /></a>
+        <img id="top-menu-toggle" class="max-width8" src="images/menu.png" />
+        <div class="width25 text-align-l padding-box1 top-menu-item slide-up font2-8" id="top-menu-hide">
+            <a class="anchor2" href="terms.html"><div class="padding15p0 border-bottomp5vw" id="divTerms">Terms & <br>Conditions</div></a>
+            <!--<div class="padding15p0 border-bottomp5vw anchor2 sync-data-link color-w" id="divSync" >Sync data</div>-->
+            <!--div class="padding15p0 border-bottomp5vw anchor2  color-w analytics" id="divSync" onclick="SyncDataUpload()">Sync data</!--div>
+            <a class="anchor2" onclick="Logout();"><div class="padding15p0" id="divLogout">Logout</div></a>
+        </div>
+    </!--div-->
+    <div class="width100 sp-profile">
+        
+        <div class="sp-profile-box1 width60 padding-box1">
+            <a href="editprofile.html"><div style="position:absolute; top:2vw; right:2vw; text-align:right;"><img class="max-width20" src="images/edit.png" /></div></a>
+            <div id="userType"></div>
+            <div id="name"></div>
+            <div id="mobile"></div>
+            <div id="mailId"></div>
+            <div id="userDetails"></div>
+           
+        </div>
+    </div>
+
+    <div class="width100 floatl sp-control-box">
+        <div class="width15 floatl">&nbsp;</div>
+        <div class="width35 floatl sp-schemes" id="sp-schemes">
+            <img class="max-width50" src="images/scheme-file.png" />
+            <div class="font3" id="divSchemes">Schemes</div>
+        </div>
+        <div class="width35 floatl" id="sp-beneficiaries">
+            <img class="max-width50" src="images/family-white.png" />
+            <div class="font3" id="divBeneficiary">Beneficiaries</div>
+        </div>
+        <div class="width15 floatl">&nbsp;</div>
+    </div>
+    <div class="clearboth"></div>
+    <div class="sp-beneficiaries-box">
+        <a href="registerprimarybeneficiary.html"><div class="width80 padding-box1 border-beneficiary margin10 anchor3" align="center" id="DivRegisterBeneficiary">Register a new beneficiary</div></a>
+
+        <div class="width100 padding-box1 upper-case text-align-c analytics" id="divMyBeneficiary">My beneficiaries</div>
+        
+        <div class="padding5 floatl width100">
+            <div style="float: left;background: #6b6868;padding: 10px;font-size: 3.5vw;width: 70%;color: #fff;" id="divBenCount">No. Of Registered Beneficiary</div> 
+            <div id="BenCount" style="border-radius:0px; width: 27%;background-color: #f29c1f;color: #fff;padding: 10px;font-size: 3.5vw;float: left;"></div>
+        </div>
+        <div id="returnMessage" class="ajax-return"></div>
+        <div class="width100 text-align-c"><input type="text" id="txtSearch" class="search-text-box" placeholder="Quick search..."><img id="searchBeneficiary" class="max-width8" src="images/search-red.png" /></div>
+        <div class="width100 text-align-c" style="color: red" id="emptyText"></div>
+        <div class="clearboth"></div>
+        <div class="width100 floatl" id="PrimaryBeneficiary">
+
+                     <!-- <div class="width31 margin1 floatl font3 my-beneficiary text-align-c padding3-1">
+                          <div class="width100 text-overflow">Ashok Ashok Ashok Ashok Ashok</div>
+                          <div class="width100 text-overflow">Kumar Kumarkumar kumar</div>
+                          
+                      </div>  
+                      -->
+                              
+                
+        </div>
+        <div class="width100 floatl" id="NoRecordsBeneficiary" style="display:none;">
+            <div class="news-item-box" id="divNoSearchData" ></div>;
+        </div>
+            
+    </div>
+
+    <div class="clearboth0"></div>
+    <div class="sp-scheme-box">
+        <div class="upper-case padding5" id="DivRecentSchemes">Recent Searches</div>
+        <div id="row1" class="width100">
+            <div id="divRecent">
+                           
+            </div>
+        </div>
+        <div class="clearboth"></div>
+        <div class="upper-case padding5" id="DivFavSchemes">Favourite Schemes</div>
+        <div class="width100 floatl" id="divFavourite">
+           <!--<div class="scheme-detail1 scheme-detail5 width90 margin5 padding5 background-fav">
+                <div class="upper-case padding-r-15">Scheme Name Scheme Name Scheme Name Scheme Name Scheme Name</div>
+                <div class="delete-fav-box">
+                    <img class="max-width10" src="images/delete.png">
+
+                </div>
+               <div class="body2 width85 position-a-6">
+                   <div class="color-w text-align-c">Are you sure you want to delete this scheme from your favourite?</div>
+                   <div class="clearboth"></div>
+                   <div class="padding2 body5 text-align-c">Yes, please delete</div>
+                   <div class="clearboth2"></div>
+                   <div class="padding2 body5 text-align-c canceldelete">No, cancel request</div>
+                   <div class="arrow-right"></div>
+               </div>
+       <div class="scheme-detail2">
+        <div class="scheme-detail3">#fsdf<br />#fsdgs</div>
+        <div class="scheme-detail4">
+            <div>Scheme Name Scheme Name Scheme Name Scheme Name Scheme NameScheme Name Scheme </div>
+            <div><div class="anchor3" style="cursor: pointer;">Read more...</div></div>
+        </div>
+
+       </div></div>-->
+
+        </div>
+    </div>
+    <div class="clearboth18"></div>
+
+
+    <div class="bottom-menu">
+        <a href="your-wallet.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/revenue-plain.png" /></div>
+                <div class="font-size2p5" id="divMyWallet">Revenue</div>
+            </div>
+        </a>
+        <a href="add-income.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/add-revenue-plain.png" /></div>
+                <div class="font-size2p5" id="divAddRevenue">Add Revenue</div>
+            </div>
+        </a>
+        <a href="track-beneficiary.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/track-plain.png" /></div>
+                <div class="font-size2p5" id="divTrackBeneficiary">Track Beneficiary</div>
+            </div>
+        </a>
+        <a href="news-home.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/home-plain.png" /></div>
+                <div class="font-size2p5" id="divHome">Home</div>
+            </div>
+        </a>
+        <a href="searchschemes.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/search-plain.png" /></div>
+                <div class="font-size2p5" id="divSearch">Search</div>
+            </div>
+        </a>
+        <a href="myaccount.html">
+            <div class="bot-menu-item">
+                <div><img class="max-width15" src="images/account-red.png" /></div>
+                <div class="font-size2p5 anchor3" id="divMyAccount">My Account</div>
+            </div>
+        </a>
+        
+        
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title">Searching User</h4>
+                </div>
+                <div class="modal-body">
+                    <img style="width: 50px; height: 50px;" src="images/processing.gif" />
+                    <span>Searching User, Please wait.....</span>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>    
+
+    <!-- Beneficiary Modal -->
+    <div class="modal fade" id="BenModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title" id="hMyAccount">My Account</h4>
+                </div>
+                <div class="modal-body">
+                    <img style="width: 50px; height: 50px;" src="images/processing.gif" />
+                    <span>Loading data, Please wait.....</span>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>    
+    <!-- Reverse Sync Modal -->
+    <div class="modal fade" id="RevSyncModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title" id="hMyAccount">My Account</h4>
+                </div>
+                <div class="modal-body">
+                    <img style="width: 50px; height: 50px;" src="images/processing.gif" />
+                     <span id="spanUpload">Loading data, Please wait.....</span> 
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>    
+    <script src="js/utils.js"></script>
+    <script src="js/DB.js"></script>
+    <script src="js/reverseSync.js"></script>
+    <script src="js/myaccount.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+</body>
+</html>
